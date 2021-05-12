@@ -62,6 +62,20 @@ public class Conexion {
         }
     }
     
+    public static void insertarProducto(String nombre, String descripcion, int precio) {
+        String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio) \n" +
+                        "VALUES ('"+nombre+"','"+descripcion+"',"+precio+")";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha insertado Correctamente el producto");
+            }            
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <INSERTAR> producto " + ex);
+        }
+    }
+    
     public static boolean eliminarFila(String consulta){
         Statement sentencia;
         System.out.println(consulta);

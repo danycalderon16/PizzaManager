@@ -65,7 +65,7 @@ public class InterfazGerente extends javax.swing.JFrame {
         iconoSalir = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnGastos = new javax.swing.JLabel();
-        btnAdministraPRecios = new javax.swing.JLabel();
+        btnAdministraProductos = new javax.swing.JLabel();
         btnAdministrarrUsuario = new javax.swing.JLabel();
         btnDescuentosPromociones = new javax.swing.JLabel();
         btnHacerCorteCaja = new javax.swing.JLabel();
@@ -137,13 +137,13 @@ public class InterfazGerente extends javax.swing.JFrame {
             }
         });
 
-        btnAdministraPRecios.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnAdministraPRecios.setForeground(new java.awt.Color(51, 51, 51));
-        btnAdministraPRecios.setText("Administrar Precios");
-        btnAdministraPRecios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdministraPRecios.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAdministraProductos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAdministraProductos.setForeground(new java.awt.Color(51, 51, 51));
+        btnAdministraProductos.setText("Administrar Productos");
+        btnAdministraProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdministraProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAdministraPReciosMouseClicked(evt);
+                btnAdministraProductosMouseClicked(evt);
             }
         });
 
@@ -264,7 +264,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                                     .addComponent(btnAgregarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnDescuentosPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnAdministrarrUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAdministraPRecios, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdministraProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnIngresarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnIngresarVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -299,7 +299,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHacerCorteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAdministraPRecios, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdministraProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDescuentosPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -342,12 +342,12 @@ public class InterfazGerente extends javax.swing.JFrame {
         fag.setVisible(true);
     }//GEN-LAST:event_btnGastosMouseClicked
 
-    private void btnAdministraPReciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdministraPReciosMouseClicked
+    private void btnAdministraProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdministraProductosMouseClicked
         FormEditarPrecios fep = null;
         fep = FormEditarPrecios.getObj();
         fep.setLocation(getLocation().x+300,getLocation().y+150);
         fep.setVisible(true);
-    }//GEN-LAST:event_btnAdministraPReciosMouseClicked
+    }//GEN-LAST:event_btnAdministraProductosMouseClicked
 
     private void btnHacerCorteCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHacerCorteCajaMouseClicked
         GenerarCorteCaja gcc = null;
@@ -451,7 +451,7 @@ public class InterfazGerente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAdministraPRecios;
+    private javax.swing.JLabel btnAdministraProductos;
     private javax.swing.JLabel btnAdministrarrUsuario;
     private javax.swing.JLabel btnAgregarVenta;
     private javax.swing.JLabel btnDescuentosPromociones;
