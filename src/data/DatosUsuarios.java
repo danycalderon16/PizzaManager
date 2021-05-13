@@ -258,7 +258,7 @@ public class DatosUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
- conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
+       conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
     }//GEN-LAST:event_formWindowActivated
 
     private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked

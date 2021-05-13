@@ -110,4 +110,17 @@ public class Conexion {
         return datos;
     }
     
+    public static int actualizarRegistro(String consulta) {
+        String query = consulta;
+        int affectedrows = 0;      
+        PreparedStatement pstmt;
+        try {
+            pstmt = connection.prepareStatement(query);
+            affectedrows = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return affectedrows;
+    }
+    
 }
