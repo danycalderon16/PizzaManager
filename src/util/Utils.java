@@ -13,8 +13,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static conexion.Conexion.*;
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -44,5 +50,31 @@ public class Utils {
         Image img = icon.getImage();  
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
         return new ImageIcon(resizedImage);
+    }
+    public static boolean solicitarPass(){
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Ingrese la contraseña:");
+        JPasswordField pass = new JPasswordField(14);
+        panel.add(label);
+        panel.add(pass);
+        String[] options = new String[]{"OK", "Cancelar"};
+        int option = JOptionPane.showOptionDialog(null, panel, "Administrador",
+                                 JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                 null, options, options[1]);
+        if(option == 0) // pressing OK button
+        {
+            try {
+                char[] password = pass.getPassword();
+                //String pass = new String(password);
+                ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + new String(password) + "'");
+                if (!rs.isBeforeFirst()) {
+                    return false;
+                }
+                System.out.println("Your password is: " + new String(password));
+            } catch (SQLException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
     }
 }

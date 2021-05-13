@@ -10,8 +10,13 @@ import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
-import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.*;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
+import static util.Utils.*;
 import static util.Utils.CAJERO;
 import static util.Utils.COCINERO;
 import static util.Utils.REPARTIDOR;
@@ -28,12 +33,14 @@ public class FormEditarPrecios extends javax.swing.JFrame {
     private String nombreActual;
     private String precioActual;
     private String descACtual;
-    
-    public static FormEditarPrecios getObj(){
-        if(obj==null){
-            obj=new FormEditarPrecios();
-        }return obj;
+
+    public static FormEditarPrecios getObj() {
+        if (obj == null) {
+            obj = new FormEditarPrecios();
+        }
+        return obj;
     }
+
     public FormEditarPrecios() {
         initComponents();
         m = (DefaultTableModel) jTable1.getModel();
@@ -370,7 +377,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         FormIngresarProducto fep = null;
         fep = FormIngresarProducto.getObj();
-        fep.setLocation(getLocation().x+10,getLocation().y+10);
+        fep.setLocation(getLocation().x + 10, getLocation().y + 10);
         fep.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked
 
@@ -380,7 +387,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here
-        conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
+        //conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
     }//GEN-LAST:event_formWindowActivated
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -390,6 +397,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         jDesc.setText(m.getValueAt(filaSeleccionada, 1).toString());
         txtPrecio.setText(m.getValueAt(filaSeleccionada, 2).toString());
         btnEliminar.setEnabled(true);
+        btnActualizar.setEnabled(true);
         nombreActual = txtNombre.getText();
         precioActual = txtPrecio.getText();
         descACtual = jDesc.getText();
@@ -402,31 +410,36 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         jDesc.setText("");
         txtPrecio.setText("");
         btnEliminar.setEnabled(false);
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-       
+
+        boolean request = solicitarPass();
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
-       String precio = txtPrecio.getText().toString();
-       String desc = jDesc.getText().toString();
-       
-       if(precio.isEmpty()){
-           showMessageDialog(null, "Ingrese el precio");
-           return;
-       }
-       if(desc.isEmpty()){
-           showMessageDialog(null, "Ingrese la descripción");
-           return;
-       }
-       
-        int i = actualizarRegistro("Update productos set pro_precio = "+precio+",pro_descripcion ='"+desc+"' "
-                + "where pro_nombre ='"+nombreActual+"' and pro_precio = "+precioActual+" and pro_descripcion = '"+descACtual+"'");
-        if(i>0){
-            showMessageDialog(null, "Datos actualizados");
-            mostrarDatos();
+        String precio = txtPrecio.getText().toString();
+        String desc = jDesc.getText().toString();
+
+        if (precio.isEmpty()) {
+            showMessageDialog(null, "Ingrese el precio");
+            return;
+        }
+        if (desc.isEmpty()) {
+            showMessageDialog(null, "Ingrese la descripción");
+            return;
+        }
+        boolean request = solicitarPass();
+        if(request){
+            int i = actualizarRegistro("Update productos set pro_precio = " + precio + ",pro_descripcion ='" + desc + "' "
+                    + "where pro_nombre ='" + nombreActual + "' and pro_precio = " + precioActual + " and pro_descripcion = '" + descACtual + "'");
+            if (i > 0) {
+                showMessageDialog(null, "Datos actualizados");
+                mostrarDatos();
+            }
+        }else{
+            showMessageDialog(null, "Contraseña incorrecta");
         }
     }//GEN-LAST:event_btnActualizarMouseClicked
 
@@ -496,7 +509,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
     private javax.swing.JLabel txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
-    
+
     private void mostrarDatos() {
         int rowCount = m.getRowCount();
         //Remove rows one by one from the end of the table
@@ -505,8 +518,8 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         }
         ResultSet resultado = getDatos("SELECT * FROM PRODUCTOS");
         try {
-            while (resultado.next()) {             
-                m.addRow(new Object[]{resultado.getString(2), resultado.getString(3),resultado.getString(4)});
+            while (resultado.next()) {
+                m.addRow(new Object[]{resultado.getString(2), resultado.getString(3), resultado.getString(4)});
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
@@ -515,5 +528,4 @@ public class FormEditarPrecios extends javax.swing.JFrame {
             showMessageDialog(null, "Error: " + sqle);
         }
     }
-    
 }
