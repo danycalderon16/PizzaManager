@@ -30,6 +30,7 @@ public class Utils {
     public static final char CAJERO = 'c';
     public static final char COCINERO = 'o';
     public static final char REPARTIDOR = 'r';
+    public static final char GERENTE = 'g';
     
     public static void mostrarDatos(DefaultTableModel m, JTable tabla, Object[] identificadores, Object[] fila){
         m = (DefaultTableModel) tabla.getModel();

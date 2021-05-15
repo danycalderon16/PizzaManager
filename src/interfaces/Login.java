@@ -1,4 +1,3 @@
-
 package interfaces;
 
 import java.awt.Image;
@@ -17,14 +16,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static conexion.Conexion.*;
+import static util.Utils.*;
 
 /**
  *
  * @author Delph
  */
 public class Login extends javax.swing.JFrame {
-
-   
 
     public Login() {
         initComponents();
@@ -33,8 +31,6 @@ public class Login extends javax.swing.JFrame {
         conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
     }
 
-     
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -165,26 +161,57 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContrasenaActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        InterfazGerente ig = new InterfazGerente();
-        ig.setVisible(true);
-        this.dispose();
+        String user = txtUsuario.getText().toString();
+        String pass = new String(txtContrasena.getPassword());
+
+        if (user.isEmpty()) {
+            showMessageDialog(null, "Ingrese el usuario");
+            return;
+        }
+        if (pass.isEmpty()) {
+            showMessageDialog(null, "Ingrese la contraseña");
+            return;
+        }
+        try {
+            ResultSet rs = getDatos("select usu_pass, usu_rol from usuarios where usu_nombre='" + user + "'");
+            if (!rs.isBeforeFirst()) {
+                showMessageDialog(null, "Usuario no existe");
+            } else {
+                String contra = "";
+                while (rs.next()) {
+                    contra =  rs.getString(1);
+                }
+                rs = getDatos("select usu_rol from usuarios where usu_nombre='"+user+"' and usu_pass='" + pass + "'");
+                while(rs.next()){
+                    String cadena = rs.getString(1);
+                    rs.close();
+                    irVentata(cadena.charAt(0));
+                    return;
+                }
+                showMessageDialog(null, "Contraseña incorrecta");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        InterfazGerente ig = new InterfazGerente();
+//        ig.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void labelUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelUsuarioKeyPressed
-        
+
     }//GEN-LAST:event_labelUsuarioKeyPressed
 
-    
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
             }
         });
     }
-    
-    public void ajustarImagen(JLabel etiqueta){
+
+    public void ajustarImagen(JLabel etiqueta) {
         ImageIcon imgIcon = new ImageIcon(getClass().getResource("/Images/LOGO.png"));
         Image imgEscalada = imgIcon.getImage().getScaledInstance(etiqueta.getWidth(),
                 etiqueta.getHeight(), Image.SCALE_SMOOTH);
@@ -209,4 +236,22 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    public void irVentata(char rol){
+        if(rol == REPARTIDOR ){
+            InterfazRepartidor ir = new InterfazRepartidor();
+            ir.setVisible(true);
+            this.dispose();
+        }
+        if(rol == CAJERO ){
+            InterfazCajero ic = new InterfazCajero();
+            ic.setVisible(true);
+            this.dispose();
+        }
+        if(rol == GERENTE ){
+            InterfazGerente ig = new InterfazGerente();
+            ig.setVisible(true);
+            this.dispose();
+        }
+    }
 }

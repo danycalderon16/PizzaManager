@@ -188,6 +188,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         btnEliminar.setForeground(new java.awt.Color(51, 51, 51));
         btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnEliminar.setText("Eliminar");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.setEnabled(false);
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -199,10 +200,10 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEliminar)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,6 +267,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
         btnActualizar.setForeground(new java.awt.Color(51, 51, 51));
         btnActualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnActualizar.setText("Actualizar");
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar.setEnabled(false);
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -318,7 +320,7 @@ public class FormEditarPrecios extends javax.swing.JFrame {
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(63, 63, 63)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(80, 80, 80)
+                            .addGap(76, 76, 76)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -405,17 +407,25 @@ public class FormEditarPrecios extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        jTable1.clearSelection();
-        txtNombre.setText("----------");
-        jDesc.setText("");
-        txtPrecio.setText("");
-        btnEliminar.setEnabled(false);
-
+        limpiar();
     }//GEN-LAST:event_formWindowClosed
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-
         boolean request = solicitarPass();
+        if (request) {
+            String query = "delete from productos "
+                    + "where pro_nombre ='" + nombreActual + "' and pro_precio = "
+                    + precioActual + " and pro_descripcion = '" + descACtual + "'";
+            if(eliminarFila(query)){
+                showMessageDialog(null, "Dato eliminado");
+                limpiar();
+            }
+            
+            mostrarDatos();
+        } else {
+            showMessageDialog(null, "Contraseña Incorrecta");
+        }
+
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
@@ -431,14 +441,15 @@ public class FormEditarPrecios extends javax.swing.JFrame {
             return;
         }
         boolean request = solicitarPass();
-        if(request){
+        if (request) {
             int i = actualizarRegistro("Update productos set pro_precio = " + precio + ",pro_descripcion ='" + desc + "' "
                     + "where pro_nombre ='" + nombreActual + "' and pro_precio = " + precioActual + " and pro_descripcion = '" + descACtual + "'");
             if (i > 0) {
                 showMessageDialog(null, "Datos actualizados");
+                limpiar();
                 mostrarDatos();
             }
-        }else{
+        } else {
             showMessageDialog(null, "Contraseña incorrecta");
         }
     }//GEN-LAST:event_btnActualizarMouseClicked
@@ -510,6 +521,15 @@ public class FormEditarPrecios extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 
+    private void limpiar(){
+        jTable1.clearSelection();
+        txtNombre.setText("----------");
+        jDesc.setText("");
+        txtPrecio.setText("");
+        btnEliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+    }
+    
     private void mostrarDatos() {
         int rowCount = m.getRowCount();
         //Remove rows one by one from the end of the table
