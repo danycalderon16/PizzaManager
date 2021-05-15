@@ -13,7 +13,7 @@ import forms.FormAgregarGastos;
 import forms.FormAgregarUsuario;
 import forms.FormAperturaCaja;
 import forms.FormEditarPrecios;
-import forms.FormIngresarCliente;
+import forms.FormAgregarCliente;
 import forms.IngresarEntradaSalida;
 import forms.PedidoRepartidor;
 import java.awt.Image;
@@ -260,8 +260,8 @@ public class InterfazCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarVentasMouseClicked
 
     private void btnAgregarVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarVentaMouseClicked
-        FormIngresarCliente fic = null;
-        fic = FormIngresarCliente.obj.getObj();
+        FormAgregarCliente fic = null;
+        fic = FormAgregarCliente.obj.getObj();
         fic.setLocation(getLocation().x+300,getLocation().y+150);
         fic.setVisible(true);               
     }//GEN-LAST:event_btnAgregarVentaMouseClicked

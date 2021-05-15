@@ -14,7 +14,7 @@ import forms.FormAgregarUsuario;
 import forms.FormDescuentos;
 import forms.FormEditarPrecios;
 import forms.FormHistoricoVentas;
-import forms.FormIngresarCliente;
+import forms.FormAgregarCliente;
 import forms.FormInventario;
 import forms.FormPromociones;
 import forms.IngresarEntradaSalida;
@@ -373,8 +373,8 @@ public class InterfazGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInventarioMouseClicked
 
     private void btnAgregarVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarVentaMouseClicked
-        FormIngresarCliente fic = null;
-        fic = FormIngresarCliente.obj.getObj();
+        FormAgregarCliente fic = null;
+        fic = FormAgregarCliente.obj.getObj();
         fic.setLocation(getLocation().x+300,getLocation().y+150);
         fic.setVisible(true);               
     }//GEN-LAST:event_btnAgregarVentaMouseClicked

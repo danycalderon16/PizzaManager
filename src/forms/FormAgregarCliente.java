@@ -11,18 +11,18 @@ import java.awt.Toolkit;
  *
  * @author danyc
  */
-public class FormIngresarCliente extends javax.swing.JFrame {
+public class FormAgregarCliente extends javax.swing.JFrame {
 
-    public static FormIngresarCliente obj;
+    public static FormAgregarCliente obj;
     
-    public static FormIngresarCliente getObj(){
+    public static FormAgregarCliente getObj(){
         if(obj==null){
-            obj=new FormIngresarCliente();
+            obj=new FormAgregarCliente();
         }return obj;
     }
     
     
-    public FormIngresarCliente() {
+    public FormAgregarCliente() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
     }
@@ -274,14 +274,22 @@ public class FormIngresarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormIngresarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormIngresarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormIngresarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormIngresarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -294,7 +302,7 @@ public class FormIngresarCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormIngresarCliente().setVisible(true);
+                new FormAgregarCliente().setVisible(true);
             }
         });
     }
