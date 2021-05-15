@@ -6,9 +6,9 @@
 package interfaces;
 
 import data.DatosUsuarios;
-import forms.AgregarVenta;
+import forms.FormAgregarVenta;
 import forms.CancelarVentana;
-import forms.ConsuInventario;
+import data.DatosInventario;
 import forms.FormAgregarGastos;
 import forms.FormAgregarUsuario;
 import forms.FormDescuentos;
@@ -17,7 +17,7 @@ import forms.FormHistoricoVentas;
 import forms.FormAgregarCliente;
 import forms.FormInventario;
 import forms.FormPromociones;
-import forms.IngresarEntradaSalida;
+import forms.RegistrararEntradaSalida;
 import forms.PedidoRepartidor;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -358,8 +358,8 @@ public class InterfazGerente extends javax.swing.JFrame {
 
     private void btnIngresarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarVentasMouseClicked
         // TODO add your handling code here:
-        AgregarVenta  av = null;
-        av = AgregarVenta.obj.getObj();
+        FormAgregarVenta  av = null;
+        av = FormAgregarVenta.obj.getObj();
         av.setLocation(getLocation().x+300,getLocation().y+150);
         av.setVisible(true);
     }//GEN-LAST:event_btnIngresarVentasMouseClicked
@@ -380,8 +380,8 @@ public class InterfazGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarVentaMouseClicked
 
     private void btnRegistrarEntradaSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaSalidaMouseClicked
-        IngresarEntradaSalida ies = null;
-        ies = IngresarEntradaSalida.obj.getObj();
+        RegistrararEntradaSalida ies = null;
+        ies = RegistrararEntradaSalida.obj.getObj();
         ies.setLocation(getLocation().x+300,getLocation().y+150);
         ies.setVisible(true);   
     }//GEN-LAST:event_btnRegistrarEntradaSalidaMouseClicked

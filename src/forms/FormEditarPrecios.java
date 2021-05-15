@@ -377,8 +377,8 @@ public class FormEditarPrecios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-        FormIngresarProducto fep = null;
-        fep = FormIngresarProducto.getObj();
+        FormAgregarProducto fep = null;
+        fep = FormAgregarProducto.getObj();
         fep.setLocation(getLocation().x + 10, getLocation().y + 10);
         fep.setVisible(true);
     }//GEN-LAST:event_btnAgregarMouseClicked

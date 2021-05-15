@@ -5,7 +5,7 @@
  */
 package interfaces;
 
-import forms.IngresarEntradaSalida;
+import forms.RegistrararEntradaSalida;
 import forms.PedidosEntrega;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -51,6 +51,7 @@ public class InterfazRepartidor extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Repartidor");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -165,8 +166,8 @@ public class InterfazRepartidor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarPedidoMouseClicked
 
     private void btnRegistrarEntradaSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaSalidaMouseClicked
-        IngresarEntradaSalida ies = null;
-        ies = IngresarEntradaSalida.obj.getObj();
+        RegistrararEntradaSalida ies = null;
+        ies = RegistrararEntradaSalida.obj.getObj();
         ies.setLocation(getLocation().x+300,getLocation().y+150);
         ies.setVisible(true);
     }//GEN-LAST:event_btnRegistrarEntradaSalidaMouseClicked

@@ -71,7 +71,7 @@ public class SeleccionProductos extends javax.swing.JFrame {
         jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Agregar Usuario");
+        setTitle("Productos");
         setPreferredSize(new java.awt.Dimension(622, 350));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
