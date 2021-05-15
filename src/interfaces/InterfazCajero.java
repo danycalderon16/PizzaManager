@@ -20,6 +20,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import static javax.swing.JOptionPane.*;
 import subInterfaz.GenerarCorteCaja;
 
 /**
@@ -87,6 +88,11 @@ public class InterfazCajero extends javax.swing.JFrame {
 
         iconoSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
         iconoSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconoSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconoSalirMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -295,6 +301,18 @@ public class InterfazCajero extends javax.swing.JFrame {
         pr.setLocation(getLocation().x+300,getLocation().y+150);
         pr.setVisible(true);
     }//GEN-LAST:event_btnPedidosMouseClicked
+
+    private void iconoSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoSalirMouseClicked
+       int i = showConfirmDialog(null, "¿Desea cerrar sesión?",
+                "Sesión", OK_CANCEL_OPTION,
+                INFORMATION_MESSAGE);
+        if(i==0){
+            this.dispose();
+            Login login = new Login();
+            login.setVisible(true);
+        }
+            
+    }//GEN-LAST:event_iconoSalirMouseClicked
 
     /**
      * @param args the command line arguments

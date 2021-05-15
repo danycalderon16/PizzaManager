@@ -52,6 +52,8 @@ public class Login extends javax.swing.JFrame {
         labelIcono5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         PanelMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -91,6 +93,12 @@ public class Login extends javax.swing.JFrame {
         txtUsuario.setBackground(new java.awt.Color(51, 0, 0));
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 51, 51));
+        txtUsuario.setCaretColor(new java.awt.Color(255, 204, 0));
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
         PanelBody.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 160, 30));
 
         btnIngresar.setBackground(new java.awt.Color(51, 0, 0));
@@ -118,9 +126,15 @@ public class Login extends javax.swing.JFrame {
         txtContrasena.setBackground(new java.awt.Color(51, 0, 0));
         txtContrasena.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtContrasena.setForeground(new java.awt.Color(255, 51, 51));
+        txtContrasena.setCaretColor(new java.awt.Color(255, 204, 0));
         txtContrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContrasenaActionPerformed(evt);
+            }
+        });
+        txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContrasenaKeyPressed(evt);
             }
         });
         PanelBody.add(txtContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 160, 30));
@@ -201,6 +215,18 @@ public class Login extends javax.swing.JFrame {
     private void labelUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelUsuarioKeyPressed
 
     }//GEN-LAST:event_labelUsuarioKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10)
+            btnIngresar.doClick();
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10)
+            btnIngresar.doClick();
+    }//GEN-LAST:event_txtContrasenaKeyPressed
 
     public static void main(String args[]) {
 
