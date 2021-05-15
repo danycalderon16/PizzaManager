@@ -7,7 +7,6 @@ package forms;
 
 import static conexion.Conexion.connection;
 import static conexion.Conexion.consulta;
-import interfaces.Ventana;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -404,25 +403,7 @@ public class FormPromociones extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here
-        Date date = new Date();
-        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        String hora = hourdateFormat.format(date);
-        try {
-            ResultSet dato = null;
-            consulta = (Statement) connection.createStatement();
-            /*int id = 0;
-            dato = consulta.executeQuery("SELECT id FROM pedido ORDER BY id DESC FETCH FIRST 1 ROW ONLY");
-            while(dato.next())
-                id = dato.getInt("id");
-            id++;*/
-            consulta.executeUpdate("INSERT INTO public.usuarios("
-                    + "usu_nombre, usu_rol, usu_apellido, usu_pass)"
-                    + "VALUES ( 'Lionel', 'G','Messi','1234');");
-            consulta.close();
-            showMessageDialog(null, "Se ha insertado Correctamente");
-        } catch (SQLException ex) {
-            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked

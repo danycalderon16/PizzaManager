@@ -5,21 +5,9 @@
  */
 package forms;
 
-import conexion.Conexion;
-import static conexion.Conexion.connection;
-import static conexion.Conexion.consulta;
 import static conexion.Conexion.insertarUsuario;
-import interfaces.Ventana;
 import java.awt.Toolkit;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
 import static util.Utils.*;
-import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
