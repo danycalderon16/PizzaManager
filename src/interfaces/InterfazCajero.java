@@ -38,6 +38,7 @@ public class InterfazCajero extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
         imgLogo.setIcon(resizeIcon( new ImageIcon(getClass().getResource("/Images/LOGO.png")), imgLogo.getWidth(), imgLogo.getHeight()));
         iconoSalir.setIcon(resizeIcon( new ImageIcon(getClass().getResource("/Images/logout.png")), iconoSalir.getWidth(), iconoSalir.getHeight()));
+        this.setResizable(false);
     }
 
      private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {

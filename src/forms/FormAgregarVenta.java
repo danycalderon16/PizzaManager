@@ -315,10 +315,15 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SeleccionProductos  sp = null;
+        /*SeleccionProductos  sp = null;
         sp = SeleccionProductos.obj.getObj();
         sp.setLocation(getLocation().x+100,getLocation().y+150);
         sp.setVisible(true);
+        */
+        
+        SeleccionProductos2 ap= new SeleccionProductos2();
+        ap.setLocationRelativeTo(null);
+        ap.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

@@ -29,6 +29,7 @@ public class Login extends javax.swing.JFrame {
         ajustarImagen(lblLogo);
         setLocationRelativeTo(null);
         conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
