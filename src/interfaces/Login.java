@@ -60,6 +60,12 @@ public class Login extends javax.swing.JFrame {
 
         PanelHeader.setBackground(new java.awt.Color(51, 0, 0));
 
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelHeaderLayout = new javax.swing.GroupLayout(PanelHeader);
         PanelHeader.setLayout(PanelHeaderLayout);
         PanelHeaderLayout.setHorizontalGroup(
@@ -228,6 +234,13 @@ public class Login extends javax.swing.JFrame {
         if(evt.getKeyCode() == 10)
             btnIngresar.doClick();
     }//GEN-LAST:event_txtContrasenaKeyPressed
+
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        // TODO add your handling code here:
+        InterfazGerente ig = new InterfazGerente();
+            ig.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_lblLogoMouseClicked
 
     public static void main(String args[]) {
 

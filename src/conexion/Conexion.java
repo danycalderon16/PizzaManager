@@ -62,6 +62,20 @@ public class Conexion {
         }
     }
     
+    public static void insertarCliente(String nombre, String apellido, String telefono, String direccion) {
+        String query = "INSERT INTO clientes ( cli_nombre, cli_apellido, cli_celular, cli_direccion) \n" +
+                        "VALUES ('"+nombre+"','"+apellido+"','"+telefono+"','"+direccion+"')";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha insertado Correctamente el cliente "+nombre);
+            }            
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <INSERTAR> cliente " + ex);
+        }
+    }
+    
     public static void insertarProducto(String nombre, String descripcion, int precio) {
         String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio) \n" +
                         "VALUES ('"+nombre+"','"+descripcion+"',"+precio+")";
