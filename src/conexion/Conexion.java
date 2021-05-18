@@ -116,6 +116,7 @@ public class Conexion {
             try{
                 sentencia = connection.createStatement();
                 datos = sentencia.executeQuery(consulta);
+                System.out.println(sentencia.getUpdateCount()+"");
             }catch(SQLException sql){
                 showMessageDialog(null,"Error en la consulta: "+ sql.toString());
             }        
