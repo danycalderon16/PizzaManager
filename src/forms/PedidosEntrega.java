@@ -4,7 +4,20 @@
  * and open the template in the editor.
  */
 package forms;
-
+import static conexion.Conexion.connection;
+import static conexion.Conexion.consulta;
+import static conexion.Conexion.getDatos;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author luiss
@@ -15,6 +28,7 @@ public class PedidosEntrega extends javax.swing.JFrame {
      * Creates new form PedidosEntrega
      */
     public static PedidosEntrega obj;
+    DefaultTableModel m= new DefaultTableModel();
     
     public static PedidosEntrega getObj(){
         if(obj==null){
@@ -25,8 +39,25 @@ public class PedidosEntrega extends javax.swing.JFrame {
     public PedidosEntrega() {
         initComponents();
         this.setLocationRelativeTo(null);
+         m=(DefaultTableModel) jTablePedidosEntrega.getModel();
+        TraerPedidos();       
     }
 
+            public void TraerPedidos(){
+            try {
+            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,C.cli_nombre,C.cli_direccion,P.ped_importe from pedido P\n" +
+"inner join clientes C on (C.cli_id = P.cli_id) where P.ped_estado not in('E')"); //Las columnas necesarias
+            while (rs.next()) {
+                           
+               m.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)});
+          }
+
+          
+          
+            }catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +72,7 @@ public class PedidosEntrega extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePedidosEntrega = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -77,12 +108,9 @@ public class PedidosEntrega extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePedidosEntrega.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID Pedido", "Descripción", "Nombre Cliente", "Direccion", "Importe"
@@ -96,7 +124,7 @@ public class PedidosEntrega extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTablePedidosEntrega);
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Pedidos pendientes de entrega");
@@ -217,7 +245,7 @@ public class PedidosEntrega extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePedidosEntrega;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

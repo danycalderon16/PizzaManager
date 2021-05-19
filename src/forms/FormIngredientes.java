@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import static javax.swing.JOptionPane.*;
 import javax.swing.table.DefaultTableModel;
+import static util.Utils.solicitarPass;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FormIngredientes extends javax.swing.JFrame {
     public static FormIngredientes obj;
     private DefaultTableModel m = new DefaultTableModel();
     private String nombreActual;
+    private String unidad;
     private int um = 0;
     
     public static FormIngredientes getObj(){
@@ -153,6 +155,11 @@ public class FormIngredientes extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -242,6 +249,21 @@ public class FormIngredientes extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        boolean request = solicitarPass();
+        if (request) {
+            String query = "delete from ingredientes "
+                    + "where ing_nombre ='" + nombreActual + "' and ing_unit = '"
+                    + unidad + "'";
+            System.out.println(query);
+            if(eliminarFila(query)){
+                showMessageDialog(null, "Dato eliminado");
+                limpiar();
+            }
+            
+            mostrarDatos();
+        } else {
+            showMessageDialog(null, "Contraseña Incorrecta");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -265,7 +287,7 @@ public class FormIngredientes extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int i = jTable1.getSelectedRow();
         nombreActual = m.getValueAt(i, 0).toString();
-        String unidad = m.getValueAt(i,1).toString();
+        unidad = m.getValueAt(i,1).toString();
         System.out.println(unidad);
         if(unidad.equals("gr")){
             um = 1;
@@ -282,8 +304,14 @@ public class FormIngredientes extends javax.swing.JFrame {
         
         txtNombre.setText(nombreActual);
         cmbUM.setSelectedIndex(um);
-       
+        btnEditar.setEnabled(true);
+        btnEliminar.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,5 +382,11 @@ public class FormIngredientes extends javax.swing.JFrame {
         } catch (SQLException sqle) {
             showMessageDialog(null, "Error: " + sqle);
         }
+    }
+
+    private void limpiar() {
+        txtNombre.setText("");
+        cmbUM.setSelectedIndex(0);
+        jTable1.clearSelection();
     }
 }

@@ -36,6 +36,7 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         
         initComponents();
         llenarPizzas();
+        llenarBebidas();
         m=(DefaultTableModel) tblPedido.getModel();
     }
 
@@ -54,8 +55,6 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelPizza = new javax.swing.JPanel();
         panelbebida = new javax.swing.JPanel();
-        PanelComplementos = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedido = new javax.swing.JTable();
@@ -79,44 +78,8 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         panelPizza.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
         jTabbedPane1.addTab("Pizzas", panelPizza);
 
-        javax.swing.GroupLayout panelbebidaLayout = new javax.swing.GroupLayout(panelbebida);
-        panelbebida.setLayout(panelbebidaLayout);
-        panelbebidaLayout.setHorizontalGroup(
-            panelbebidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
-        );
-        panelbebidaLayout.setVerticalGroup(
-            panelbebidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
-        );
-
+        panelbebida.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
         jTabbedPane1.addTab("Bebidas", panelbebida);
-
-        javax.swing.GroupLayout PanelComplementosLayout = new javax.swing.GroupLayout(PanelComplementos);
-        PanelComplementos.setLayout(PanelComplementosLayout);
-        PanelComplementosLayout.setHorizontalGroup(
-            PanelComplementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
-        );
-        PanelComplementosLayout.setVerticalGroup(
-            PanelComplementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Complementos", PanelComplementos);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("otra cosa que se me haya pasado", jPanel8);
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -170,18 +133,18 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -242,11 +205,15 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPedidoMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+    int precio,cantidad,total=0;
     for (int i = 0; i < m.getRowCount(); i++) {
     FormAgregarVenta.jTableProductos.setValueAt(m.getValueAt(i,0),i,0);
-    FormAgregarVenta.jTableProductos.setValueAt(m.getValueAt(i,1),i,1);
-       }
+    FormAgregarVenta.jTableProductos.setValueAt(precio=getPrecio(m.getValueAt(i,0)+""),i,1);
+    FormAgregarVenta.jTableProductos.setValueAt(cantidad=Integer.parseInt(m.getValueAt(i,1)+""),i,2);
+    FormAgregarVenta.jTableProductos.setValueAt(total=total+precio*cantidad,i,3);
+    }
+    
+    FormAgregarVenta.txtTotal.setText(total+"");
     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -290,14 +257,14 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
 
         try {
 
-            ResultSet rs = getDatos("select count(pro_nombre) from productos "); //el numero de pizzas que hay
+            ResultSet rs = getDatos("select count(pro_nombre) from productos where cat_id='p'"); //el numero de pizzas que hay
 
             rs.next();
             
          
             JButton btnMenuPizzas[] = new JButton[rs.getInt(1)]; //arreglo de borones para c/u de las pizzas
 
-            rs = getDatos("select pro_nombre from productos "); //la lista de pizzas
+            rs = getDatos("select pro_nombre from productos where cat_id='p'"); //la lista de pizzas
             int i = 0;
             while (rs.next()) {
 
@@ -307,7 +274,8 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
 
                 i++;
             }
-          
+            
+    
             
             /*ImageIcon imgIcon = new ImageIcon(getClass().getResource("/Images/LOGO.png"));
             Image imgEscalada = imgIcon.getImage().getScaledInstance(btnMenuPizzas[0].getWidth(),
@@ -321,8 +289,43 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-
     
+    public void llenarBebidas() {
+
+        try {
+
+            ResultSet rs = getDatos("select count(pro_nombre) from productos where cat_id='b'"); //el numero de pizzas que hay
+
+            rs.next();
+            
+         
+            JButton btnMenubebidas[] = new JButton[rs.getInt(1)]; //arreglo de borones para c/u de las pizzas
+
+            rs = getDatos("select pro_nombre from productos where cat_id='b'"); //la lista de pizzas
+            int i = 0;
+            while (rs.next()) {
+
+                btnMenubebidas[i] = new JButton(rs.getString(1));
+                asignarFuncionalidad(btnMenubebidas[i]);
+                panelbebida.add(btnMenubebidas[i]);
+
+                i++;
+            }
+            
+    
+            
+            /*ImageIcon imgIcon = new ImageIcon(getClass().getResource("/Images/LOGO.png"));
+            Image imgEscalada = imgIcon.getImage().getScaledInstance(btnMenuPizzas[0].getWidth(),
+                    btnMenuPizzas[0].getHeight(), Image.SCALE_SMOOTH);
+            Icon iconoEscalado = new ImageIcon(imgEscalada);
+            
+            for (int j = 0; j < btnMenuPizzas.length; j++) {
+                btnMenuPizzas[j].setIcon(iconoEscalado);
+            }*/
+            }catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
 
     public void asignarFuncionalidad(JButton btn) {
         
@@ -340,6 +343,22 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
             m.addRow(new Object[]{btn.getText(),1});
         });
     }
+    
+    public int getPrecio(String nombreProducto){
+        
+        try {
+            ResultSet precio= getDatos("Select pro_precio from productos where pro_nombre='"+nombreProducto+"';");
+            
+            precio.next();
+            
+            return Integer.parseInt(precio.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return -1;
+    }
+    
 
     /*
     
@@ -357,13 +376,11 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelComplementos;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelPizza;
