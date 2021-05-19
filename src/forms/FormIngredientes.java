@@ -24,14 +24,14 @@ public class FormIngredientes extends javax.swing.JFrame {
     private String nombreActual;
     private String unidad;
     private int um = 0;
-    
-    public static FormIngredientes getObj(){
-        if(obj==null){
-            obj=new FormIngredientes();
-        }return obj;
+
+    public static FormIngredientes getObj() {
+        if (obj == null) {
+            obj = new FormIngredientes();
+        }
+        return obj;
     }
-    
-    
+
     public FormIngredientes() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
@@ -255,11 +255,11 @@ public class FormIngredientes extends javax.swing.JFrame {
                     + "where ing_nombre ='" + nombreActual + "' and ing_unit = '"
                     + unidad + "'";
             System.out.println(query);
-            if(eliminarFila(query)){
+            if (eliminarFila(query)) {
                 showMessageDialog(null, "Dato eliminado");
                 limpiar();
             }
-            
+
             mostrarDatos();
         } else {
             showMessageDialog(null, "Contraseña Incorrecta");
@@ -269,17 +269,17 @@ public class FormIngredientes extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         String nombre = txtNombre.getText().toString();
-        
-        if(nombre.isEmpty()){
-            showMessageDialog( null, "Ingrese el nombre");
+
+        if (nombre.isEmpty()) {
+            showMessageDialog(null, "Ingrese el nombre");
             return;
         }
-        if(cmbUM.getSelectedIndex()==0){
-            showMessageDialog( null, "Seleccione una unidad de medida");
+        if (cmbUM.getSelectedIndex() == 0) {
+            showMessageDialog(null, "Seleccione una unidad de medida");
             return;
         }
         String query = "insert into ingredientes(ing_nombre, ing_unit) "
-                + "values ('"+nombre+"','"+cmbUM.getSelectedItem().toString()+"')";
+                + "values ('" + nombre + "','" + cmbUM.getSelectedItem().toString() + "')";
         insertar(query);
         System.out.println(query);
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -287,21 +287,21 @@ public class FormIngredientes extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int i = jTable1.getSelectedRow();
         nombreActual = m.getValueAt(i, 0).toString();
-        unidad = m.getValueAt(i,1).toString();
+        unidad = m.getValueAt(i, 1).toString();
         System.out.println(unidad);
-        if(unidad.equals("gr")){
+        if (unidad.equals("gr")) {
             um = 1;
             System.out.println("gr");
         }
-        if(unidad.equals("lt")){
+        if (unidad.equals("lt")) {
             um = 2;
             System.out.println("li");
         }
-        if(unidad.equals("uds")){
+        if (unidad.equals("uds")) {
             um = 3;
             System.out.println("uds");
         }
-        
+
         txtNombre.setText(nombreActual);
         cmbUM.setSelectedIndex(um);
         btnEditar.setEnabled(true);
@@ -310,7 +310,33 @@ public class FormIngredientes extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
+        String nombre = txtNombre.getText().toString();
+
+        if (nombre.isEmpty()) {
+            showMessageDialog(null, "Ingrese el nombre");
+            return;
+        }
+        if (cmbUM.getSelectedIndex() == 0) {
+            showMessageDialog(null, "Seleccione una unidad de medida");
+            return;
+        }
+        boolean request = solicitarPass();
+        if (request) {
+            String query = ("Update ingredientes "
+                    + "set ing_nombre ='" + nombre
+                    + "' ,ing_unit = '" + cmbUM.getSelectedItem().toString()
+                    + "' where ing_nombre ='" + nombreActual
+                    + "' and ing_unit = '" + unidad + "'");
+            int i = actualizarRegistro(query);
+            System.out.println(query);
+            if (i > 0) {
+                showMessageDialog(null, "Datos actualizados");
+                limpiar();
+                mostrarDatos();
+            }
+        } else {
+            showMessageDialog(null, "Contraseña incorrecta");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
@@ -365,7 +391,7 @@ public class FormIngredientes extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-   private void mostrarDatos() {
+    private void mostrarDatos() {
         int rowCount = m.getRowCount();
         //Remove rows one by one from the end of the table
         for (int i = rowCount - 1; i >= 0; i--) {
@@ -388,5 +414,7 @@ public class FormIngredientes extends javax.swing.JFrame {
         txtNombre.setText("");
         cmbUM.setSelectedIndex(0);
         jTable1.clearSelection();
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 }
