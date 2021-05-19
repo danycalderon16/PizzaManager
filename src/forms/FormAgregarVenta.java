@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import static util.Utils.*;
 
 /**
@@ -19,19 +20,21 @@ import static util.Utils.*;
  */
 public class FormAgregarVenta extends javax.swing.JFrame {
 
+    public static DefaultTableModel m = new DefaultTableModel();
     public static FormAgregarVenta obj;
-    
-    public static FormAgregarVenta getObj(){
-        if(obj==null){
-            obj=new FormAgregarVenta();
-        }return obj;
+
+    public static FormAgregarVenta getObj() {
+        if (obj == null) {
+            obj = new FormAgregarVenta();
+        }
+        return obj;
     }
-    
-    
+
     public FormAgregarVenta() {
         initComponents();
         TraerDescuentos();
         TraerPromociones();
+        m = (DefaultTableModel) jTableProductos.getModel();
     }
 
     /**
@@ -110,13 +113,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
         jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Producto", "Precio", "Cantidad", "SubTotal"
@@ -217,7 +214,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jLabel9.setText("Pago ($ M.X.)");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 529, 75, 25));
 
-        txtPago.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtPago.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         txtPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPagoActionPerformed(evt);
@@ -237,8 +234,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jLabel10.setText("Cambio");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 582, 75, 25));
 
-        txtCambio.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        txtCambio.setEnabled(false);
+        txtCambio.setEditable(false);
+        txtCambio.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         txtCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCambioActionPerformed(evt);
@@ -250,8 +247,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jLabel11.setText("Total");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 476, 75, 25));
 
-        txtTotal.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        txtTotal.setEnabled(false);
+        txtTotal.setEditable(false);
+        txtTotal.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalActionPerformed(evt);
@@ -269,16 +266,16 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         sp = SeleccionProductos.obj.getObj();
         sp.setLocation(getLocation().x+100,getLocation().y+150);
         sp.setVisible(true);
-        */
-        
-        SeleccionProductos2 ap= new SeleccionProductos2();
+         */
+
+        SeleccionProductos2 ap = new SeleccionProductos2();
         ap.setLocationRelativeTo(null);
         ap.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   System.out.print("select cli_nombre from clientes where cli_celular = "+"'"+txtcel.getText()+"'");
-     BuscarCliente();    
+        System.out.print("select cli_nombre from clientes where cli_celular = " + "'" + txtcel.getText() + "'");
+        BuscarCliente();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cmbPromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPromActionPerformed
@@ -306,18 +303,24 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        
-        if(jTableProductos.getRowCount()!=0)
-            
-            switch(JOptionPane.showConfirmDialog(this, "Hay cambios sin guardar \n ¿Desea Cancelar?","Cancelar Venta" ,JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)){
-                
-                case(0): this.dispose();
-                         break;
-                         
-                case(1): break;
-                
-                default: 
+
+        if (jTableProductos.getRowCount() != 0)
+
+            switch (JOptionPane.showConfirmDialog(this, "Hay cambios sin guardar \n ¿Desea Cancelar?", "Cancelar Venta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)) {
+
+                case (0):
+                    int rowCount = m.getRowCount();
+                    //Remove rows one by one from the end of the table
+                    for (int i = rowCount - 1; i >= 0; i--) {
+                        m.removeRow(i);
+                    }
+                    this.dispose();
+                    break;
+
+                case (1):
+                    break;
+
+                default:
             }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -326,57 +329,54 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPagoKeyTyped
 
     private void txtPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyReleased
-        int total,pago;
-        total=Integer.parseInt(txtTotal.getText());
-        pago=Integer.parseInt(txtPago.getText());
-        pago=pago-total;
-        txtCambio.setText(pago+"");
+        int total, pago;
+        total = Integer.parseInt(txtTotal.getText());
+        pago = Integer.parseInt(txtPago.getText());
+        pago = pago - total;
+        txtCambio.setText(pago + "");
     }//GEN-LAST:event_txtPagoKeyReleased
-    
-    public void BuscarCliente(){
-              try {
-            ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = "+"'"+txtcel.getText()+"'"); //Buscamos al cliente en la BD
+
+    public void BuscarCliente() {
+        try {
+            ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos al cliente en la BD
             rs.next();
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
             System.out.print(rs);
-            rs = getDatos("select cli_direccion from clientes where cli_celular = "+"'"+txtcel.getText()+"'"); //Buscamos la dirección
+            rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos la dirección
             rs.next();
             txtdire.setText(rs.getString(1)); //Recuperamos la direccion
             System.out.print(rs);
-            }catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    }
-    
-    public void TraerDescuentos(){
-            cmbDesc.removeAllItems();
-            cmbDesc.addItem("Seleccionar");
-            try {
-            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
-            while (rs.next()) {
-                cmbDesc.addItem(rs.getString(1));
-              }
-            }catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-        public void TraerPromociones(){
-            cmbProm.removeAllItems();
-            cmbProm.addItem("Seleccionar");
-            try {
-            ResultSet rs = getDatos("select prom_promocion from promociones"); //La lista de descuentos
-            while (rs.next()) {
-                cmbProm.addItem(rs.getString(1));
-              }
-            }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-        
-        
-        
+    public void TraerDescuentos() {
+        cmbDesc.removeAllItems();
+        cmbDesc.addItem("Seleccionar");
+        try {
+            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
+            while (rs.next()) {
+                cmbDesc.addItem(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void TraerPromociones() {
+        cmbProm.removeAllItems();
+        cmbProm.addItem("Seleccionar");
+        try {
+            ResultSet rs = getDatos("select prom_promocion from promociones"); //La lista de descuentos
+            while (rs.next()) {
+                cmbProm.addItem(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

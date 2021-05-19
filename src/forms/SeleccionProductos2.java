@@ -207,10 +207,17 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     int precio,cantidad,total=0;
     for (int i = 0; i < m.getRowCount(); i++) {
-    FormAgregarVenta.jTableProductos.setValueAt(m.getValueAt(i,0),i,0);
-    FormAgregarVenta.jTableProductos.setValueAt(precio=getPrecio(m.getValueAt(i,0)+""),i,1);
-    FormAgregarVenta.jTableProductos.setValueAt(cantidad=Integer.parseInt(m.getValueAt(i,1)+""),i,2);
-    FormAgregarVenta.jTableProductos.setValueAt(total=total+precio*cantidad,i,3);
+        
+        FormAgregarVenta.m.addRow(new Object[]{m.getValueAt(i,0),//nombre
+                                               precio=getPrecio(m.getValueAt(i,0)+""),//precio
+                                               cantidad=Integer.parseInt(m.getValueAt(i,1)+""),//cantidad
+                                               precio*cantidad});//subTotal
+        /*FormAgregarVenta.m.setValueAt(m.getValueAt(i,0),i,0);
+        FormAgregarVenta.m.setValueAt(m.getValueAt(i,0),i,0);
+        FormAgregarVenta.m.setValueAt(precio=getPrecio(m.getValueAt(i,0)+""),i,1);
+        FormAgregarVenta.m.setValueAt(cantidad=Integer.parseInt(m.getValueAt(i,1)+""),i,2);
+        FormAgregarVenta.m.setValueAt(precio*cantidad,i,3);*/
+        total=total+(precio*cantidad);
     }
     
     FormAgregarVenta.txtTotal.setText(total+"");
