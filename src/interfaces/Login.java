@@ -16,13 +16,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static conexion.Conexion.*;
+import forms.RegistrararEntradaSalida;
 import static util.Utils.*;
 
 /**
  *
  * @author Delph
  */
+
+
 public class Login extends javax.swing.JFrame {
+    
+    public static String usuario = "";
 
     public Login() {
         initComponents();
@@ -277,20 +282,30 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
     
+    public String getUsuario(){
+        String usuarioL=txtUsuario.getText();
+        return usuarioL;
+    }
+    
     public void irVentata(char rol){
         if(rol == REPARTIDOR ){
             InterfazRepartidor ir = new InterfazRepartidor();
             ir.setVisible(true);
+            RegistrararEntradaSalida.usuario = getUsuario();
             this.dispose();
         }
         if(rol == CAJERO ){
             InterfazCajero ic = new InterfazCajero();
             ic.setVisible(true);
+            //getUsuario();
+            RegistrararEntradaSalida.usuario = getUsuario();
             this.dispose();
         }
         if(rol == GERENTE ){
             InterfazGerente ig = new InterfazGerente();
             ig.setVisible(true);
+            // getUsuario();
+            RegistrararEntradaSalida.usuario = getUsuario();
             this.dispose();
         }
     }

@@ -26,14 +26,14 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class FormAgregarVenta extends javax.swing.JFrame {
 
     public static FormAgregarVenta obj;
-    
-    public static FormAgregarVenta getObj(){
-        if(obj==null){
-            obj=new FormAgregarVenta();
-        }return obj;
+
+    public static FormAgregarVenta getObj() {
+        if (obj == null) {
+            obj = new FormAgregarVenta();
+        }
+        return obj;
     }
-    
-    
+
     public FormAgregarVenta() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
@@ -64,7 +64,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtbuscel = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         txtnombre = new javax.swing.JTextField();
         txtcel = new javax.swing.JTextField();
         txtdire = new javax.swing.JTextField();
@@ -186,11 +186,16 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 txtbuscelActionPerformed(evt);
             }
         });
+        txtbuscel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtbuscelKeyPressed(evt);
+            }
+        });
 
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -243,7 +248,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(txtbuscel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(43, 43, 43)
                             .addComponent(txtdire, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -264,7 +269,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtbuscel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtdire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,12 +291,12 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         this.dispose();
-                
+
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here
-        
+
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -299,9 +304,9 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         sp = SeleccionProductos.obj.getObj();
         sp.setLocation(getLocation().x+100,getLocation().y+150);
         sp.setVisible(true);
-        */
-        
-        SeleccionProductos2 ap= new SeleccionProductos2();
+         */
+
+        SeleccionProductos2 ap = new SeleccionProductos2();
         ap.setLocationRelativeTo(null);
         ap.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -310,52 +315,69 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscelActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   System.out.print("select cli_nombre from clientes where cli_celular = "+"'"+txtbuscel.getText()+"'");
-     BuscarCliente();    
-    }//GEN-LAST:event_jButton2ActionPerformed
-    public void BuscarCliente(){
-              try {
-            ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = "+"'"+txtbuscel.getText()+"'"); //Buscamos al cliente en la BD
-            rs.next();
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(txtbuscel.getText().isEmpty())
+            showMessageDialog(null, "Ingrese un número telefónico");
+        else     
+            BuscarCliente();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtbuscelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscelKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10)
+            btnBuscar.doClick();
+    }//GEN-LAST:event_txtbuscelKeyPressed
+    public void BuscarCliente() {
+        txtcel.setText("");
+        txtnombre.setText("");
+        txtdire.setText("");
+        try {
+            ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = " + "'" + txtbuscel.getText() + "'"); //Buscamos al cliente en la BD
+            if(rs.next()==false){
+                showMessageDialog(null, "No hay un cliente con ese número telefónico");
+                rs.close();
+                return;
+            }                
+            //rs.next();
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
             System.out.print(rs);
-            rs = getDatos("select cli_direccion from clientes where cli_celular = "+"'"+txtbuscel.getText()+"'"); //Buscamos la dirección
+            rs.close();
+            rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtbuscel.getText() + "'"); //Buscamos la dirección
             rs.next();
             txtdire.setText(rs.getString(1)); //Recuperamos la direccion
             System.out.print(rs);
             txtcel.setText(txtbuscel.getText());
-            }catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    }
-    
-    public void TraerDescuentos(){
-            cmbDesc.removeAllItems();
-            cmbDesc.addItem("Seleccionar");
-            try {
-            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
-            while (rs.next()) {
-                cmbDesc.addItem(rs.getString(1));
-              }
-            }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-        public void TraerPromociones(){
-            cmbDesc.removeAllItems();
-            cmbDesc.addItem("Seleccionar");
-            try {
+
+    public void TraerDescuentos() {
+        cmbDesc.removeAllItems();
+        cmbDesc.addItem("Seleccionar");
+        try {
             ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
             while (rs.next()) {
                 cmbDesc.addItem(rs.getString(1));
-              }
-            }catch (SQLException ex) {
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
+
+    public void TraerPromociones() {
+        cmbDesc.removeAllItems();
+        cmbDesc.addItem("Seleccionar");
+        try {
+            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
+            while (rs.next()) {
+                cmbDesc.addItem(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -395,9 +417,9 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cmbDesc;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;

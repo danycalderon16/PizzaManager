@@ -116,7 +116,6 @@ public class Conexion {
             try{
                 sentencia = connection.createStatement();
                 datos = sentencia.executeQuery(consulta);
-                System.out.println(sentencia.getUpdateCount()+"");
             }catch(SQLException sql){
                 showMessageDialog(null,"Error en la consulta: "+ sql.toString());
             }        
@@ -137,5 +136,20 @@ public class Conexion {
         }
         return affectedrows;
     }
+    
+    
+    public static void insertarEntradaSalida(int usuId, String fecha, char tipo) {
+        String query = "INSERT INTO entradasalida ( usu_id, es_fecha_hora, es_tipo) \n" +
+                        "VALUES ('"+usuId+"','"+fecha+"','"+tipo+"')";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Registro Correcto");
+            }            
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al registrar " + ex);
+        }
+    } 
     
 }
