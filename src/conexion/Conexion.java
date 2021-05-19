@@ -48,6 +48,19 @@ public class Conexion {
         }
     }
 
+      public static void insertar(String queryI) {
+        String query = queryI;
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha hecho la inserción correctamente");
+            }            
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al insertar" + ex);
+        }
+    }
+    
     public static void insertarUsuario(String nombre, String apellido, String pass, char cargo) {
         String query = "INSERT INTO usuarios (usu_nombre, usu_apellido, usu_pass, usu_rol) \n" +
                         "VALUES ('"+nombre+"','"+apellido+"','"+pass+"','"+cargo+"')";

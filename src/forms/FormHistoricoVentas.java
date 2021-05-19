@@ -7,6 +7,7 @@ package forms;
 
 import static conexion.Conexion.connection;
 import static conexion.Conexion.consulta;
+import static conexion.Conexion.getDatos;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -25,6 +28,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class FormHistoricoVentas extends javax.swing.JFrame {
 
     public static FormHistoricoVentas obj;
+    private DefaultTableModel m = new DefaultTableModel();
     
     public static FormHistoricoVentas getObj(){
         if(obj==null){
@@ -35,6 +39,8 @@ public class FormHistoricoVentas extends javax.swing.JFrame {
     
     public FormHistoricoVentas() {
         initComponents();
+        m = (DefaultTableModel) tblHisto.getModel();
+        mostrarDatos();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
     }
 
@@ -60,7 +66,7 @@ public class FormHistoricoVentas extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHisto = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
 
@@ -165,23 +171,23 @@ public class FormHistoricoVentas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHisto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Fecha", "Codigo de la Venta", "Monto ($)"
+                "ID", "Fecha", "Codigo de la Venta"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHisto);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -305,13 +311,32 @@ public class FormHistoricoVentas extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void mostrarDatos() {
+        /*int rowCount = m.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            m.removeRow(i);
+        }*/
+        ResultSet resultado = getDatos("SELECT * FROM historialventas");
+        try {
+            while (resultado.next()) {
+                               
+                m.addRow(new Object[]{resultado.getString(1), resultado.getString(2), resultado.getString(3)});
+            }
+            //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
+            //tblHisto.setRowHeight(18);
+            tblHisto.setModel(m);
+        } catch (SQLException sqle) {
+            showMessageDialog(null, "Error: " + sqle);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -322,8 +347,7 @@ public class FormHistoricoVentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblHisto;
     // End of variables declaration//GEN-END:variables
 }
