@@ -80,6 +80,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Venta");
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -158,7 +159,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 58, 117, 30));
 
-        txtnombre.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtnombre.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         txtnombre.setToolTipText("Nombre");
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,11 +168,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         });
         jPanel2.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 58, 234, 30));
 
-        txtcel.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtcel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         txtcel.setToolTipText("Telefono");
         jPanel2.add(txtcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 58, 145, 30));
 
-        txtdire.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtdire.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         txtdire.setToolTipText("Dirección");
         jPanel2.add(txtdire, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 121, 397, -1));
 
@@ -203,6 +204,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 575, 95, 39));
 
         jButton4.setText("Confirmar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 575, 201, 39));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 25, 534, -1));
 
@@ -314,6 +320,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                     for (int i = rowCount - 1; i >= 0; i--) {
                         m.removeRow(i);
                     }
+                    limpiarCampos();
                     this.dispose();
                     break;
 
@@ -322,6 +329,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
                 default:
             }
+        else{
+            limpiarCampos();
+            this.dispose();
+        }
+            
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyTyped
@@ -335,6 +347,23 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         pago = pago - total;
         txtCambio.setText(pago + "");
     }//GEN-LAST:event_txtPagoKeyReleased
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        int importe=entero(txtTotal.getText());
+        String descripcion="";
+        String promocion="";
+        String descuento="";
+        String usu_id="null";
+        String cli_id="null";
+        int cashin=entero(txtPago.getText());
+        int cashout=entero(txtCambio.getText());
+        
+        
+        
+        //conexion.Conexion.insertarVenta(importe,descripcion,cantidadProductos(),promocion, descuento,usu_id,cli_id,cashin, cashout);
+        conexion.Conexion.insertarVenta(entero(txtTotal.getText()), "", cantidadProductos(),"null", entero(txtPago.getText()), entero(txtCambio.getText()));
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void BuscarCliente() {
         try {
@@ -375,6 +404,27 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void limpiarCampos() {
+
+        txtTotal.setText("");
+        this.txtPago.setText("");
+        this.txtCambio.setText("");
+        this.txtnombre.setText("");
+        this.txtcel.setText("");
+        this.txtdire.setText("");
+    }
+    
+    public int cantidadProductos(){
+        
+        int cantidad=0;
+        for (int i = 0; i < m.getRowCount(); i++) {
+            
+            cantidad=cantidad+Integer.parseInt(m.getValueAt(i, 2)+"");
+            
+        }
+        return cantidad;
     }
 
     public static void main(String args[]) {

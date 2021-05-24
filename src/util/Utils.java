@@ -52,6 +52,7 @@ public class Utils {
         Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
         return new ImageIcon(resizedImage);
     }
+    
     public static boolean solicitarPass(){
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Ingrese la contraseña:");
@@ -77,5 +78,9 @@ public class Utils {
             }
         }
         return true;
+    }
+    
+    public static int entero(String numero){
+        return Integer.parseInt(numero);
     }
 }

@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import controladores.ControladorApertura;
 import data.DatosUsuarios;
 import forms.FormAgregarVenta;
 import forms.CancelarVentana;
@@ -21,6 +22,7 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.*;
+import modelos.ModeloApertura;
 import subInterfaz.GenerarCorteCaja;
 
 /**
@@ -252,10 +254,16 @@ public class InterfazCajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAperturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAperturaMouseClicked
-        FormAperturaCaja fac = null;
-        fac = FormAperturaCaja.obj.getObj();
-        fac.setLocation(getLocation().x+300,getLocation().y+150);
-        fac.setVisible(true);
+//        FormAperturaCaja fac = null;
+//        fac = FormAperturaCaja.obj.getObj();
+//        fac.setLocation(getLocation().x+300,getLocation().y+150);
+//        fac.setVisible(true);
+        ModeloApertura modelo = new ModeloApertura();
+        FormAperturaCaja vista = new FormAperturaCaja();
+        ControladorApertura control = new ControladorApertura(vista, modelo);
+        control.iniciar();
+        vista.setLocation(getLocation().x+300,getLocation().y+150);
+        vista.setVisible(true);
     }//GEN-LAST:event_btnAperturaMouseClicked
 
     private void btnIngresarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarVentasMouseClicked

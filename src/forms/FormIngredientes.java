@@ -282,6 +282,7 @@ public class FormIngredientes extends javax.swing.JFrame {
                 + "values ('" + nombre + "','" + cmbUM.getSelectedItem().toString() + "')";
         insertar(query);
         System.out.println(query);
+        mostrarDatos();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

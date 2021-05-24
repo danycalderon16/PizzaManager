@@ -68,7 +68,7 @@ public class InterfazRepartidor extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cajero");
+        jLabel1.setText("Repartidor");
 
         iconoSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
         iconoSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

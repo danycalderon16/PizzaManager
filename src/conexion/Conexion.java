@@ -48,95 +48,96 @@ public class Conexion {
         }
     }
 
-      public static void insertar(String queryI) {
+    public static void insertar(String queryI) {
         String query = queryI;
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
                 showMessageDialog(null, "Se ha hecho la inserción correctamente");
-            }            
+            }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al insertar" + ex);
         }
     }
-    
+
     public static void insertarUsuario(String nombre, String apellido, String pass, char cargo) {
-        String query = "INSERT INTO usuarios (usu_nombre, usu_apellido, usu_pass, usu_rol) \n" +
-                        "VALUES ('"+nombre+"','"+apellido+"','"+pass+"','"+cargo+"')";
+        String query = "INSERT INTO usuarios (usu_nombre, usu_apellido, usu_pass, usu_rol) \n"
+                + "VALUES ('" + nombre + "','" + apellido + "','" + pass + "','" + cargo + "')";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
                 showMessageDialog(null, "Se ha insertado Correctamente el usuario");
-            }            
+            }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al <INSERTAR> usuario " + ex);
         }
     }
-    
+
     public static void insertarCliente(String nombre, String apellido, String telefono, String direccion) {
-        String query = "INSERT INTO clientes ( cli_nombre, cli_apellido, cli_celular, cli_direccion) \n" +
-                        "VALUES ('"+nombre+"','"+apellido+"','"+telefono+"','"+direccion+"')";
+        String query = "INSERT INTO clientes ( cli_nombre, cli_apellido, cli_celular, cli_direccion) \n"
+                + "VALUES ('" + nombre + "','" + apellido + "','" + telefono + "','" + direccion + "')";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
-                showMessageDialog(null, "Se ha insertado Correctamente el cliente "+nombre);
-            }            
+                showMessageDialog(null, "Se ha insertado Correctamente el cliente " + nombre);
+            }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al <INSERTAR> cliente " + ex);
         }
     }
-    
+
     public static void insertarProducto(String nombre, String descripcion, int precio) {
-        String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio) \n" +
-                        "VALUES ('"+nombre+"','"+descripcion+"',"+precio+")";
+        String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio) \n"
+                + "VALUES ('" + nombre + "','" + descripcion + "'," + precio + ")";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
                 showMessageDialog(null, "Se ha insertado Correctamente el producto");
-            }            
+            }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al <INSERTAR> producto " + ex);
         }
     }
-    
-    public static boolean eliminarFila(String consulta){
+
+    public static boolean eliminarFila(String consulta) {
         Statement sentencia;
         System.out.println(consulta);
-        if(valido){
-            try{
-                sentencia = connection.createStatement();                
+        if (valido) {
+            try {
+                sentencia = connection.createStatement();
                 PreparedStatement st = connection.prepareStatement(consulta);
-                st.executeUpdate(); 
-            }catch(SQLException sql){
-                showMessageDialog(null,"Error en la consulta: "+ sql.toString());
+                st.executeUpdate();
+            } catch (SQLException sql) {
+                showMessageDialog(null, "Error en la consulta: " + sql.toString());
                 return false;
-            }        
-        }else{
-             showMessageDialog(null, "Se ha perdido la conexion. Verifique con el administrador");
-             return false;
+            }
+        } else {
+            showMessageDialog(null, "Se ha perdido la conexion. Verifique con el administrador");
+            return false;
         }
         return true;
     }
-    
-    public static ResultSet getDatos(String consulta){    
+
+    public static ResultSet getDatos(String consulta) {
         Statement sentencia;
         ResultSet datos = null;
-        if(valido){
-            try{
+        if (valido) {
+            try {
                 sentencia = connection.createStatement();
                 datos = sentencia.executeQuery(consulta);
-            }catch(SQLException sql){
-                showMessageDialog(null,"Error en la consulta: "+ sql.toString());
-            }        
-        }else
-             showMessageDialog(null, "Se ha perdido la conexion. Verifique con el administrador");
+            } catch (SQLException sql) {
+                showMessageDialog(null, "Error en la consulta: " + sql.toString());
+            }
+        } else {
+            showMessageDialog(null, "Se ha perdido la conexion. Verifique con el administrador");
+        }
         return datos;
     }
-    
+
     public static int actualizarRegistro(String consulta) {
         String query = consulta;
         int affectedrows = 0;      
@@ -144,25 +145,57 @@ public class Conexion {
         try {
             pstmt = connection.prepareStatement(query);
             affectedrows = pstmt.executeUpdate();
+            showMessageDialog(null,"Se ha actualizado el registro correctamente");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null,"Verifique los datos");
         }
         return affectedrows;
     }
-    
-    
+
     public static void insertarEntradaSalida(int usuId, String fecha, char tipo) {
-        String query = "INSERT INTO entradasalida ( usu_id, es_fecha_hora, es_tipo) \n" +
-                        "VALUES ('"+usuId+"','"+fecha+"','"+tipo+"')";
+        String query = "INSERT INTO entradasalida ( usu_id, es_fecha_hora, es_tipo) \n"
+                + "VALUES ('" + usuId + "','" + fecha + "','" + tipo + "')";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
                 showMessageDialog(null, "Registro Correcto");
-            }            
+            }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al registrar " + ex);
         }
-    } 
+    }
+
+    //con todos los campos posibles
+    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String prom_id, String desc_id, String usu_id, String cli_id, int ven_cash_in, int ven_cash_out) {
+        String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, prom_id, desc_id, usu_id, cli_id, ven_cash_in, ven_cash_out) \n"
+                + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," + ven_num_produc + "," + prom_id + "," + desc_id + "," + usu_id + "," + cli_id + "," + ven_cash_in + "," + ven_cash_out + ");";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha insertado Correctamente la venta ");
+            }
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <INSERTAR> cliente " + ex);
+        }
+    }
     
+    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String usu_id, int ven_cash_in, int ven_cash_out) {
+        String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, usu_id, ven_cash_in, ven_cash_out) \n"
+                + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," + ven_num_produc + "," + usu_id + "," + ven_cash_in + "," + ven_cash_out + ");";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha insertado Correctamente la venta ");
+            }
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <INSERTAR> cliente " + ex);
+        }
+    }
+    
+    
+
 }
