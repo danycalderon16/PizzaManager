@@ -48,17 +48,34 @@ public class Conexion {
         }
     }
 
-    public static void insertar(String queryI) {
+    public static boolean insertar(String queryI) {
         String query = queryI;
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
                 consulta.executeUpdate(query);
                 showMessageDialog(null, "Se ha hecho la inserción correctamente");
+                return true;
             }
         } catch (SQLException ex) {
             showMessageDialog(null, "Error al insertar" + ex);
         }
+        return false;
+    }  
+    
+    public static boolean insertar(String queryI, String sm) {
+        String query = queryI;
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                //showMessageDialog(null, "Se ha hecho la inserción correctamente");
+                return true;
+            }
+        } catch (SQLException ex) {
+            //showMessageDialog(null, "Error al insertar" + ex);
+        }
+        return false;
     }
 
     public static void insertarUsuario(String nombre, String apellido, String pass, char cargo) {

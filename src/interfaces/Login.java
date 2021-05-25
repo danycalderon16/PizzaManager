@@ -36,6 +36,10 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
         this.setResizable(false);
+        String s = "$1000";
+        String a = s.replace("$", "");
+        System.out.println(a);
+                
     }
 
     @SuppressWarnings("unchecked")
