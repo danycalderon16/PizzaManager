@@ -212,6 +212,7 @@ public class Login extends javax.swing.JFrame {
                     String cadena = rs.getString(1);
                     rs.close();
                     irVentata(cadena.charAt(0));
+                    
                     return;
                 }
                 showMessageDialog(null, "Contraseña incorrecta");
@@ -288,6 +289,7 @@ public class Login extends javax.swing.JFrame {
     }
     
     public void irVentata(char rol){
+        USUARIO_LOGEADO = txtUsuario.getText();
         if(rol == REPARTIDOR ){
             InterfazRepartidor ir = new InterfazRepartidor();
             ir.setVisible(true);

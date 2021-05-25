@@ -96,6 +96,7 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos050 = new javax.swing.JButton();
         monedaCincuentaCent = new javax.swing.JTextField();
         mas050 = new javax.swing.JButton();
+        btnCalcular = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -217,21 +218,25 @@ public class FormAperturaCaja extends javax.swing.JFrame {
 
         btnAperturar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAperturar.setText("Aperturar");
+        btnAperturar.setEnabled(false);
 
         mas1000.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas1000.setText("+");
         mas1000.setBorder(null);
+        mas1000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas1000.setOpaque(true);
 
         menos1000.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos1000.setText("-");
         menos1000.setToolTipText("");
         menos1000.setBorder(null);
+        menos1000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos1000.setOpaque(true);
 
         menos500.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos500.setText("-");
         menos500.setBorder(null);
+        menos500.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos500.setOpaque(true);
 
         billeteQui.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -246,16 +251,19 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         mas500.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas500.setText("+");
         mas500.setBorder(null);
+        mas500.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas500.setOpaque(true);
 
         menos200.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos200.setText("-");
         menos200.setBorder(null);
+        menos200.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos200.setOpaque(true);
 
         mas200.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas200.setText("+");
         mas200.setBorder(null);
+        mas200.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas200.setOpaque(true);
 
         billeteDoscientos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -270,11 +278,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos100.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos100.setText("-");
         menos100.setBorder(null);
+        menos100.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos100.setOpaque(true);
 
         mas100.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas100.setText("+");
         mas100.setBorder(null);
+        mas100.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas100.setOpaque(true);
 
         billeteCien.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -289,11 +299,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos50.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos50.setText("-");
         menos50.setBorder(null);
+        menos50.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos50.setOpaque(true);
 
         mas50.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas50.setText("+");
         mas50.setBorder(null);
+        mas50.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas50.setOpaque(true);
 
         billeteCincuenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -308,11 +320,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos20b.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos20b.setText("-");
         menos20b.setBorder(null);
+        menos20b.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos20b.setOpaque(true);
 
         mas20b.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas20b.setText("+");
         mas20b.setBorder(null);
+        mas20b.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas20b.setOpaque(true);
 
         billeteVeinteB.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -327,6 +341,7 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         mas20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas20.setText("+");
         mas20.setBorder(null);
+        mas20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas20.setOpaque(true);
 
         monedaVeinteM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -341,11 +356,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos20.setText("-");
         menos20.setBorder(null);
+        menos20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos20.setOpaque(true);
 
         menos10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos10.setText("-");
         menos10.setBorder(null);
+        menos10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos10.setOpaque(true);
 
         monedaDiez.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -360,11 +377,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         mas10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas10.setText("+");
         mas10.setBorder(null);
+        mas10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas10.setOpaque(true);
 
         mas5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas5.setText("+");
         mas5.setBorder(null);
+        mas5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas5.setOpaque(true);
 
         monedaCinco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -379,11 +398,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos5.setText("-");
         menos5.setBorder(null);
+        menos5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos5.setOpaque(true);
 
         menos2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos2.setText("-");
         menos2.setBorder(null);
+        menos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos2.setOpaque(true);
 
         monedaDos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -398,11 +419,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         mas2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas2.setText("+");
         mas2.setBorder(null);
+        mas2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas2.setOpaque(true);
 
         mas1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas1.setText("+");
         mas1.setBorder(null);
+        mas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas1.setOpaque(true);
 
         monedaPeso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -417,11 +440,13 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         menos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos1.setText("-");
         menos1.setBorder(null);
+        menos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos1.setOpaque(true);
 
         menos050.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menos050.setText("-");
         menos050.setBorder(null);
+        menos050.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menos050.setOpaque(true);
         menos050.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +466,11 @@ public class FormAperturaCaja extends javax.swing.JFrame {
         mas050.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mas050.setText("+");
         mas050.setBorder(null);
+        mas050.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mas050.setOpaque(true);
+
+        btnCalcular.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCalcular.setText("Calcular");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -450,10 +479,6 @@ public class FormAperturaCaja extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(145, 145, 145)
-                        .addComponent(btnAperturar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,9 +594,19 @@ public class FormAperturaCaja extends javax.swing.JFrame {
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(btnAperturar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(90, 90, 90))
         );
         jPanel2Layout.setVerticalGroup(
@@ -629,8 +664,7 @@ public class FormAperturaCaja extends javax.swing.JFrame {
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(monedaDos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mas2)
-                            .addComponent(menos2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(menos2))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -658,10 +692,11 @@ public class FormAperturaCaja extends javax.swing.JFrame {
                                 .addComponent(billeteVeinteB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(mas20b)
                                 .addComponent(menos20b)))))
-                .addGap(26, 26, 26)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cantidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cantidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -777,7 +812,8 @@ public class FormAperturaCaja extends javax.swing.JFrame {
     public javax.swing.JTextField billeteQui;
     public javax.swing.JTextField billeteVeinteB;
     public javax.swing.JButton btnAperturar;
-    private javax.swing.JLabel btnCancelar;
+    public javax.swing.JButton btnCalcular;
+    public javax.swing.JLabel btnCancelar;
     public javax.swing.JLabel cantidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

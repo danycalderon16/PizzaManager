@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.ActualizarTiempo;
 
 /**
  *
@@ -24,6 +25,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
 
     public static RegistrararEntradaSalida obj;
     public static String usuario;
+    private Thread changeTime;
     
     public static RegistrararEntradaSalida getObj(){
         if(obj==null){
@@ -75,8 +77,8 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
             }
         });
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Entrada y Salida");
-        setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -253,10 +255,12 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Date date = new Date();
         
-        lblUsuario.setText(usuario);
+        lblUsuario.setText(usuario); 
+        changeTime = new Thread(new ActualizarTiempo(lblHora));
+        changeTime.start();
        
-        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-        lblHora.setText(hourFormat.format(date));
+//        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+//        lblHora.setText(hourFormat.format(date));
         //Caso 2: obtener la fecha y salida por pantalla con formato:
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         lblFecha.setText(dateFormat.format(date));
@@ -309,39 +313,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+      
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -367,7 +339,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblFecha;
-    private javax.swing.JLabel lblHora;
+    public javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

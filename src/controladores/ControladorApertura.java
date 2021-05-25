@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import modelos.ModeloApertura;
+import conexion.Conexion.*;
+import javax.swing.JOptionPane;
 
 public class ControladorApertura implements ActionListener {
 
@@ -16,6 +18,7 @@ public class ControladorApertura implements ActionListener {
         this.vista = vista;
         this.modelo = modelo;
         this.vista.btnAperturar.addActionListener(this);
+        this.vista.btnCalcular.addActionListener(this);
         this.vista.menos1000.addActionListener(this);
         this.vista.mas1000.addActionListener(this);
         this.vista.menos500.addActionListener(this);
@@ -70,14 +73,14 @@ public class ControladorApertura implements ActionListener {
         }
 
         if (e.getSource() == vista.mas200) {
-            this.modelo.setBilleteDoscientso(this.modelo.getBilleteDoscientso()+ 1);
+            this.modelo.setBilleteDoscientso(this.modelo.getBilleteDoscientso() + 1);
             vista.billeteDoscientos.setText(modelo.getBilleteDoscientso() + "");
         }
         if (e.getSource() == vista.menos200) {
             if (this.modelo.getBilleteDoscientso() > 0) {
                 this.modelo.setBilleteDoscientso(this.modelo.getBilleteDoscientso() - 1);
             }
-            vista.billeteDoscientos.setText(modelo.getBilleteDoscientso()+ "");
+            vista.billeteDoscientos.setText(modelo.getBilleteDoscientso() + "");
         }
 
         if (e.getSource() == vista.mas100) {
@@ -96,50 +99,50 @@ public class ControladorApertura implements ActionListener {
             vista.billeteCincuenta.setText(modelo.getBilleteCincuenta() + "");
         }
         if (e.getSource() == vista.menos50) {
-            if (this.modelo.getBilleteCincuenta()> 0) {
+            if (this.modelo.getBilleteCincuenta() > 0) {
                 this.modelo.setBilleteCincuenta(this.modelo.getBilleteCincuenta() - 1);
             }
             vista.billeteCincuenta.setText(modelo.getBilleteCincuenta() + "");
         }
-        
+
         if (e.getSource() == vista.mas20b) {
             this.modelo.setBilleteVeinte(this.modelo.getBilleteVeinte() + 1);
             vista.billeteVeinteB.setText(modelo.getBilleteVeinte() + "");
         }
         if (e.getSource() == vista.menos20b) {
-            if (this.modelo.getBilleteVeinte()> 0) {
+            if (this.modelo.getBilleteVeinte() > 0) {
                 this.modelo.setBilleteVeinte(this.modelo.getBilleteVeinte() - 1);
             }
             vista.billeteVeinteB.setText(modelo.getBilleteVeinte() + "");
         }
-        
+
         if (e.getSource() == vista.mas20) {
             this.modelo.setMonedaVeinte(this.modelo.getMonedaVeinte() + 1);
             vista.monedaVeinteM.setText(modelo.getMonedaVeinte() + "");
         }
         if (e.getSource() == vista.menos20) {
-            if (this.modelo.getMonedaVeinte()> 0) {
+            if (this.modelo.getMonedaVeinte() > 0) {
                 this.modelo.setMonedaVeinte(this.modelo.getMonedaVeinte() - 1);
             }
-            vista.monedaVeinteM.setText(modelo.getMonedaVeinte()+ "");
+            vista.monedaVeinteM.setText(modelo.getMonedaVeinte() + "");
         }
         if (e.getSource() == vista.mas10) {
             this.modelo.setMonedaDiez(this.modelo.getMonedaDiez() + 1);
             vista.monedaDiez.setText(modelo.getMonedaDiez() + "");
         }
         if (e.getSource() == vista.menos10) {
-            if (this.modelo.getMonedaDiez()> 0) {
+            if (this.modelo.getMonedaDiez() > 0) {
                 this.modelo.setMonedaDiez(this.modelo.getMonedaDiez() - 1);
             }
             vista.monedaDiez.setText(modelo.getMonedaDiez() + "");
         }
-        
+
         if (e.getSource() == vista.mas5) {
             this.modelo.setMonedaCinco(this.modelo.getMonedaCinco() + 1);
             vista.monedaCinco.setText(modelo.getMonedaCinco() + "");
         }
         if (e.getSource() == vista.menos5) {
-            if (this.modelo.getMonedaCinco()> 0) {
+            if (this.modelo.getMonedaCinco() > 0) {
                 this.modelo.setMonedaCinco(this.modelo.getMonedaCinco() - 1);
             }
             vista.monedaCinco.setText(modelo.getMonedaCinco() + "");
@@ -150,18 +153,18 @@ public class ControladorApertura implements ActionListener {
             vista.monedaDos.setText(modelo.getMonedaDos() + "");
         }
         if (e.getSource() == vista.menos2) {
-            if (this.modelo.getMonedaDos()> 0) {
+            if (this.modelo.getMonedaDos() > 0) {
                 this.modelo.setMonedaDos(this.modelo.getMonedaDos() - 1);
             }
             vista.monedaDos.setText(modelo.getMonedaDos() + "");
         }
 
         if (e.getSource() == vista.mas1) {
-            this.modelo.setMonedaPeso(this.modelo.getMonedaPeso()+ 1);
+            this.modelo.setMonedaPeso(this.modelo.getMonedaPeso() + 1);
             vista.monedaPeso.setText(modelo.getMonedaPeso() + "");
         }
         if (e.getSource() == vista.menos1) {
-            if (this.modelo.getMonedaPeso()> 0) {
+            if (this.modelo.getMonedaPeso() > 0) {
                 this.modelo.setMonedaPeso(this.modelo.getMonedaPeso() - 1);
             }
             vista.monedaPeso.setText(modelo.getMonedaPeso() + "");
@@ -172,14 +175,18 @@ public class ControladorApertura implements ActionListener {
             vista.monedaCincuentaCent.setText(modelo.getMonedaCincuentaCen() + "");
         }
         if (e.getSource() == vista.menos050) {
-            if (this.modelo.getMonedaCincuentaCen()> 0) {
+            if (this.modelo.getMonedaCincuentaCen() > 0) {
                 this.modelo.setMonedaCincuentaCen(this.modelo.getMonedaCincuentaCen() - 1);
             }
             vista.monedaCincuentaCent.setText(modelo.getMonedaCincuentaCen() + "");
         }
 
-        if (e.getSource() == vista.btnAperturar) {
+        if (e.getSource() == vista.btnCalcular) {
             sumar();
+        }
+
+        if (e.getSource() == vista.btnAperturar) {
+            insertar();
         }
     }
 
@@ -200,7 +207,20 @@ public class ControladorApertura implements ActionListener {
 
         modelo.sumar();
 
+        vista.btnAperturar.setEnabled(true);
+
         vista.cantidad.setText("$" + modelo.getApertura());
+
     }
 
+    private void insertar() {
+        if (modelo.getApertura() > 0) {
+            String query = "INSERT INTO public.apertuta(\n"
+                    + "	\"USU_ID\", \"MONTO\")\n"
+                    + "	VALUES (" + 1 + "," + modelo.getApertura() + ")";
+            conexion.Conexion.insertar(query);
+        }else{
+            JOptionPane.showMessageDialog(null,"Ingrese el monto");
+        }
+    }
 }

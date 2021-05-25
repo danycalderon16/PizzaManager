@@ -5,13 +5,21 @@
  */
 package subInterfaz;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import util.ActualizarTiempo;
+import static util.Utils.*;
+
 /**
  *
  * @author danyc
  */
 public class GenerarCorteCaja extends javax.swing.JFrame {
 
-      public static GenerarCorteCaja obj;
+    public static GenerarCorteCaja obj;
+    Date date = new Date();
+    private Thread changeTime;
     
     public static GenerarCorteCaja getObj(){
         if(obj==null){
@@ -22,6 +30,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     
     public GenerarCorteCaja() {
         initComponents();
+        lbUser.setText(USUARIO_LOGEADO);
+//        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+//        lbHora.setText(hourFormat.format(date));
+        changeTime = new Thread(new ActualizarTiempo(lbHora));
+        changeTime.start();
     }
 
     /**
@@ -43,9 +56,9 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbUser = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lbHora = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -100,7 +113,6 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Consultar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setOpaque(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -110,7 +122,6 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 255, 102));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Cancelar");
-        jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -121,7 +132,6 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Guardar Corte de Caja");
         jButton3.setToolTipText("");
-        jButton3.setOpaque(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -131,19 +141,18 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(255, 255, 102));
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton4.setText("Imprimir");
-        jButton4.setOpaque(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Usuario: ");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel3.setText("Tipo Usuario");
+        lbUser.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbUser.setText("Tipo Usuario");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Hora inicio: ");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel5.setText("--:--:--");
+        lbHora.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbHora.setText("--:--:--");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Dinero en caja: ");
@@ -183,8 +192,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
+                                    .addComponent(lbUser)
+                                    .addComponent(lbHora))
                                 .addGap(45, 45, 45)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -223,11 +232,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lbUser))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
+                            .addComponent(lbHora)))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -236,15 +245,16 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))))
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,9 +334,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -336,5 +344,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
+    public javax.swing.JLabel lbHora;
+    private javax.swing.JLabel lbUser;
     // End of variables declaration//GEN-END:variables
 }
