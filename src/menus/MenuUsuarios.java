@@ -177,7 +177,7 @@ public class MenuUsuarios extends javax.swing.JFrame {
 
     private void btnAgrgarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgrgarUsuarioMouseClicked
         FormAgregarUsuario fau = null;
-        fau = FormAgregarUsuario.getObj();
+        fau = FormAgregarUsuario.getObj(0);
         fau.setLocation(getLocation().x,getLocation().y);
         fau.setVisible(true);
         this.dispose();

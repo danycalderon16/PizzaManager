@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static conexion.Conexion.*;
+import data.MenuSuperUsuario;
 import forms.RegistrararEntradaSalida;
 import static util.Utils.*;
 
@@ -306,6 +307,13 @@ public class Login extends javax.swing.JFrame {
         if(rol == GERENTE ){
             InterfazGerente ig = new InterfazGerente();
             ig.setVisible(true);
+            // getUsuario();
+            RegistrararEntradaSalida.usuario = getUsuario();
+            this.dispose();
+        }
+        if(rol == SUPER ){
+            MenuSuperUsuario msu = new MenuSuperUsuario();
+            msu.setVisible(true);
             // getUsuario();
             RegistrararEntradaSalida.usuario = getUsuario();
             this.dispose();

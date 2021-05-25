@@ -17,17 +17,21 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class FormAgregarUsuario extends javax.swing.JFrame {
 
     public static FormAgregarUsuario obj;
-    
-    public static FormAgregarUsuario getObj(){
+    private static int admin;
+    public static FormAgregarUsuario getObj(int admin){
         if(obj==null){
-            obj=new FormAgregarUsuario();
+            obj=new FormAgregarUsuario(admin);
         }return obj;
     }
     
     
-    public FormAgregarUsuario() {
+    public FormAgregarUsuario(int admin) {
         initComponents();
+        this.admin = admin;
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
+        if(admin == 1){
+            cmbCargos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciones el cargo", "Gerente" ,"Cajero", "Repartidor", "Cocinero" }));
+        }
     }
 
     /**
@@ -313,7 +317,7 @@ public class FormAgregarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormAgregarUsuario().setVisible(true);
+                new FormAgregarUsuario(admin).setVisible(true);
             }
         });
     }
