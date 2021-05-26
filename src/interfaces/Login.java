@@ -192,7 +192,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContrasenaActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String user = txtUsuario.getText().toString();
+   String user = txtUsuario.getText().toString();
         String pass = new String(txtContrasena.getPassword());
 
         if (user.isEmpty()) {
@@ -208,6 +208,7 @@ public class Login extends javax.swing.JFrame {
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "Usuario no existe");
             } else {
+                setUsuario(user);
                 String contra = "";
                 while (rs.next()) {
                     contra =  rs.getString(1);
@@ -217,7 +218,6 @@ public class Login extends javax.swing.JFrame {
                     String cadena = rs.getString(1);
                     rs.close();
                     irVentata(cadena.charAt(0));
-                    
                     return;
                 }
                 showMessageDialog(null, "Contraseña incorrecta");
@@ -225,9 +225,6 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        InterfazGerente ig = new InterfazGerente();
-//        ig.setVisible(true);
-//        this.dispose();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void labelUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelUsuarioKeyPressed

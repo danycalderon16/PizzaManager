@@ -24,6 +24,7 @@ public class Conexion {
     public static Connection connection;
     public static Statement consulta;
     public static boolean valido;
+    public static String usuario;
 
     public static void conectarBaseDatos(String host, String port, String database, String user, String password) {
         String url = "";
@@ -78,7 +79,7 @@ public class Conexion {
         return false;
     }
 
-    public static void insertarUsuario(String nombre, String apellido, String pass, char cargo) {
+      public static void insertarUsuario(String nombre, String apellido, String pass, char cargo) {
         String query = "INSERT INTO usuarios (usu_nombre, usu_apellido, usu_pass, usu_rol) \n"
                 + "VALUES ('" + nombre + "','" + apellido + "','" + pass + "','" + cargo + "')";
         try {
@@ -185,9 +186,25 @@ public class Conexion {
     }
 
     //con todos los campos posibles
-    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String prom_id, String desc_id, String usu_id, String cli_id, int ven_cash_in, int ven_cash_out) {
-        String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, prom_id, desc_id, usu_id, cli_id, ven_cash_in, ven_cash_out) \n"
-                + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," + ven_num_produc + "," + prom_id + "," + desc_id + "," + usu_id + "," + cli_id + "," + ven_cash_in + "," + ven_cash_out + ");";
+    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String prom_id, String desc_id, int usu_id, int cli_id, int ven_cash_in, int ven_cash_out) {
+        String query = "INSERT INTO public.ventas (ven_importe, "
+                                                + "ven_descripcion, "
+                                                + "ven_num_produc, "
+                                                + "prom_id, "
+                                                + "desc_id,"
+                                                + " usu_id, "
+                                                + "cli_id, "
+                                                + "ven_cash_in, "
+                                                + "ven_cash_out) "
+                                                + "VALUES ("+ ven_importe + ",'" 
+                                                            + ven_descripcion + "'," 
+                                                            + ven_num_produc + "," 
+                                                            + prom_id + "," 
+                                                            + desc_id + "," 
+                                                            + usu_id + "," 
+                                                            + cli_id + "," 
+                                                            + ven_cash_in + "," 
+                                                            + ven_cash_out + ");";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
@@ -199,6 +216,8 @@ public class Conexion {
         }
     }
     
+    
+    //fuera de uso. fué usado para pruebas
     public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String usu_id, int ven_cash_in, int ven_cash_out) {
         String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, usu_id, ven_cash_in, ven_cash_out) \n"
                 + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," + ven_num_produc + "," + usu_id + "," + ven_cash_in + "," + ven_cash_out + ");";
@@ -213,6 +232,26 @@ public class Conexion {
         }
     }
     
+    public static String getUsuario(){
+        
+        return usuario;
+    }
     
+    public static int getUsuarioID(){
+        
+        try {
+            ResultSet rs= getDatos("select usu_id from usuarios where usu_nombre='"+usuario+"';");
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+    
+    public static void setUsuario(String usuario){
+        
+        Conexion.usuario=usuario;
+    }
 
 }

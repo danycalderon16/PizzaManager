@@ -5,6 +5,7 @@
  */
 package forms;
 
+import conexion.Conexion;
 import static conexion.Conexion.getDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +64,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         cmbDesc = new javax.swing.JComboBox<>();
         cmbProm = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -203,13 +204,13 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 575, 95, 39));
 
-        jButton4.setText("Confirmar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 575, 201, 39));
+        jPanel2.add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 575, 201, 39));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 25, 534, -1));
 
         jLabel7.setText("Datos de Venta");
@@ -310,16 +311,10 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        if (jTableProductos.getRowCount() != 0)
-
+        if (jTableProductos.getRowCount() != 0) {
             switch (JOptionPane.showConfirmDialog(this, "Hay cambios sin guardar \n ¿Desea Cancelar?", "Cancelar Venta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)) {
 
                 case (0):
-                    int rowCount = m.getRowCount();
-                    //Remove rows one by one from the end of the table
-                    for (int i = rowCount - 1; i >= 0; i--) {
-                        m.removeRow(i);
-                    }
                     limpiarCampos();
                     this.dispose();
                     break;
@@ -329,11 +324,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
                 default:
             }
-        else{
+        } else {
             limpiarCampos();
             this.dispose();
         }
-            
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyTyped
@@ -348,22 +343,19 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         txtCambio.setText(pago + "");
     }//GEN-LAST:event_txtPagoKeyReleased
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        int importe=entero(txtTotal.getText());
-        String descripcion="";
-        String promocion="";
-        String descuento="";
-        String usu_id="null";
-        String cli_id="null";
-        int cashin=entero(txtPago.getText());
-        int cashout=entero(txtCambio.getText());
-        
-        
-        
-        //conexion.Conexion.insertarVenta(importe,descripcion,cantidadProductos(),promocion, descuento,usu_id,cli_id,cashin, cashout);
-        conexion.Conexion.insertarVenta(entero(txtTotal.getText()), "", cantidadProductos(),"null", entero(txtPago.getText()), entero(txtCambio.getText()));
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+
+        int importe = entero(txtTotal.getText());
+        String descripcion = "";
+        String promocion = "null";
+        String descuento = "null";
+        int cashin = entero(txtPago.getText());
+        int cashout = entero(txtCambio.getText());
+
+        conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout);
+
+        limpiarCampos();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public void BuscarCliente() {
         try {
@@ -408,6 +400,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     public void limpiarCampos() {
 
+        int rowCount = m.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            m.removeRow(i);
+        }
         txtTotal.setText("");
         this.txtPago.setText("");
         this.txtCambio.setText("");
@@ -415,14 +412,14 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         this.txtcel.setText("");
         this.txtdire.setText("");
     }
-    
-    public int cantidadProductos(){
-        
-        int cantidad=0;
+
+    public int cantidadProductos() {
+
+        int cantidad = 0;
         for (int i = 0; i < m.getRowCount(); i++) {
-            
-            cantidad=cantidad+Integer.parseInt(m.getValueAt(i, 2)+"");
-            
+
+            cantidad = cantidad + Integer.parseInt(m.getValueAt(i, 2) + "");
+
         }
         return cantidad;
     }
@@ -463,12 +460,12 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JComboBox<String> cmbDesc;
     private javax.swing.JComboBox<String> cmbProm;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
