@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.ActualizarTiempo;
 import static util.Utils.*;
 
 /**
@@ -23,6 +24,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     public static DefaultTableModel m = new DefaultTableModel();
     public static FormAgregarVenta obj;
+    private Thread changeTime;
 
     public static FormAgregarVenta getObj() {
         if (obj == null) {
@@ -36,6 +38,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         TraerDescuentos();
         TraerPromociones();
         m = (DefaultTableModel) jTableProductos.getModel();
+        changeTime = new Thread(new ActualizarTiempo(lbHora));
+        changeTime.start();
     }
 
     /**
@@ -74,6 +78,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         txtCambio = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
+        lbHora = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -81,8 +86,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Venta");
-        setUndecorated(true);
-        setResizable(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 51, 51));
@@ -98,17 +102,17 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(436, Short.MAX_VALUE))
+                .addContainerGap(418, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 80));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,6 +146,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 267, 635, 189));
 
         jButton1.setText("Seleccionar Producto");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -153,6 +158,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 15, -1, 25));
 
         jButton2.setText("Buscar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -197,6 +203,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jPanel2.add(cmbProm, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 192, 31));
 
         jButton3.setText("Cancelar");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -263,7 +270,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         });
         jPanel2.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 474, 118, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 670, 630));
+        lbHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbHora.setText("-- : --");
+        jPanel2.add(lbHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 90, 30));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 670, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -341,20 +352,28 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         pago = Integer.parseInt(txtPago.getText());
         pago = pago - total;
         txtCambio.setText(pago + "");
+        if(evt.getKeyCode() == 10)
+            btnConfirmar.doClick();
     }//GEN-LAST:event_txtPagoKeyReleased
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        System.out.println(traerDescipcion());
 
         int importe = entero(txtTotal.getText());
-        String descripcion = "";
+        String descripcion = traerDescipcion();
         String promocion = "null";
         String descuento = "null";
+        String hora = lbHora.getText().toString();
         int cashin = entero(txtPago.getText());
         int cashout = entero(txtCambio.getText());
 
-        conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout);
+        conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), 
+                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora
+                );
 
         limpiarCampos();
+        
+      
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public void BuscarCliente() {
@@ -458,6 +477,18 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             }
         });
     }
+    
+    private String traerDescipcion(){
+        String desc = "";
+        int filas = m.getRowCount();
+        for(int i=0; i<filas; i++){
+            desc += m.getValueAt(i, 0).toString();
+            if(i==(filas-1))
+                continue;
+            desc += ", ";
+        }
+        return desc;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
@@ -481,6 +512,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTableProductos;
+    private javax.swing.JLabel lbHora;
     private javax.swing.JTextField txtCambio;
     private javax.swing.JTextField txtPago;
     public static javax.swing.JTextField txtTotal;

@@ -9,6 +9,8 @@ import conexion.Conexion;
 import static conexion.Conexion.getDatos;
 import controladores.ControladorContarDinero;
 import forms.FormContarDinero;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -17,7 +19,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import modelos.ContarDinero;
 import util.ActualizarTiempo;
 import static util.Utils.*;
@@ -32,14 +37,14 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     Date date = new Date();
     private Thread changeTime;
     private DefaultTableModel m = new DefaultTableModel();
-    
-    public static GenerarCorteCaja getObj(){
-        if(obj==null){
-            obj=new GenerarCorteCaja();
-        }return obj;
+
+    public static GenerarCorteCaja getObj() {
+        if (obj == null) {
+            obj = new GenerarCorteCaja();
+        }
+        return obj;
     }
-    
-    
+
     public GenerarCorteCaja() {
         initComponents();
         lbUser.setText(USUARIO_LOGEADO);
@@ -49,6 +54,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     }
 
     private void mostrarDatos() {
+        Conexion.eliminarFila("delete from corte", "");
         int rowCount = m.getRowCount();
         //Remove rows one by one from the end of the table
         for (int i = rowCount - 1; i >= 0; i--) {
@@ -57,10 +63,10 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         ResultSet resultado = getDatos("select * from gastos");
         try {
             while (resultado.next()) {
-                String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"+
-                    "VALUES ('Gasto','"+resultado.getString(2)+
-                        "', "+resultado.getString(3)+",'"+resultado.getString(4)+"');";
-                Conexion.insertar(query,"");
+                String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"
+                        + "VALUES ('Gasto','" + resultado.getString(2)
+                        + "', " + resultado.getString(3) + ",'" + resultado.getString(4) + "');";
+                Conexion.insertar(query, "");
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
@@ -73,19 +79,18 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
-        resultado = getDatos("select ven_descripcion, ven_importe from ventas");
+        resultado = getDatos("select ven_descripcion, ven_importe, ven_hora from ventas");
         try {
             while (resultado.next()) {
-                String importe = resultado.getString(2).replace("$","");
-                importe = importe.replace(",","");
-                importe = importe.replace(".","");
-                String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"+
-                    "VALUES ('Venta'"+
-                        ",'"+resultado.getString(1)+
-                        "',"+importe+
-                        ",'16:34:43')";
-                Conexion.insertar(query,"");
-                System.out.println(resultado.getString(1)+"-"+importe);
+                String importe = resultado.getString(2).replace("$", "");
+                String nuevo_importe[] = importe.split("[.]");
+
+                String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"
+                        + "VALUES ('Venta'"
+                        + ",'" + resultado.getString(1)
+                        + "'," + nuevo_importe[0]
+                        + ",'" + resultado.getString(3) + "')";
+                Conexion.insertar(query, "");
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
@@ -93,7 +98,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         } catch (SQLException sqle) {
             showMessageDialog(null, "Error: " + sqle);
         }
-         try {
+        try {
             resultado.close();
         } catch (SQLException ex) {
             Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,20 +106,22 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         resultado = getDatos("select * from corte order by hora");
         try {
             while (resultado.next()) {
+                String tipo = resultado.getString(1);
                 m.addRow(new Object[]{
-                    resultado.getString(1),
+                    tipo,
                     resultado.getString(2),
-                    resultado.getString(3),
+                    "$" + resultado.getString(3),
                     resultado.getString(4)
-                    });
+                });
             }
-            //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
             jTable1.setModel(m);
         } catch (SQLException sqle) {
             showMessageDialog(null, "Error: " + sqle);
         }
+        pintarTabla();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,7 +184,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Tipo", "Importe", "Descripción", "Hora"
+                "Tipo", "Descripción", "Importe", "Hora"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -247,7 +254,6 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         });
 
         jButton1.setText("Consultar");
-        jButton1.setActionCommand("Consultar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,7 +378,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         FormContarDinero vista = new FormContarDinero();
         ControladorContarDinero control = new ControladorContarDinero(vista, modelo);
         control.iniciar();
-        vista.setLocation(getLocation().x,getLocation().y);
+        vista.setLocation(getLocation().x, getLocation().y);
         vista.setVisible(true);
     }//GEN-LAST:event_lbDineroMouseClicked
 
@@ -434,4 +440,25 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     public javax.swing.JLabel lbHora;
     private javax.swing.JLabel lbUser;
     // End of variables declaration//GEN-END:variables
+
+    private void pintarTabla() {
+        jTable1.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (value.toString() == "Venta") {
+                    c.setBackground(new Color(129, 255, 112));
+                    System.out.println(value.toString());
+                }
+                if (value.toString() == "Gasto") {
+                    c.setBackground(new Color(255, 97, 97));
+                System.out.println(value.toString());
+                }
+                return c;
+            }
+
+        });
+    }
 }

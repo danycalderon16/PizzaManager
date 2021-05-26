@@ -35,10 +35,12 @@ public class Login extends javax.swing.JFrame {
         ajustarImagen(lblLogo);
         setLocationRelativeTo(null);
         conectarBaseDatos("localhost", "5432", "pizzamanager", "postgres", "1234");
-        this.setResizable(false);
-        String s = "$1000";
-        String a = s.replace("$", "");
+//        this.setResizable(false);
+        String s = "123.00";
+        String a = s.replace("$","");
         System.out.println(a);
+        String d[] = a.split("[.]");
+        System.out.println(d[0]);
                 
     }
 

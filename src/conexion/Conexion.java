@@ -139,6 +139,23 @@ public class Conexion {
         }
         return true;
     }
+    
+    public static boolean eliminarFila(String consulta,String msj) {
+        Statement sentencia;
+        System.out.println(consulta);
+        if (valido) {
+            try {
+                sentencia = connection.createStatement();
+                PreparedStatement st = connection.prepareStatement(consulta);
+                st.executeUpdate();
+            } catch (SQLException sql) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
 
     public static ResultSet getDatos(String consulta) {
         Statement sentencia;
@@ -186,7 +203,9 @@ public class Conexion {
     }
 
     //con todos los campos posibles
-    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String prom_id, String desc_id, int usu_id, int cli_id, int ven_cash_in, int ven_cash_out) {
+    public static void insertarVenta(int ven_importe, String ven_descripcion, 
+            int ven_num_produc, String prom_id, String desc_id, int usu_id, 
+            int cli_id, int ven_cash_in, int ven_cash_out, String ven_hora) {
         String query = "INSERT INTO public.ventas (ven_importe, "
                                                 + "ven_descripcion, "
                                                 + "ven_num_produc, "
@@ -195,7 +214,8 @@ public class Conexion {
                                                 + " usu_id, "
                                                 + "cli_id, "
                                                 + "ven_cash_in, "
-                                                + "ven_cash_out) "
+                                                + "ven_cash_out, "
+                                                + "ven_hora) "
                                                 + "VALUES ("+ ven_importe + ",'" 
                                                             + ven_descripcion + "'," 
                                                             + ven_num_produc + "," 
@@ -204,7 +224,8 @@ public class Conexion {
                                                             + usu_id + "," 
                                                             + cli_id + "," 
                                                             + ven_cash_in + "," 
-                                                            + ven_cash_out + ");";
+                                                            + ven_cash_out + ", '"  
+                                                            + ven_hora +"' );";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
@@ -218,9 +239,14 @@ public class Conexion {
     
     
     //fuera de uso. fué usado para pruebas
-    public static void insertarVenta(int ven_importe, String ven_descripcion, int ven_num_produc, String usu_id, int ven_cash_in, int ven_cash_out) {
-        String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, usu_id, ven_cash_in, ven_cash_out) \n"
-                + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," + ven_num_produc + "," + usu_id + "," + ven_cash_in + "," + ven_cash_out + ");";
+    public static void insertarVenta(int ven_importe, String ven_descripcion, 
+            int ven_num_produc, String usu_id, int ven_cash_in, int ven_cash_out, String ven_hora) {
+        String query = "INSERT INTO public.ventas(ven_importe, ven_descripcion, ven_num_produc, usu_id, ven_cash_in, ven_cash_out, ven_hora) \n"
+                + "VALUES (" + ven_importe + ",'" + ven_descripcion + "'," 
+                + ven_num_produc + "," + usu_id + "," + ven_cash_in + "," 
+                + ven_cash_out  + ", '"  
+                + ven_hora +"' );"
+                + ");";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
