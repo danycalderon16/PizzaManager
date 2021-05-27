@@ -106,7 +106,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         resultado = getDatos("select * from corte order by hora");
         try {
             while (resultado.next()) {
-                String tipo = resultado.getString(1);
+                String tipo = resultado.getString(1); 
                 m.addRow(new Object[]{
                     tipo,
                     resultado.getString(2),
@@ -140,13 +140,13 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         lbHora = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbContado = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lbCalculado = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbDiferencia = new javax.swing.JLabel();
         lbDinero = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Corte de Caja");
@@ -230,20 +230,20 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Contado");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel8.setText("$--------");
+        lbContado.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbContado.setText("$--------");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Calculado");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("$--------");
+        lbCalculado.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbCalculado.setText("$--------");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("Diferencia");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel12.setText("$--------");
+        lbDiferencia.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lbDiferencia.setText("$--------");
 
         lbDinero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbDinero.setText("$ -------");
@@ -253,11 +253,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Consultar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultar.setText("Consultar");
+        btnConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConsultarActionPerformed(evt);
             }
         });
 
@@ -280,7 +280,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                             .addComponent(lbDinero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(79, 79, 79)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -288,7 +288,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel8))
+                                    .addComponent(lbContado))
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(45, 45, 45)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,11 +300,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel10)
+                                    .addComponent(lbCalculado)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel11)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel12))))))
+                                    .addComponent(lbDiferencia))))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -315,7 +315,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lbUser)
-                    .addComponent(jButton1))
+                    .addComponent(btnConsultar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -330,13 +330,13 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12))
+                        .addComponent(lbDiferencia))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10))
+                        .addComponent(lbCalculado))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)))
+                        .addComponent(lbContado)))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,10 +367,15 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
+        if(lbDinero.getText().equals("$ -------")){
+            showMessageDialog(null, "Ingrese el dinero en caja");
+            return;
+        }               
         mostrarDatos();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        calcularValores();
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void lbDineroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDineroMouseClicked
         // TODO add your handling code here:
@@ -380,6 +385,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         control.iniciar();
         vista.setLocation(getLocation().x, getLocation().y);
         vista.setVisible(true);
+        
     }//GEN-LAST:event_lbDineroMouseClicked
 
     /**
@@ -418,24 +424,24 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JButton btnConsultar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbCalculado;
+    private javax.swing.JLabel lbContado;
+    private javax.swing.JLabel lbDiferencia;
     public static javax.swing.JLabel lbDinero;
     public javax.swing.JLabel lbHora;
     private javax.swing.JLabel lbUser;
@@ -460,5 +466,42 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             }
 
         });
+    }
+
+    private void calcularValores() {
+        int suma = 0;
+        int filas = m.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            int importe = Integer.parseInt(m.getValueAt(i, 2).toString().substring(1));
+            String tipo = m.getValueAt(i, 0).toString();
+            if(tipo.equals("Gasto"))
+                suma -= importe;
+            if(tipo.equals("Venta"))
+                suma += importe;
+        }
+        float apertura = 0;
+        float contado = 0;
+        float calculado = 0;
+        float diferencia = 0;
+        ResultSet rs = getDatos("select \"MONTO\" from apertura");
+        try {
+            while(rs.next()){
+                apertura = Float.parseFloat(rs.getString(1));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        calculado = apertura+suma;        
+        contado = Float.parseFloat(lbDinero.getText().substring(1));
+        diferencia = contado-calculado;
+                
+        lbContado.setText("$"+contado);
+        lbCalculado.setText("$"+calculado);
+        lbDiferencia.setText("$"+diferencia);
+        if(diferencia>0)
+            lbDiferencia.setForeground(Color.GREEN);
+        if(diferencia<0)
+            lbDiferencia.setForeground(Color.red);
     }
 }

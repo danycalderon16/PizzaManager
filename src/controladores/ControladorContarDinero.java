@@ -192,7 +192,7 @@ public class ControladorContarDinero implements ActionListener {
         modelo.setBilleteMil(Integer.parseInt(vista.billeteMil.getText()));
         modelo.setBilleteQuinientos(Integer.parseInt(vista.billeteQui.getText()));
         modelo.setBilleteDoscientso(Integer.parseInt(vista.billeteDoscientos.getText()));
-        modelo.setBilleteCien(Integer.parseInt(vista.billeteQui.getText()));
+        modelo.setBilleteCien(Integer.parseInt(vista.billeteCien.getText()));
         modelo.setBilleteCincuenta(Integer.parseInt(vista.billeteCincuenta.getText()));
         modelo.setBilleteVeinte(Integer.parseInt(vista.billeteVeinteB.getText()));
 
@@ -213,7 +213,8 @@ public class ControladorContarDinero implements ActionListener {
 
     private void confirmar() {
         if (modelo.getApertura() > 0) {
-            GenerarCorteCaja.lbDinero.setText(modelo.getApertura()+"");
+            GenerarCorteCaja.lbDinero.setText("$"+modelo.getApertura()+"");
+            GenerarCorteCaja.btnConsultar.enable(true);
             vista.dispose();
         }else{
             JOptionPane.showMessageDialog(null,"Ingrese el monto");

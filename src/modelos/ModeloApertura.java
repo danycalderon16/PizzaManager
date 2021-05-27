@@ -16,6 +16,7 @@ public class ModeloApertura {
     private int monedaPeso;
     private int monedaCincuentaCen;
     private double apertura;
+    private String hora;
 
     public int getBilleteMil() {
         return billeteMil;
@@ -120,7 +121,15 @@ public class ModeloApertura {
     public void setApertura(double apertura) {
         this.apertura = apertura;
     }
-    
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+           
     public double sumar(){
         this.apertura = 0;
         

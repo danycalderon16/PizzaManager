@@ -1,13 +1,14 @@
 package controladores;
 
+import conexion.Conexion;
 import forms.FormAperturaCaja;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import modelos.ModeloApertura;
-import conexion.Conexion.*;
 import javax.swing.JOptionPane;
+import util.ActualizarTiempo;
 
 public class ControladorApertura implements ActionListener {
 
@@ -43,6 +44,7 @@ public class ControladorApertura implements ActionListener {
         this.vista.mas1.addActionListener(this);
         this.vista.menos050.addActionListener(this);
         this.vista.mas050.addActionListener(this);
+        
     }
 
     public void iniciar() {
@@ -194,7 +196,7 @@ public class ControladorApertura implements ActionListener {
         modelo.setBilleteMil(Integer.parseInt(vista.billeteMil.getText()));
         modelo.setBilleteQuinientos(Integer.parseInt(vista.billeteQui.getText()));
         modelo.setBilleteDoscientso(Integer.parseInt(vista.billeteDoscientos.getText()));
-        modelo.setBilleteCien(Integer.parseInt(vista.billeteQui.getText()));
+        modelo.setBilleteCien(Integer.parseInt(vista.billeteCien.getText()));
         modelo.setBilleteCincuenta(Integer.parseInt(vista.billeteCincuenta.getText()));
         modelo.setBilleteVeinte(Integer.parseInt(vista.billeteVeinteB.getText()));
 
@@ -215,9 +217,10 @@ public class ControladorApertura implements ActionListener {
 
     private void insertar() {
         if (modelo.getApertura() > 0) {
-            String query = "INSERT INTO public.apertuta(\n"
-                    + "	\"USU_ID\", \"MONTO\")\n"
-                    + "	VALUES (" + 1 + "," + modelo.getApertura() + ")";
+            conexion.Conexion.eliminarFila("delete from apertura", "");
+            String query = "INSERT INTO public.apertura(\n"
+                    + "	\"USU_ID\", \"MONTO\", ape_hora)\n"
+                    + "	VALUES (" + Conexion.getUsuarioID() + ", (" + modelo.getApertura() + "),'"+vista.lbHora.getText().toString()+"')";
             conexion.Conexion.insertar(query);
         }else{
             JOptionPane.showMessageDialog(null,"Ingrese el monto");
