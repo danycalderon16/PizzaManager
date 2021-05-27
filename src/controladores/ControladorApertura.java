@@ -222,6 +222,7 @@ public class ControladorApertura implements ActionListener {
                     + "	\"USU_ID\", \"MONTO\", ape_hora)\n"
                     + "	VALUES (" + Conexion.getUsuarioID() + ", (" + modelo.getApertura() + "),'"+vista.lbHora.getText().toString()+"')";
             conexion.Conexion.insertar(query);
+            interfaces.InterfazCajero.abir = true;
         }else{
             JOptionPane.showMessageDialog(null,"Ingrese el monto");
         }

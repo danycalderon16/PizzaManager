@@ -34,6 +34,9 @@ public class InterfazCajero extends javax.swing.JFrame {
     /**
      * Creates new form InterfazGerente
      */
+    
+    public static boolean abir = false;
+    
     public InterfazCajero() {
         initComponents();
         setLocationRelativeTo(null);
@@ -271,6 +274,10 @@ public class InterfazCajero extends javax.swing.JFrame {
 
     private void btnIngresarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarVentasMouseClicked
         // TODO add your handling code here:
+        if(!abir){
+            showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         FormAgregarVenta  av = null;
         av = FormAgregarVenta.obj.getObj();
         av.setLocation(getLocation().x+300,getLocation().y+150);
@@ -278,6 +285,10 @@ public class InterfazCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarVentasMouseClicked
 
     private void btnAgregarVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarVentaMouseClicked
+        if(!abir){
+            showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         FormAgregarCliente fic = null;
         fic = FormAgregarCliente.obj.getObj();
         fic.setLocation(getLocation().x+300,getLocation().y+150);
@@ -285,6 +296,10 @@ public class InterfazCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarVentaMouseClicked
 
     private void btnRegistrarEntradaSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaSalidaMouseClicked
+        if(!abir){
+            showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         RegistrararEntradaSalida ies = null;
         ies = RegistrararEntradaSalida.obj.getObj();
         ies.setLocation(getLocation().x+300,getLocation().y+150);
@@ -293,6 +308,10 @@ public class InterfazCajero extends javax.swing.JFrame {
 
     private void btnCancelarVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVentaMouseClicked
         // TODO add your handling code here:
+        if(!abir){
+            showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         CancelarVentana cv = null;
         cv = CancelarVentana.obj.getObj();
         cv.setLocation(getLocation().x+300,getLocation().y+150);
@@ -301,6 +320,10 @@ public class InterfazCajero extends javax.swing.JFrame {
 
     private void btnHacerCorteCaja1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHacerCorteCaja1MouseClicked
         // TODO add your handling code here:
+        if(!abir){
+            showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         GenerarCorteCaja gcc = null;
         gcc = GenerarCorteCaja.obj.getObj();
         gcc.setLocation(getLocation().x+300,getLocation().y+150);

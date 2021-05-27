@@ -66,7 +66,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"
                         + "VALUES ('Gasto','" + resultado.getString(2)
                         + "', " + resultado.getString(3) + ",'" + resultado.getString(4) + "');";
-                Conexion.insertar(query, "");
+                Conexion.insertar(query,0,0);
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
@@ -90,7 +90,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                         + ",'" + resultado.getString(1)
                         + "'," + nuevo_importe[0]
                         + ",'" + resultado.getString(3) + "')";
-                Conexion.insertar(query, "");
+                Conexion.insertar(query,0,0);
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);

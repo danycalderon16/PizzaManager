@@ -63,8 +63,21 @@ public class Conexion {
         }
         return false;
     }  
-    
-    public static boolean insertar(String queryI, String sm) {
+     public static boolean insertar(String queryI,String mensaje) {
+        String query = queryI;
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null,mensaje);
+                return true;
+            }
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al insertar" + ex);
+        }
+        return false;
+    }  
+    public static boolean insertar(String queryI, int i,int j) {
         String query = queryI;
         try {
             if (valido) {
