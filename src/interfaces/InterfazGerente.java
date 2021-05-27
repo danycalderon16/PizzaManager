@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import controladores.ControladorApertura;
 import data.DatosUsuarios;
 import forms.FormAgregarVenta;
 import forms.CancelarVentana;
@@ -15,6 +16,7 @@ import forms.FormDescuentos;
 import forms.FormEditarPrecios;
 import forms.FormHistoricoVentas;
 import forms.FormAgregarCliente;
+import forms.FormAperturaCaja;
 import forms.FormInventario;
 import forms.FormPromociones;
 import forms.RegistrararEntradaSalida;
@@ -29,6 +31,7 @@ import static javax.swing.JOptionPane.showConfirmDialog;
 import menus.MenuClientes;
 import menus.MenuDescYProm;
 import menus.MenuUsuarios;
+import modelos.ModeloApertura;
 import subInterfaz.GenerarCorteCaja;
 
 /**
@@ -84,6 +87,7 @@ public class InterfazGerente extends javax.swing.JFrame {
         btnHV = new javax.swing.JLabel();
         btnCancelarVentas = new javax.swing.JLabel();
         btnPedidos = new javax.swing.JLabel();
+        btnAperturarCaja = new javax.swing.JLabel();
         imgLogo = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -257,6 +261,16 @@ public class InterfazGerente extends javax.swing.JFrame {
             }
         });
 
+        btnAperturarCaja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAperturarCaja.setForeground(new java.awt.Color(51, 51, 51));
+        btnAperturarCaja.setText("Aperturar Caja");
+        btnAperturarCaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAperturarCaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAperturarCajaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -277,7 +291,8 @@ public class InterfazGerente extends javax.swing.JFrame {
                                     .addComponent(btnAdministraProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnIngresarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnCancelarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAperturarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -304,6 +319,8 @@ public class InterfazGerente extends javax.swing.JFrame {
                 .addComponent(btnAdministarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAperturarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,7 +337,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                 .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrarEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
         );
@@ -437,6 +454,15 @@ public class InterfazGerente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_iconoSalirMouseClicked
 
+    private void btnAperturarCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAperturarCajaMouseClicked
+        ModeloApertura modelo = new ModeloApertura();
+        FormAperturaCaja vista = new FormAperturaCaja();
+        ControladorApertura control = new ControladorApertura(vista, modelo);
+        control.iniciar();
+        vista.setLocation(getLocation().x+300,getLocation().y+150);
+        vista.setVisible(true);
+    }//GEN-LAST:event_btnAperturarCajaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -476,6 +502,7 @@ public class InterfazGerente extends javax.swing.JFrame {
     private javax.swing.JLabel btnAdministarClientes;
     private javax.swing.JLabel btnAdministraProductos;
     private javax.swing.JLabel btnAdministrarrUsuario;
+    private javax.swing.JLabel btnAperturarCaja;
     private javax.swing.JLabel btnCancelarVentas;
     private javax.swing.JLabel btnDescuentosPromociones;
     private javax.swing.JLabel btnGastos;

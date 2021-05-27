@@ -106,7 +106,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         resultado = getDatos("select * from corte order by hora");
         try {
             while (resultado.next()) {
-                String tipo = resultado.getString(1); 
+                String tipo = resultado.getString(1);
                 m.addRow(new Object[]{
                     tipo,
                     resultado.getString(2),
@@ -119,7 +119,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         } catch (SQLException sqle) {
             showMessageDialog(null, "Error: " + sqle);
         }
-        pintarTabla();
+        btnGuardar.setEnabled(true);
+        btnImprimir.setEnabled(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -132,8 +133,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lbUser = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -198,19 +199,23 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton3.setText("Guardar Corte de Caja");
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setBackground(new java.awt.Color(255, 255, 102));
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGuardar.setText("Guardar Corte de Caja");
+        btnGuardar.setToolTipText("");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.setEnabled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 102));
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton4.setText("Imprimir");
+        btnImprimir.setBackground(new java.awt.Color(255, 255, 102));
+        btnImprimir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Usuario: ");
@@ -294,9 +299,9 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(61, 61, 61)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -340,8 +345,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -363,16 +368,26 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Date date = new Date();
+        
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String query = "INSERT INTO public.\"cortesDeCaja\"(\n"
+                + "usu_id, cc_inicial, cc_contado, cc_calculado, cc_diferencia, cc_hora, cc_fecha)\n"
+                + "VALUES (" + Conexion.getUsuarioID() + ","+apertura+","
+                +contado+","+calculado+","+diferencia+",'"+hourFormat.format(date)+"','"+dateFormat.format(date)+"');";
+        
+        Conexion.insertar(query);
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
-        if(lbDinero.getText().equals("$ -------")){
+        if (lbDinero.getText().equals("$ -------")) {
             showMessageDialog(null, "Ingrese el dinero en caja");
             return;
-        }               
+        }
         mostrarDatos();
         calcularValores();
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -385,7 +400,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         control.iniciar();
         vista.setLocation(getLocation().x, getLocation().y);
         vista.setVisible(true);
-        
+
     }//GEN-LAST:event_lbDineroMouseClicked
 
     /**
@@ -422,12 +437,16 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             }
         });
     }
+    float apertura = 0;
+    float contado = 0;
+    float calculado = 0;
+    float diferencia = 0;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -447,61 +466,41 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     private javax.swing.JLabel lbUser;
     // End of variables declaration//GEN-END:variables
 
-    private void pintarTabla() {
-        jTable1.setDefaultRenderer(Object.class, new TableCellRenderer() {
-            private DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (value.toString() == "Venta") {
-                    c.setBackground(new Color(129, 255, 112));
-                    System.out.println(value.toString());
-                }
-                if (value.toString() == "Gasto") {
-                    c.setBackground(new Color(255, 97, 97));
-                System.out.println(value.toString());
-                }
-                return c;
-            }
-
-        });
-    }
-
     private void calcularValores() {
         int suma = 0;
         int filas = m.getRowCount();
         for (int i = 0; i < filas; i++) {
             int importe = Integer.parseInt(m.getValueAt(i, 2).toString().substring(1));
             String tipo = m.getValueAt(i, 0).toString();
-            if(tipo.equals("Gasto"))
+            if (tipo.equals("Gasto")) {
                 suma -= importe;
-            if(tipo.equals("Venta"))
+            }
+            if (tipo.equals("Venta")) {
                 suma += importe;
+            }
         }
-        float apertura = 0;
-        float contado = 0;
-        float calculado = 0;
-        float diferencia = 0;
+
         ResultSet rs = getDatos("select \"MONTO\" from apertura");
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 apertura = Float.parseFloat(rs.getString(1));
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
-        calculado = apertura+suma;        
+        calculado = apertura + suma;
         contado = Float.parseFloat(lbDinero.getText().substring(1));
-        diferencia = contado-calculado;
-                
-        lbContado.setText("$"+contado);
-        lbCalculado.setText("$"+calculado);
-        lbDiferencia.setText("$"+diferencia);
-        if(diferencia>0)
+        diferencia = contado - calculado;
+
+        lbContado.setText("$" + contado);
+        lbCalculado.setText("$" + calculado);
+        lbDiferencia.setText("$" + diferencia);
+        if (diferencia > 0) {
             lbDiferencia.setForeground(Color.GREEN);
-        if(diferencia<0)
+        }
+        if (diferencia < 0) {
             lbDiferencia.setForeground(Color.red);
+        }
     }
 }
