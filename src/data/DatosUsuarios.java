@@ -282,12 +282,13 @@ public class DatosUsuarios extends javax.swing.JFrame {
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         String pass = new String(txtPass.getPassword());
+        
         if(pass.isEmpty()){
             showMessageDialog(null, "Ingrese la contrasela del gerenete");
             return;
         }
         try {
-            ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + pass + "'");
+            ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + pass + "' and usu_rol = 'g'");
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "Contraseña incorrecta");
             } else {

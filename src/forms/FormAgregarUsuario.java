@@ -285,6 +285,9 @@ public class FormAgregarUsuario extends javax.swing.JFrame {
                 break;
         }   
         insertarUsuario(nombre, apellido, pass, cargo);
+        txtApellido.setText("");
+        txtNombre.setText("");
+        txtPass.setText("");
     }//GEN-LAST:event_jLabel9MouseClicked
 
     /**

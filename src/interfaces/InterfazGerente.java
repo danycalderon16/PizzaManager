@@ -84,7 +84,6 @@ public class InterfazGerente extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         btnRegistrarEntradaSalida = new javax.swing.JLabel();
-        btnHV = new javax.swing.JLabel();
         btnCancelarVentas = new javax.swing.JLabel();
         btnPedidos = new javax.swing.JLabel();
         btnAperturarCaja = new javax.swing.JLabel();
@@ -231,16 +230,6 @@ public class InterfazGerente extends javax.swing.JFrame {
             }
         });
 
-        btnHV.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnHV.setForeground(new java.awt.Color(51, 51, 51));
-        btnHV.setText("Ver Historico de Ventas");
-        btnHV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHV.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHVMouseClicked(evt);
-            }
-        });
-
         btnCancelarVentas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnCancelarVentas.setForeground(new java.awt.Color(51, 51, 51));
         btnCancelarVentas.setText("Cancelar Venta");
@@ -283,7 +272,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator3)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 20, Short.MAX_VALUE)
+                                .addGap(0, 24, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnAdministarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnDescuentosPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,8 +289,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                             .addComponent(btnRegistrarEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHacerCorteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHV, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnHacerCorteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(17, 17, 17))
         );
         jPanel3Layout.setVerticalGroup(
@@ -335,9 +323,7 @@ public class InterfazGerente extends javax.swing.JFrame {
                 .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btnRegistrarEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
         );
@@ -420,13 +406,6 @@ public class InterfazGerente extends javax.swing.JFrame {
         mdp.setVisible(true);
     }//GEN-LAST:event_btnDescuentosPromocionesMouseClicked
 
-    private void btnHVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHVMouseClicked
-        FormHistoricoVentas fp = null;
-        fp = FormHistoricoVentas.obj.getObj();
-        fp.setLocation(getLocation().x+300,getLocation().y+150);
-        fp.setVisible(true); 
-    }//GEN-LAST:event_btnHVMouseClicked
-
     private void btnCancelarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVentasMouseClicked
         // TODO add your handling code here:
         CancelarVentana fp = null;
@@ -506,7 +485,6 @@ public class InterfazGerente extends javax.swing.JFrame {
     private javax.swing.JLabel btnCancelarVentas;
     private javax.swing.JLabel btnDescuentosPromociones;
     private javax.swing.JLabel btnGastos;
-    private javax.swing.JLabel btnHV;
     private javax.swing.JLabel btnHacerCorteCaja;
     private javax.swing.JLabel btnIngresarVentas;
     private javax.swing.JLabel btnInventario;

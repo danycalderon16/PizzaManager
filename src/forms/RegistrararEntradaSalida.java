@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
 import util.ActualizarTiempo;
 
 /**
@@ -57,15 +58,15 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
         lblHora = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
+        txtPassUser = new javax.swing.JPasswordField();
 
         jLabel3.setText("jLabel3");
 
@@ -114,20 +115,22 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Seleccione");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Usuario:");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 153));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Guardar");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(51, 51, 51));
+        btnGuardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                btnGuardarMouseClicked(evt);
             }
         });
 
@@ -135,24 +138,24 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+            .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
 
-        jLabel10.setBackground(new java.awt.Color(255, 51, 51));
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Cancelar");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 0, 51));
+        btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                btnCancelarMouseClicked(evt);
             }
         });
 
@@ -160,23 +163,26 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
         );
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Hora:");
 
+        cmbTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Salida" }));
 
+        lblHora.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblHora.setText("-----");
 
-        lblUsuario.setText("-------------");
-
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Fecha:");
 
+        lblFecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblFecha.setText("-----");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -198,11 +204,12 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cmbTipo, 0, 283, Short.MAX_VALUE)
-                                    .addComponent(lblHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cmbTipo, 0, 283, Short.MAX_VALUE)
+                                        .addComponent(lblHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtPassUser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -216,14 +223,11 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblUsuario)
-                        .addGap(18, 18, 18)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPassUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblHora)
                     .addComponent(jLabel4))
@@ -235,7 +239,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 620, 260));
@@ -243,10 +247,10 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dispose();
 
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
@@ -255,7 +259,6 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Date date = new Date();
         
-        lblUsuario.setText(usuario); 
         changeTime = new Thread(new ActualizarTiempo(lblHora));
         changeTime.start();
        
@@ -267,17 +270,25 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        String pass = new String(txtPassUser.getPassword());
+        if(pass.isEmpty()){
+            showMessageDialog(null, "Ingrese la contrasela del gerenete");
+            return;
+        }
         String idUsu="";
-            try {
-            ResultSet rs = getDatos("select usu_id from usuarios where usu_nombre = "+"'"+lblUsuario.getText()+"'"); //Buscamos al cliente en la BD
-            rs.next();
-            idUsu=(rs.getString(1)); //Recuperamos el nombre
-            System.out.print(idUsu);
-            }catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+       try {
+            ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + pass + "'");
+            if (!rs.isBeforeFirst()) {
+                showMessageDialog(null, "El usuario no existe");
+            } else {
+                 rs.next();
+                 idUsu = rs.getString(1);
             }
+            System.out.println(pass);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int id= Integer. parseInt(idUsu);
         String fecha=lblFecha.getText()+" "+lblHora.getText();
         char tipo;
@@ -285,8 +296,9 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
             tipo='e';
         else tipo='s';
         insertarEntradaSalida(id, fecha,tipo);
+        txtPassUser.setText("");
         
-    }//GEN-LAST:event_jLabel9MouseClicked
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -323,16 +335,16 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCancelar;
+    private javax.swing.JLabel btnGuardar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -340,6 +352,6 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblFecha;
     public javax.swing.JLabel lblHora;
-    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JPasswordField txtPassUser;
     // End of variables declaration//GEN-END:variables
 }
