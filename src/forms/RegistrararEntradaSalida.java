@@ -119,7 +119,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         jLabel1.setText("Seleccione");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Usuario:");
+        jLabel2.setText("Contraseña");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 153));
 
@@ -272,6 +272,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         String pass = new String(txtPassUser.getPassword());
+        int combo = cmbTipo.getSelectedIndex();
         if(pass.isEmpty()){
             showMessageDialog(null, "Ingrese la contrasela del gerenete");
             return;
@@ -281,21 +282,37 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
             ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + pass + "'");
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "El usuario no existe");
+                return;
             } else {
                  rs.next();
                  idUsu = rs.getString(1);
+                 rs.close();
+                 rs = getDatos("SELECT id_registro from entradasalida\n" +
+                        "where usu_id = '"+idUsu+"' and es_fecha = (select current_date) and es_tipo = 'e'");
+                 //comprobar si ya hay una entrada
+                 if (rs.isBeforeFirst()) {
+                    if(combo == 0)//Si hay entrda y se quiere agregar otra
+                        showMessageDialog(null, "Ya exite un registro de entrada");
+                    return;
+                 }else{
+                     if(combo == 1){ //si no hay entrada y se quiere agregar una salida
+                         showMessageDialog(null, "No hay una entrada registrada");
+                         return;
+                     }
+                 }
             }
             System.out.println(pass);
         } catch (SQLException ex) {
             Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
         }
         int id= Integer. parseInt(idUsu);
-        String fecha=lblFecha.getText()+" "+lblHora.getText();
+        String fecha = lblFecha.getText();
+        String hora =  lblHora.getText();
         char tipo;
-        if(cmbTipo.getSelectedIndex()==0)
+        if(combo==0)
             tipo='e';
         else tipo='s';
-        insertarEntradaSalida(id, fecha,tipo);
+        insertarEntradaSalida(id, fecha,tipo,hora);
         txtPassUser.setText("");
         
     }//GEN-LAST:event_btnGuardarMouseClicked

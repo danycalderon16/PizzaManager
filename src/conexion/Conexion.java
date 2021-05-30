@@ -201,9 +201,9 @@ public class Conexion {
         return affectedrows;
     }
 
-    public static void insertarEntradaSalida(int usuId, String fecha, char tipo) {
-        String query = "INSERT INTO entradasalida ( usu_id, es_fecha_hora, es_tipo) \n"
-                + "VALUES ('" + usuId + "','" + fecha + "','" + tipo + "')";
+    public static void insertarEntradaSalida(int usuId, String fecha, char tipo, String hora) {
+        String query = "INSERT INTO entradasalida ( usu_id, es_tipo, es_fecha, es_hora) \n"
+                + "VALUES ('" + usuId + "','" + tipo + "','" + fecha + "','"+hora+"')";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
