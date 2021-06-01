@@ -27,14 +27,14 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     public static RegistrararEntradaSalida obj;
     public static String usuario;
     private Thread changeTime;
-    
-    public static RegistrararEntradaSalida getObj(){
-        if(obj==null){
-            obj=new RegistrararEntradaSalida();
-        }return obj;
+
+    public static RegistrararEntradaSalida getObj() {
+        if (obj == null) {
+            obj = new RegistrararEntradaSalida();
+        }
+        return obj;
     }
-    
-    
+
     public RegistrararEntradaSalida() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
@@ -258,10 +258,10 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Date date = new Date();
-        
+
         changeTime = new Thread(new ActualizarTiempo(lblHora));
         changeTime.start();
-       
+
 //        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
 //        lblHora.setText(hourFormat.format(date));
         //Caso 2: obtener la fecha y salida por pantalla con formato:
@@ -273,48 +273,58 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         String pass = new String(txtPassUser.getPassword());
         int combo = cmbTipo.getSelectedIndex();
-        if(pass.isEmpty()){
+        if (pass.isEmpty()) {
             showMessageDialog(null, "Ingrese la contrasela del gerenete");
             return;
         }
-        String idUsu="";
-       try {
+        String idUsu = "";
+        try {
             ResultSet rs = getDatos("select * from usuarios where usu_pass ='" + pass + "'");
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "El usuario no existe");
                 return;
             } else {
-                 rs.next();
-                 idUsu = rs.getString(1);
-                 rs.close();
-                 rs = getDatos("SELECT id_registro from entradasalida\n" +
-                        "where usu_id = '"+idUsu+"' and es_fecha = (select current_date) and es_tipo = 'e'");
-                 //comprobar si ya hay una entrada
+                rs.next();
+                idUsu = rs.getString(1);
+                rs.close();
+                rs = getDatos("SELECT id_registro from entradasalida\n"
+                        + "where usu_id = '" + idUsu + "' and es_fecha = (select current_date) and es_tipo = 'e'");
+                //comprobar si ya hay una entrada
                  if (rs.isBeforeFirst()) {
-                    if(combo == 0)//Si hay entrda y se quiere agregar otra
+                    if(combo == 0){//Si hay entrda y se quiere agregar otra
                         showMessageDialog(null, "Ya exite un registro de entrada");
+                     System.out.println("LLegamos1");
                     return;
+                 }
                  }else{
                      if(combo == 1){ //si no hay entrada y se quiere agregar una salida
                          showMessageDialog(null, "No hay una entrada registrada");
+                         System.out.println("LLegamos2");
                          return;
                      }
                  }
+
             }
-            System.out.println(pass);
         } catch (SQLException ex) {
             Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int id= Integer. parseInt(idUsu);
-        String fecha = lblFecha.getText();
-        String hora =  lblHora.getText();
-        char tipo;
-        if(combo==0)
-            tipo='e';
-        else tipo='s';
-        insertarEntradaSalida(id, fecha,tipo,hora);
-        txtPassUser.setText("");
         
+                         System.out.println("LLegamos3");
+        int id = Integer.parseInt(idUsu);
+        if (combo == 1) {
+            agregarHoras(id);
+        }
+        String fecha = lblFecha.getText();
+        String hora = lblHora.getText();
+        char tipo;
+        if (combo == 0) {
+            tipo = 'e';
+        } else {
+            tipo = 's';
+        }
+        insertarEntradaSalida(id, fecha, tipo, hora);
+        txtPassUser.setText("");
+
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
@@ -342,7 +352,7 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-      
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -371,4 +381,21 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
     public javax.swing.JLabel lblHora;
     private javax.swing.JPasswordField txtPassUser;
     // End of variables declaration//GEN-END:variables
+
+    private void agregarHoras(int id) {
+
+        try {
+            ResultSet rs = getDatos("SELECT  es_hora\n"
+                    + "FROM public.entradasalida where usu_id = " + id + ";");
+            rs.next();
+            String horaInical = rs.getString(1).substring(0, 2);
+            String hora = lblHora.getText().substring(0, 2);
+            int h = Integer.parseInt(hora) - Integer.parseInt(horaInical);
+            insertar("INSERT INTO public.\"horasTrabajadas\"(\n" +
+                    "usu_id, ht_fecha, ht_cantidad)\n" +
+                    "VALUES ( "+id+",'"+lblFecha.getText()+"', "+h+");",0,0);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrararEntradaSalida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

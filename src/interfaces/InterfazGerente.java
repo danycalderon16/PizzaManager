@@ -9,7 +9,7 @@ import controladores.ControladorApertura;
 import data.DatosUsuarios;
 import forms.FormAgregarVenta;
 import forms.CancelarVentana;
-import data.DatosInventario;
+import data.HorasTrabajadas;
 import forms.FormAgregarGastos;
 import forms.FormAgregarUsuario;
 import forms.FormDescuentos;
@@ -87,6 +87,7 @@ public class InterfazGerente extends javax.swing.JFrame {
         btnCancelarVentas = new javax.swing.JLabel();
         btnPedidos = new javax.swing.JLabel();
         btnAperturarCaja = new javax.swing.JLabel();
+        btnHT = new javax.swing.JLabel();
         imgLogo = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -260,6 +261,16 @@ public class InterfazGerente extends javax.swing.JFrame {
             }
         });
 
+        btnHT.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnHT.setForeground(new java.awt.Color(51, 51, 51));
+        btnHT.setText("Horas Trabajadas");
+        btnHT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHTMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -289,7 +300,8 @@ public class InterfazGerente extends javax.swing.JFrame {
                             .addComponent(btnRegistrarEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHacerCorteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnHacerCorteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHT, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(17, 17, 17))
         );
         jPanel3Layout.setVerticalGroup(
@@ -323,9 +335,11 @@ public class InterfazGerente extends javax.swing.JFrame {
                 .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegistrarEntradaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(65, 65, 65))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 280, 620));
@@ -442,6 +456,13 @@ public class InterfazGerente extends javax.swing.JFrame {
         vista.setVisible(true);
     }//GEN-LAST:event_btnAperturarCajaMouseClicked
 
+    private void btnHTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHTMouseClicked
+        // TODO add your handling code here:
+        HorasTrabajadas ht = new HorasTrabajadas();
+        ht.setLocation(getLocation().x+300,getLocation().y+150);
+        ht.setVisible(true);
+    }//GEN-LAST:event_btnHTMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -485,6 +506,7 @@ public class InterfazGerente extends javax.swing.JFrame {
     private javax.swing.JLabel btnCancelarVentas;
     private javax.swing.JLabel btnDescuentosPromociones;
     private javax.swing.JLabel btnGastos;
+    private javax.swing.JLabel btnHT;
     private javax.swing.JLabel btnHacerCorteCaja;
     private javax.swing.JLabel btnIngresarVentas;
     private javax.swing.JLabel btnInventario;

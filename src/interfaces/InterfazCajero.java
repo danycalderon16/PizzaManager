@@ -9,7 +9,7 @@ import controladores.ControladorApertura;
 import data.DatosUsuarios;
 import forms.FormAgregarVenta;
 import forms.CancelarVentana;
-import data.DatosInventario;
+import data.HorasTrabajadas;
 import forms.FormAgregarGastos;
 import forms.FormAgregarUsuario;
 import forms.FormAperturaCaja;
@@ -296,10 +296,6 @@ public class InterfazCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarVentaMouseClicked
 
     private void btnRegistrarEntradaSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaSalidaMouseClicked
-        if(!abir){
-            showMessageDialog(null, "Aperture la caja primero");
-            return;
-        }
         RegistrararEntradaSalida ies = null;
         ies = RegistrararEntradaSalida.obj.getObj();
         ies.setLocation(getLocation().x+300,getLocation().y+150);

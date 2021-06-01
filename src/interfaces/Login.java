@@ -39,12 +39,7 @@ public class Login extends javax.swing.JFrame {
         String a = "23uds";
         String b[] = a.split("[0-9]");//unidades  ultima
         String c[] = a.split("[a-z]");//cantidad  0
-        
-        System.out.println(b[b.length-1]);
-        System.out.println(c[0]);
-        
-        
-
+       
     }
 
     @SuppressWarnings("unchecked")
