@@ -61,7 +61,9 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         for (int i = rowCount - 1; i >= 0; i--) {
             m.removeRow(i);
         }
-        ResultSet resultado = getDatos("select * from gastos");
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        ResultSet resultado = getDatos("select * from gastos where gas_fecha = '"+dateFormat.format(date)+"'");
         try {
             while (resultado.next()) {
                 String query = "INSERT INTO public.corte (tipo, \"desc\", importe, hora)"
@@ -80,7 +82,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
-        resultado = getDatos("select ven_descripcion, ven_importe, ven_hora from ventas");
+        resultado = getDatos("select ven_descripcion, ven_importe, ven_hora from ventas "
+                + "where ven_fecha = '"+dateFormat.format(date)+"' and usu_id ="+Conexion.getUsuarioID());
         try {
             while (resultado.next()) {
                 String importe = resultado.getString(2).replace("$", "");
@@ -150,8 +153,15 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         lbDinero = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Corte de Caja");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -239,7 +249,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         jLabel6.setText("Dinero en caja: ");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel7.setText("Contado");
+        jLabel7.setText("Inicial");
 
         lbContado.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbContado.setText("$--------");
@@ -417,6 +427,24 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
                
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lbCalculado.setText("");
+        lbContado.setText("");
+        lbDiferencia.setText("");
+        lbDinero.setText("$ -------");
+        int rowCount = m.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            m.removeRow(i);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -482,8 +510,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
 
     private void calcularValores() {
         int suma = 0;
-        int filas = m.getRowCount();
-        for (int i = 0; i < filas; i++) {
+        int j = m.getRowCount();
+        for (int i = 0; i < j; i++) {
             int importe = Integer.parseInt(m.getValueAt(i, 2).toString().substring(1));
             String tipo = m.getValueAt(i, 0).toString();
             if (tipo.equals("Gasto")) {
@@ -492,6 +520,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             if (tipo.equals("Venta")) {
                 suma += importe;
             }
+            System.out.println(suma+"");
         }
 
         ResultSet rs = getDatos("select \"MONTO\" from apertura");
@@ -504,10 +533,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             Logger.getLogger(GenerarCorteCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
         calculado = apertura + suma;
+        System.out.println("apertura "+apertura+" Calculado "+calculado);
         contado = Float.parseFloat(lbDinero.getText().substring(1));
         diferencia = contado - calculado;
 
-        lbContado.setText("$" + contado);
+        lbContado.setText("$" + apertura);
         lbCalculado.setText("$" + calculado);
         lbDiferencia.setText("$" + diferencia);
         if (diferencia > 0) {

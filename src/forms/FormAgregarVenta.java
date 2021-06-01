@@ -9,6 +9,9 @@ import conexion.Conexion;
 import static conexion.Conexion.getDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -372,8 +375,10 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             showMessageDialog(null, "El pago es menor que el total");
             return;
         }
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), 
-                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora
+                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora,dateFormat.format(date)
                 );
 
         limpiarCampos();

@@ -77,7 +77,7 @@ public class ImprimirTicket extends javax.swing.JFrame {
             labels[i].setText(titulos[i]);
             panelLabes.add(labels[i]);
         }
-        String numeros[] = {GenerarCorteCaja.lbContado.getText(),GenerarCorteCaja.lbCalculado.getText(),GenerarCorteCaja.lbDiferencia.getText()};
+        String numeros[] = {GenerarCorteCaja.lbDinero.getText(),GenerarCorteCaja.lbCalculado.getText(),GenerarCorteCaja.lbDiferencia.getText()};
         for (int i = 3; i < 6; i++) {
             labels[i] = new JLabel();
             labels[i].setFont(new java.awt.Font("Segoe UI", 1, 14));

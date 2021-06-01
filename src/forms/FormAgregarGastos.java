@@ -270,10 +270,11 @@ public class FormAgregarGastos extends javax.swing.JFrame {
         if (importe.isEmpty()) {
             showMessageDialog(null, "Ingrese el importe");
         }
-        
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String query = "INSERT INTO gastos(\n" +
-                    "gas_desc, gas_importe, gas_hora)\n" +
-                    "VALUES ('"+concepto+"', "+importe+", '"+lbHora.getText().toString()+"');";
+                    "gas_desc, gas_importe, gas_hora, gas_fecha)\n" +
+                    "VALUES ('"+concepto+"', "+importe+", '"+lbHora.getText().toString()+"','"+dateFormat.format(date)+"');";
         
         if(Conexion.insertar(query)){
             txtConcepto.setText("");
