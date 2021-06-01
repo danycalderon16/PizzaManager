@@ -36,7 +36,8 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     public static GenerarCorteCaja obj;
     Date date = new Date();
     private Thread changeTime;
-    private DefaultTableModel m = new DefaultTableModel();
+    public static DefaultTableModel m = new DefaultTableModel();
+    private int filas = 0;
 
     public static GenerarCorteCaja getObj() {
         if (obj == null) {
@@ -216,6 +217,11 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         btnImprimir.setText("Imprimir");
         btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImprimir.setEnabled(false);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Usuario: ");
@@ -403,6 +409,14 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lbDineroMouseClicked
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        filas = jTable1.getRowCount();
+        ImprimirTicket it = new ImprimirTicket(filas);
+        it.setVisible(true);
+               
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,10 +471,10 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lbCalculado;
-    private javax.swing.JLabel lbContado;
-    private javax.swing.JLabel lbDiferencia;
+    public static javax.swing.JTable jTable1;
+    public static javax.swing.JLabel lbCalculado;
+    public static javax.swing.JLabel lbContado;
+    public static javax.swing.JLabel lbDiferencia;
     public static javax.swing.JLabel lbDinero;
     public javax.swing.JLabel lbHora;
     private javax.swing.JLabel lbUser;

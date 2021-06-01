@@ -323,14 +323,14 @@
                               <Component id="menos20" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel19" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="menos10" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="monedaDiez" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="mas10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel20" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="monedaCinco" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -346,39 +346,27 @@
                           </Group>
                       </Group>
                   </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel14" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="billeteCincuenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mas50" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="menos50" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel22" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="monedaPeso" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mas1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="menos1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="monedaPeso" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="mas1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="menos1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel23" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="monedaCincuentaCent" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="mas050" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="menos050" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel14" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="billeteCincuenta" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="mas50" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="menos50" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel22" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel15" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="billeteVeinteB" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mas20b" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="menos20b" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Component id="jLabel15" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="billeteVeinteB" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mas20b" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="menos20b" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel23" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="monedaCincuentaCent" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mas050" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="menos050" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
