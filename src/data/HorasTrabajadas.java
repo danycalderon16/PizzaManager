@@ -33,8 +33,10 @@ public class HorasTrabajadas extends javax.swing.JFrame {
 
     public HorasTrabajadas() {
         initComponents();
+        
         m = (DefaultTableModel) jTable1.getModel();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
+        
         mostrarDatos("");
 
     }
@@ -62,6 +64,11 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbTotal = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtDesde = new javax.swing.JTextField();
+        lbHasta = new javax.swing.JLabel();
+        txtHasta = new javax.swing.JTextField();
+        cbFecha = new javax.swing.JCheckBox();
 
         jLabel3.setText("jLabel3");
 
@@ -91,17 +98,17 @@ public class HorasTrabajadas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 80));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 80));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -160,28 +167,62 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         lbTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbTotal.setText("----");
 
+        jLabel2.setText("Desde");
+
+        txtDesde.setText("AAAA-MM-DD");
+        txtDesde.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDesdeMouseClicked(evt);
+            }
+        });
+
+        lbHasta.setText("Hasta");
+        lbHasta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbHastaMouseClicked(evt);
+            }
+        });
+
+        txtHasta.setText("AAAA-MM-DD");
+        txtHasta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtHastaMouseClicked(evt);
+            }
+        });
+
+        cbFecha.setText("Por fechas");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jButton1)
                             .addGap(27, 27, 27)
                             .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(153, 153, 153)
                             .addComponent(jLabel1)
                             .addGap(30, 30, 30)
                             .addComponent(lbTotal))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lbHasta)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1))
+                    .addComponent(cbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,19 +230,25 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbHasta)
+                    .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(cbFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jLabel1)
                     .addComponent(lbTotal))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 560, 340));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 630, 340));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,6 +277,21 @@ public class HorasTrabajadas extends javax.swing.JFrame {
            btnBuscar.doClick();
     }//GEN-LAST:event_txtNombreKeyReleased
 
+    private void txtDesdeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDesdeMouseClicked
+        // TODO add your handling code here:
+        txtDesde.setText("");
+    }//GEN-LAST:event_txtDesdeMouseClicked
+
+    private void txtHastaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtHastaMouseClicked
+        // TODO add your handling code here:
+         txtHasta.setText("");
+    }//GEN-LAST:event_txtHastaMouseClicked
+
+    private void lbHastaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHastaMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_lbHastaMouseClicked
+
     private void mostrarDatos(String nombre) {
         lbTotal.setText("");
         int rowCount = m.getRowCount();
@@ -242,6 +304,9 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 + "on (ht.usu_id = u.usu_id)";
         if (!nombre.isEmpty()) {
             query += ("where u.usu_nombre ='" + nombre + "'");
+        }
+        if(cbFecha.isSelected()){
+            query += " and ht.ht_fecha >= '"+txtDesde.getText()+"' and ht.ht_fecha<= '"+txtHasta.getText()+"' ";
         }
         query +="order by ht.ht_fecha";
         ResultSet rs = getDatos(query);
@@ -327,9 +392,11 @@ public class HorasTrabajadas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JCheckBox cbFecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
@@ -338,7 +405,10 @@ public class HorasTrabajadas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lbHasta;
     private javax.swing.JLabel lbTotal;
+    private javax.swing.JTextField txtDesde;
+    private javax.swing.JTextField txtHasta;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
