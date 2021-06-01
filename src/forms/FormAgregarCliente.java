@@ -275,6 +275,10 @@ public class FormAgregarCliente extends javax.swing.JFrame {
         }
         
         insertarCliente(nombre, apelldo, tel, direccion);
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        txtCelular.setText("");
+        txtDireccion.setText("");
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased

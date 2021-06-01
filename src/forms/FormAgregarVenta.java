@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
 import util.ActualizarTiempo;
 import static util.Utils.*;
@@ -367,6 +368,10 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         int cashin = entero(txtPago.getText());
         int cashout = entero(txtCambio.getText());
 
+        if(cashout<0){
+            showMessageDialog(null, "El pago es menor que el total");
+            return;
+        }
         conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), 
                 promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora
                 );
@@ -379,6 +384,10 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     public void BuscarCliente() {
         try {
             ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos al cliente en la BD
+            if (!rs.isBeforeFirst()) {
+                showMessageDialog(null, "No exsite un cliene asociado a ese \nnúmero télefonico");
+                return;
+            } 
             rs.next();
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
             System.out.print(rs);
