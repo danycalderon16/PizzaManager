@@ -505,7 +505,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     public static javax.swing.JLabel lbDiferencia;
     public static javax.swing.JLabel lbDinero;
     public javax.swing.JLabel lbHora;
-    private javax.swing.JLabel lbUser;
+    public static javax.swing.JLabel lbUser;
     // End of variables declaration//GEN-END:variables
 
     private void calcularValores() {

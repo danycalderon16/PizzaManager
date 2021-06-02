@@ -38,6 +38,7 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         llenarPizzas();
         llenarBebidas();
         m=(DefaultTableModel) tblPedido.getModel();
+        setLocationRelativeTo(null);
     }
 
     /**

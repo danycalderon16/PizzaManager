@@ -387,7 +387,8 @@ public class InterfazGerente extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormAgregarVenta  av = null;
         av = FormAgregarVenta.obj.getObj();
-        av.setLocation(getLocation().x+300,getLocation().y+150);
+        //av.setLocation(getLocation().x+300,getLocation().y+150);
+        av.setLocationRelativeTo(null);
         av.setVisible(true);
     }//GEN-LAST:event_btnIngresarVentasMouseClicked
 

@@ -44,6 +44,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         m = (DefaultTableModel) jTableProductos.getModel();
         changeTime = new Thread(new ActualizarTiempo(lbHora));
         changeTime.start();
+        
     }
 
     /**
@@ -113,7 +114,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
@@ -356,13 +357,16 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         pago = Integer.parseInt(txtPago.getText());
         pago = pago - total;
         txtCambio.setText(pago + "");
-        if(evt.getKeyCode() == 10)
+        if (evt.getKeyCode() == 10)
             btnConfirmar.doClick();
     }//GEN-LAST:event_txtPagoKeyReleased
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        System.out.println(traerDescipcion());
 
+        System.out.println(traerDescipcion());
+        tickets tk = new tickets();
+        //tk.setLocationRelativeTo(null);
+        tk.setVisible(true);
         int importe = entero(txtTotal.getText());
         String descripcion = traerDescipcion();
         String promocion = "null";
@@ -371,19 +375,19 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         int cashin = entero(txtPago.getText());
         int cashout = entero(txtCambio.getText());
 
-        if(cashout<0){
+        if (cashout < 0) {
             showMessageDialog(null, "El pago es menor que el total");
             return;
         }
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(), 
-                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora,dateFormat.format(date)
-                );
+        conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(),
+                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora, dateFormat.format(date)
+        );
 
         limpiarCampos();
-        
-      
+
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public void BuscarCliente() {
@@ -392,7 +396,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "No exsite un cliene asociado a ese \nnúmero télefonico");
                 return;
-            } 
+            }
             rs.next();
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
             System.out.print(rs);
@@ -491,14 +495,15 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             }
         });
     }
-    
-    private String traerDescipcion(){
+
+    private String traerDescipcion() {
         String desc = "";
         int filas = m.getRowCount();
-        for(int i=0; i<filas; i++){
+        for (int i = 0; i < filas; i++) {
             desc += m.getValueAt(i, 0).toString();
-            if(i==(filas-1))
+            if (i == (filas - 1)) {
                 continue;
+            }
             desc += ", ";
         }
         return desc;
@@ -527,8 +532,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTableProductos;
     private javax.swing.JLabel lbHora;
-    private javax.swing.JTextField txtCambio;
-    private javax.swing.JTextField txtPago;
+    public static javax.swing.JTextField txtCambio;
+    public static javax.swing.JTextField txtPago;
     public static javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtcel;
     private javax.swing.JTextField txtdire;
