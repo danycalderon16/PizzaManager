@@ -37,7 +37,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         m = (DefaultTableModel) jTable1.getModel();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
         
-//        traerNombres();
+        traerNombres();
         
         mostrarDatos("");
 
@@ -62,7 +62,6 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        txtNombre = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbTotal = new javax.swing.JLabel();
@@ -71,6 +70,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         lbHasta = new javax.swing.JLabel();
         txtHasta = new javax.swing.JTextField();
         cbFecha = new javax.swing.JCheckBox();
+        cmbNombres = new javax.swing.JComboBox<>();
 
         jLabel3.setText("jLabel3");
 
@@ -100,7 +100,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +110,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 80));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 80));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,12 +155,6 @@ public class HorasTrabajadas extends javax.swing.JFrame {
             }
         });
 
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNombreKeyReleased(evt);
-            }
-        });
-
         jButton3.setText("Mostrar todos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +193,8 @@ public class HorasTrabajadas extends javax.swing.JFrame {
 
         cbFecha.setText("Por fechas");
 
+        cmbNombres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione nombres" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -215,19 +211,19 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGap(30, 30, 30)
                             .addComponent(lbTotal))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(cmbNombres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(18, 18, 18)
                             .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(18, 18, 18)
                             .addComponent(lbHasta)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(18, 18, 18)
                             .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -237,14 +233,14 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbHasta)
-                    .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(cbFecha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,7 +251,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 640, 340));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 710, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -265,24 +261,18 @@ public class HorasTrabajadas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String nombre = txtNombre.getText().toString();
-        if (nombre.isEmpty()) {
+        int item = cmbNombres.getSelectedIndex();
+        if (item==0) {
             JOptionPane.showMessageDialog(null, "Ingrese el nombre");
             return;
         }
-        mostrarDatos(nombre);
+        mostrarDatos(cmbNombres.getSelectedItem().toString());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         mostrarDatos("");
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        // TODO add your handling code here:
-        if(evt.getKeyChar() == Event.ENTER)
-           btnBuscar.doClick();
-    }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtDesdeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDesdeMouseClicked
         // TODO add your handling code here:
@@ -405,6 +395,7 @@ public class HorasTrabajadas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox cbFecha;
+    private javax.swing.JComboBox<String> cmbNombres;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -421,7 +412,6 @@ public class HorasTrabajadas extends javax.swing.JFrame {
     private javax.swing.JLabel lbTotal;
     private javax.swing.JTextField txtDesde;
     private javax.swing.JTextField txtHasta;
-    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
     private void contarHoras() {
@@ -434,17 +424,17 @@ public class HorasTrabajadas extends javax.swing.JFrame {
                 
     }
 
-//    private void traerNombres() {
-//        cmbDesc.removeAllItems();
-//        cmbDesc.addItem("Seleccionar");
-//        try {
-//            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
-//            while (rs.next()) {
-//                cmbDesc.addItem(rs.getString(1));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(HorasTrabajadas.class
-//                    .getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void traerNombres() {
+        cmbNombres.removeAllItems();
+        cmbNombres.addItem("Seleccione un nombre");
+        try {
+            ResultSet rs = getDatos("select usu_nombre from usuarios where usu_rol = 'r' or usu_rol = 'c' or usu_rol = 'o'  "); //La lista de descuentos
+            while (rs.next()) {
+                cmbNombres.addItem(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HorasTrabajadas.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

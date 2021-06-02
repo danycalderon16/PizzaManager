@@ -115,7 +115,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
@@ -414,8 +414,16 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPagoKeyReleased
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        System.out.println(traerDescipcion());
-
+        if(cli_id == 0){
+            ResultSet rs = getDatos("select cli_id from clientes where cli_nombre = 'Mostrador'");
+            try {
+                rs.next();
+                cli_id = Integer.parseInt(rs.getString(1));
+            } catch (SQLException ex) {
+                Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }           
+        
         int importe = entero(txtTotal.getText());
         String descripcion = traerDescipcion();
         String promocion = "null";
@@ -486,7 +494,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             rs.next();
             cli_id = Integer.parseInt(rs.getString(2));
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
-            System.out.print(rs);
+            System.out.print(cli_id+"");
             rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos la dirección
             rs.next();
             txtdire.setText(rs.getString(1)); //Recuperamos la direccion

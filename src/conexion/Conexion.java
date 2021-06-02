@@ -293,5 +293,20 @@ public class Conexion {
         
         Conexion.usuario=usuario;
     }
+    
+    public static void agregarInventario(String nombre, int cantidad){
 
+        String query = "INSERT INTO public.inventario(inv_nombre, inv_cantidad)\n" +
+        "VALUES ('"+nombre+"',"+cantidad+" );";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha insertado Correctamente el Inventario");
+            }
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <INSERTAR> Inventario " + ex);
+        }
+
+    }
 }
