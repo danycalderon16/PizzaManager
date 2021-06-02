@@ -469,6 +469,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         if (!txtdire.getText().isEmpty()) {
             insertarPedido();
         }
+        tickets t = new  tickets();
+        t.setVisible(true);
         limpiarCampos();
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
