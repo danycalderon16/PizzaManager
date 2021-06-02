@@ -301,13 +301,14 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        /*SeleccionProductos  sp = null;
-        sp = SeleccionProductos.obj.getObj();
-        sp.setLocation(getLocation().x+100,getLocation().y+150);
-        sp.setVisible(true);
-         */
 
         SeleccionProductos2 ap = new SeleccionProductos2();
+        for (int i = 0; i < m.getRowCount(); i++) {
+
+            SeleccionProductos2.m.addRow(new Object[]{m.getValueAt(i, 0),//nombre
+                m.getValueAt(i, 2)//cantidad
+            });
+        }
         ap.setLocationRelativeTo(null);
         ap.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -349,7 +350,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 tot += totro;
                 System.out.println("Ahora es de " + tot);
                 txtTotal.setText(tot + "");
-
+                float total, pago;
+                total = Float.parseFloat(txtTotal.getText());
+                pago = Float.parseFloat(txtPago.getText());
+                pago = pago - total;
+                txtCambio.setText(pago + "");
             } else {
                 cmbDesc.enable();
                 txtTotal.setText(total + "");
@@ -400,21 +405,32 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyTyped
-
+        char caracter = evt.getKeyChar();
+        if ((caracter < '0') || (caracter > '9')) {
+            evt.consume();  // ignorar el evento de teclado
+        }
     }//GEN-LAST:event_txtPagoKeyTyped
 
     private void txtPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyReleased
-        int total, pago;
-        total = Integer.parseInt(txtTotal.getText());
-        pago = Integer.parseInt(txtPago.getText());
-        pago = pago - total;
-        txtCambio.setText(pago + "");
+        char caracter = evt.getKeyChar();
+        System.out.println(evt.getKeyCode());
+        if ((caracter >='0') || (caracter <= '9') || caracter==8) {
+//            evt.consume();  // ignorar el evento de teclado
+//            if(txtPago.getText().equals("")||txtPago.getText().equals(null))
+//                return;
+//        }
+            float total, pago;
+            total = Float.parseFloat(txtTotal.getText());
+            pago = Float.parseFloat(txtPago.getText());
+            pago = pago - total;
+            txtCambio.setText(pago + "");
+        }
         if (evt.getKeyCode() == 10)
             btnConfirmar.doClick();
     }//GEN-LAST:event_txtPagoKeyReleased
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if(cli_id == 0){
+        if (cli_id == 0) {
             ResultSet rs = getDatos("select cli_id from clientes where cli_nombre = 'Mostrador'");
             try {
                 rs.next();
@@ -422,27 +438,37 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }           
-        
-        int importe = entero(txtTotal.getText());
+        }
+
+        float importe = entero(txtTotal.getText());
         String descripcion = traerDescipcion();
-        String promocion = "null";
+        int promocion = 1;
         String descuento = "null";
         String hora = lbHora.getText().toString();
-        int cashin = entero(txtPago.getText());
-        int cashout = entero(txtCambio.getText());
+        float cashin = entero(txtPago.getText());
+        float cashout = entero(txtCambio.getText());
 
         if (cashout < 0) {
             showMessageDialog(null, "El pago es menor que el total");
             return;
         }
+        String prom = cmbProm.getSelectedItem().toString();
+        
+        ResultSet rs = getDatos("select prom_id from promociones where prom_promocion = '"+prom+"'");
+        try {
+            rs.next();
+            promocion = Integer.parseInt(rs.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(),
-                promocion, descuento, Conexion.getUsuarioID(),cli_id, cashin, cashout, hora, dateFormat.format(date)
+                promocion, descuento, Conexion.getUsuarioID(), cli_id, cashin, cashout, hora, dateFormat.format(date)
         );
-        if(!txtdire.getText().isEmpty())
+        if (!txtdire.getText().isEmpty()) {
             insertarPedido();
+        }
         limpiarCampos();
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
@@ -470,6 +496,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 //System.out.println("El total antes del descuento es "+total);
                 float tot = (total * (100 - desc)) / 100;
                 //System.out.println("Ahora es de "+tot);
+                float total, pago;
+                total = Float.parseFloat(txtTotal.getText());
+                pago = Float.parseFloat(txtPago.getText());
+                pago = pago - total;
+                txtCambio.setText(pago + "");
                 txtTotal.setText(tot + "");
             } else {
                 cmbProm.enable();
@@ -480,7 +511,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     private void txtcelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelKeyReleased
         // TODO add your handling code here:
-        if(evt.getKeyCode() == 10)
+        if (evt.getKeyCode() == 10)
             jButton2.doClick();
     }//GEN-LAST:event_txtcelKeyReleased
 
@@ -494,7 +525,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             rs.next();
             cli_id = Integer.parseInt(rs.getString(2));
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
-            System.out.print(cli_id+"");
+            System.out.print(cli_id + "");
             rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos la dirección
             rs.next();
             txtdire.setText(rs.getString(1)); //Recuperamos la direccion
@@ -507,7 +538,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     public void TraerDescuentos() {
         cmbDesc.removeAllItems();
-        cmbDesc.addItem("Seleccionar");
+        cmbDesc.addItem("Descuentos");
         try {
             ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
             while (rs.next()) {
@@ -521,7 +552,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     public void TraerPromociones() {
         cmbProm.removeAllItems();
-        cmbProm.addItem("Seleccionar");
+        cmbProm.addItem("Promociones");
         try {
             ResultSet rs = getDatos("select prom_promocion from promociones"); //La lista de descuentos
             while (rs.next()) {
@@ -663,9 +694,9 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         }
 
         String query = "INSERT INTO public.pedido(\n"
-                + "cli_id, ped_importe, ped_estado, ven_id, usu_id, hora_salida, ped_descripcion)\n"
-                + "	VALUES (" + cli_id + ", '" + txtTotal.getText() + "','s'," + id_venta + "," + Conexion.getUsuarioID() + ",'" + lbHora.getText() + "', '" + desc + "');";
-        Conexion.insertar(query,0,0);
+                + "cli_id, ped_importe, ped_estado, ven_id, hora_salida, ped_descripcion)\n"
+                + "	VALUES (" + cli_id + ", '" + txtTotal.getText() + "','s'," + id_venta + ",'" + lbHora.getText() + "', '" + desc + "');";
+        Conexion.insertar(query, 0, 0);
         limpiarCampos();
 
     }

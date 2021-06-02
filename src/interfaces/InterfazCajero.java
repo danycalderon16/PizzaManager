@@ -312,6 +312,8 @@ public class InterfazCajero extends javax.swing.JFrame {
         cv = CancelarVentana.obj.getObj();
         cv.setLocation(getLocation().x+300,getLocation().y+150);
         cv.setVisible(true);   
+        
+        cv.TraerPedidos();
     }//GEN-LAST:event_btnCancelarVentaMouseClicked
 
     private void btnHacerCorteCaja1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHacerCorteCaja1MouseClicked
@@ -330,6 +332,7 @@ public class InterfazCajero extends javax.swing.JFrame {
         PedidoRepartidor pr = null;
         pr = PedidoRepartidor.obj.getObj();
         pr.setLocation(getLocation().x+300,getLocation().y+150);
+        pr.TraerPedidos();
         pr.setVisible(true);
     }//GEN-LAST:event_btnPedidosMouseClicked
 

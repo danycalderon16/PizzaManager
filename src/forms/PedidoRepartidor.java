@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package forms;
+
 import static conexion.Conexion.connection;
 import static conexion.Conexion.consulta;
 import static conexion.Conexion.getDatos;
@@ -26,16 +27,18 @@ import javax.swing.table.DefaultTableModel;
 public class PedidoRepartidor extends javax.swing.JFrame {
 
     public static PedidoRepartidor obj;
-    DefaultTableModel m= new DefaultTableModel();
-    
-    public static PedidoRepartidor getObj(){
-        if(obj==null){
-            obj=new PedidoRepartidor();
-        }return obj;
+    DefaultTableModel m = new DefaultTableModel();
+
+    public static PedidoRepartidor getObj() {
+        if (obj == null) {
+            obj = new PedidoRepartidor();
+        }
+        return obj;
     }
+
     public PedidoRepartidor() {
         initComponents();
-        m=(DefaultTableModel) JTablePedidosRepartidor.getModel();
+        m = (DefaultTableModel) JTablePedidosRepartidor.getModel();
         TraerPedidos();
     }
 
@@ -182,20 +185,27 @@ public class PedidoRepartidor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-        public void TraerPedidos(){
-            try {
-            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,P.cli_id,P.hora_salida,U.usu_nombre,P.ped_importe,P.ped_estado from pedido P inner join usuarios U on (P.usu_id = U.usu_id)"); //Las columnas necesarias
-            while (rs.next()) {
-                           
-               m.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)});
-          }
 
-          
-          
-            }catch (SQLException ex) {
+    public void TraerPedidos() {
+        int rowCount = m.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            m.removeRow(i);
+        }
+
+        try {
+            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,P.cli_id,P.hora_salida,U.usu_nombre,P.ped_importe,P.ped_estado "
+                    + "from pedido P "
+                    + "inner join usuarios U on (P.usu_id = U.usu_id) where P.ped_estado = 'A'"); //Las columnas necesarias
+            while (rs.next()) {
+
+                m.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)});
+            }
+
+        } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * @param args the command line arguments
      */

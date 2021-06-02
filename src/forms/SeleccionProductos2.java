@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 public class SeleccionProductos2 extends javax.swing.JFrame {
 
     public static Connection connection;
-    DefaultTableModel m= new DefaultTableModel();
+    public static DefaultTableModel m= new DefaultTableModel();
 
     /**
      * Creates new form FormAgregarProducto2
@@ -206,17 +206,18 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     int precio,cantidad,total=0;
+      int rowCount = FormAgregarVenta.m.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            FormAgregarVenta.m.removeRow(i);
+        }
     for (int i = 0; i < m.getRowCount(); i++) {
         
         FormAgregarVenta.m.addRow(new Object[]{m.getValueAt(i,0),//nombre
                                                precio=getPrecio(m.getValueAt(i,0)+""),//precio
                                                cantidad=Integer.parseInt(m.getValueAt(i,1)+""),//cantidad
                                                precio*cantidad});//subTotal
-        /*FormAgregarVenta.m.setValueAt(m.getValueAt(i,0),i,0);
-        FormAgregarVenta.m.setValueAt(m.getValueAt(i,0),i,0);
-        FormAgregarVenta.m.setValueAt(precio=getPrecio(m.getValueAt(i,0)+""),i,1);
-        FormAgregarVenta.m.setValueAt(cantidad=Integer.parseInt(m.getValueAt(i,1)+""),i,2);
-        FormAgregarVenta.m.setValueAt(precio*cantidad,i,3);*/
+      
         total=total+(precio*cantidad);
     }
     
@@ -267,15 +268,11 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
 
             ResultSet rs = getDatos("select count(pro_nombre) from productos where cat_id='p'"); //el numero de pizzas que hay
 
-            rs.next();
-            
-         
+            rs.next();          
             JButton btnMenuPizzas[] = new JButton[rs.getInt(1)]; //arreglo de borones para c/u de las pizzas
-
             rs = getDatos("select pro_nombre from productos where cat_id='p'"); //la lista de pizzas
             int i = 0;
             while (rs.next()) {
-
                 btnMenuPizzas[i] = new JButton(rs.getString(1));
                 asignarFuncionalidad(btnMenuPizzas[i]);
                 panelPizza.add(btnMenuPizzas[i]);

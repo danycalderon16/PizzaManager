@@ -426,13 +426,16 @@ public class InterfazGerente extends javax.swing.JFrame {
         CancelarVentana fp = null;
         fp = CancelarVentana.obj.getObj();
         fp.setLocation(getLocation().x+300,getLocation().y+150);
+        fp.TraerPedidos();
         fp.setVisible(true); 
+        
     }//GEN-LAST:event_btnCancelarVentasMouseClicked
 
     private void btnPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidosMouseClicked
         PedidoRepartidor pr = null;
         pr = PedidoRepartidor.obj.getObj();
         pr.setLocation(getLocation().x+300,getLocation().y+150);
+        pr.TraerPedidos();
         pr.setVisible(true);
     }//GEN-LAST:event_btnPedidosMouseClicked
 

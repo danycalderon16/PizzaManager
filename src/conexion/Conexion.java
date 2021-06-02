@@ -217,9 +217,9 @@ public class Conexion {
     }
 
     //con todos los campos posibles
-    public static void insertarVenta(int ven_importe, String ven_descripcion, 
-            int ven_num_produc, String prom_id, String desc_id, int usu_id, 
-            int cli_id, int ven_cash_in, int ven_cash_out, String ven_hora, String ven_fecha) {
+    public static void insertarVenta(float ven_importe, String ven_descripcion, 
+            int ven_num_produc, int prom_id, String desc_id, int usu_id, 
+            int cli_id, float ven_cash_in, float ven_cash_out, String ven_hora, String ven_fecha) {
         String query = "INSERT INTO public.ventas (ven_importe, "
                                                 + "ven_descripcion, "
                                                 + "ven_num_produc, "

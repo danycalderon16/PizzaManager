@@ -5,6 +5,16 @@
  */
 package forms;
 
+import static conexion.Conexion.eliminarFila;
+import static conexion.Conexion.getDatos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
+import static util.Utils.solicitarPass;
+
 /**
  *
  * @author luiss
@@ -12,6 +22,7 @@ package forms;
 public class CancelarVentana extends javax.swing.JFrame {
     
     public static CancelarVentana obj;
+    DefaultTableModel m= new DefaultTableModel();
     
     public static CancelarVentana getObj(){
         if(obj==null){
@@ -21,6 +32,8 @@ public class CancelarVentana extends javax.swing.JFrame {
     
     public CancelarVentana() {
         initComponents();
+        m=(DefaultTableModel) tblPedido.getModel();
+        TraerPedidos();
         this.setLocationRelativeTo(null);
     }
 
@@ -38,11 +51,11 @@ public class CancelarVentana extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPedido = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtPedido = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cancelar Pedido");
@@ -74,15 +87,12 @@ public class CancelarVentana extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID Pedido", "Descripcion", "Fecha", "Importe"
+                "ID Pedido", "Descripcion", "Hora", "Importe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -93,7 +103,12 @@ public class CancelarVentana extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPedido);
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Ultimos Pedidos");
@@ -101,8 +116,16 @@ public class CancelarVentana extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel4.setText("Pedido seleccionado");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Confirmar");
+        txtPedido.setEditable(false);
+
+        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Confirmar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,8 +138,8 @@ public class CancelarVentana extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -129,9 +152,9 @@ public class CancelarVentana extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -170,9 +193,58 @@ public class CancelarVentana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidoMouseClicked
+        int fila = tblPedido.getSelectedRow();
+        txtPedido.setText(m.getValueAt(fila, 0).toString());
+        btnCancelar.setEnabled(true);// TODO add your handling code here:
+    }//GEN-LAST:event_tblPedidoMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        boolean request = solicitarPass();
+        if (request) {
+            String query = "delete from pedido "
+                    + "where ped_id ='" + txtPedido.getText() + "'";
+
+            System.out.println(query);
+            if (eliminarFila(query)) {
+                showMessageDialog(null, "Dato eliminado");
+                limpiar();   
+            }
+            
+            
+            tblPedido.clearSelection();
+            TraerPedidos();
+        } else {
+            showMessageDialog(null, "Contraseña Incorrecta");
+        }
+        //TraerPedidos();// TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    public void TraerPedidos(){
+        
+        int rowCount = m.getRowCount();
+            for (int i = rowCount - 1; i >= 0; i--) {
+                 m.removeRow(i);
+            }
+        
+            try {
+            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,P.hora_salida,P.ped_importe from pedido P"); //Las columnas necesarias
+            while (rs.next()) {
+                           
+               m.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)});
+          }
+
+          
+          
+            }catch (SQLException ex) {
+            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -206,7 +278,7 @@ public class CancelarVentana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -214,7 +286,12 @@ public class CancelarVentana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblPedido;
+    private javax.swing.JTextField txtPedido;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        txtPedido.setText("");
+        btnCancelar.setEnabled(false);//To change body of generated methods, choose Tools | Templates.
+    }
 }

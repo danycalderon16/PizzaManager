@@ -81,7 +81,7 @@ public class Utils {
         return true;
     }
     
-    public static int entero(String numero){
-        return Integer.parseInt(numero);
+    public static float entero(String numero){
+        return Float.parseFloat(numero);
     }
 }

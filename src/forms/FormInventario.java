@@ -330,6 +330,7 @@ public class FormInventario extends javax.swing.JFrame {
             }
         }showMessageDialog(this, "El producto no existe en el inventario :(","ERROR",ERROR_MESSAGE);
         
+        mostrarDatos();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -340,7 +341,7 @@ public class FormInventario extends javax.swing.JFrame {
             if(rs.isBeforeFirst()){
                 showMessageDialog(this, "El producto ya existe en el inventario ;)","ERROR",ERROR_MESSAGE);
             }else{
-                conexion.Conexion.agregarInventario(txtNombre.getText(), Integer.parseInt(txtCantidad.getText()));
+                conexion.Conexion.agregarInventario(txtNombre.getText(), Double.parseDouble(txtCantidad.getText()));
                 mostrarDatos();
             }
         } catch (SQLException ex) {
@@ -382,7 +383,7 @@ public class FormInventario extends javax.swing.JFrame {
             return;
         }
         //String um = cmbUM.getSelectedItem().toString();
-        String query = "select * from ingredientes where ing_nombre = '" + nombre + "'";
+        String query = "select * from inventario where inv_nombre = '" + nombre + "'";
         ResultSet rs = getDatos(query);
         try {
             if (!rs.isBeforeFirst()) {
@@ -405,7 +406,7 @@ public class FormInventario extends javax.swing.JFrame {
                 query = "select inv_cantidad from inventario where inv_nombre = '" + nombre + "'";
                 rs = getDatos(query);
                 while (rs.next()) {
-                    int suma = Integer.parseInt(cantidad) + Integer.parseInt(rs.getString(1));
+                    double suma = Double.parseDouble(cantidad) + Double.parseDouble(rs.getString(1));
                     actualizarRegistro("UPDATE public.inventario\n"
                             + "SET inv_cantidad=" + suma + "\n"
                             + "WHERE inv_nombre = '" + nombre + "';");
@@ -453,7 +454,7 @@ public class FormInventario extends javax.swing.JFrame {
         ResultSet resultado = getDatos("SELECT * FROM inventario");
         try {
             while (resultado.next()) {
-                m.addRow(new Object[]{resultado.getString(1), resultado.getString(2) + "" ,resultado.getDouble(3)});
+                m.addRow(new Object[]{resultado.getString(1), resultado.getString(2) + "" ,Double.parseDouble(resultado.getString(3))});
             }
             //jTableUsuarios.setFont(new Font("Verdana",Font.PLAIN,18));
             jTable1.setRowHeight(18);
