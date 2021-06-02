@@ -260,6 +260,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
@@ -278,9 +281,9 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
                 <StringItem index="0" value="UM"/>
-                <StringItem index="1" value="gr"/>
-                <StringItem index="2" value="lt"/>
-                <StringItem index="3" value="uds"/>
+                <StringItem index="1" value="Lt"/>
+                <StringItem index="2" value="Kg"/>
+                <StringItem index="3" value="Pz"/>
               </StringArray>
             </Property>
           </Properties>

@@ -166,6 +166,11 @@ public class FormIngredientes extends javax.swing.JFrame {
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -176,7 +181,7 @@ public class FormIngredientes extends javax.swing.JFrame {
             }
         });
 
-        cmbUM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UM", "gr", "lt", "uds" }));
+        cmbUM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UM", "Lt", "Kg", "Pz" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -342,6 +347,10 @@ public class FormIngredientes extends javax.swing.JFrame {
             showMessageDialog(null, "Contraseña incorrecta");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

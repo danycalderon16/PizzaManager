@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package forms;
+
 import static conexion.Conexion.actualizarRegistro;
 import static conexion.Conexion.connection;
 import static conexion.Conexion.consulta;
@@ -32,36 +33,41 @@ public class PedidosEntrega extends javax.swing.JFrame {
      * Creates new form PedidosEntrega
      */
     public static PedidosEntrega obj;
-    DefaultTableModel m= new DefaultTableModel();
-    
-    public static PedidosEntrega getObj(){
-        if(obj==null){
-            obj=new PedidosEntrega();
-        }return obj;
+    DefaultTableModel m = new DefaultTableModel();
+
+    public static PedidosEntrega getObj() {
+        if (obj == null) {
+            obj = new PedidosEntrega();
+        }
+        return obj;
     }
-    
+
     public PedidosEntrega() {
         initComponents();
         this.setLocationRelativeTo(null);
-         m=(DefaultTableModel) jTablePedidosEntrega.getModel();
-        TraerPedidos();       
+        m = (DefaultTableModel) jTablePedidosEntrega.getModel();
+        TraerPedidos();
     }
 
-            public void TraerPedidos(){
-            try {
-            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,C.cli_nombre,C.cli_direccion,P.ped_importe from pedido P\n" +
-"inner join clientes C on (C.cli_id = P.cli_id) where P.ped_estado not in('E','A')"); //Las columnas necesarias
+    public void TraerPedidos() {
+        int rowCount = m.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            m.removeRow(i);
+        }
+        try {
+            ResultSet rs = getDatos("select P.ped_id,P.ped_descripcion,C.cli_nombre,C.cli_direccion,P.ped_importe from pedido P\n"
+                    + "inner join clientes C on (C.cli_id = P.cli_id) where P.ped_estado not in('E','A')"); //Las columnas necesarias
             while (rs.next()) {
-                           
-               m.addRow(new Object[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)});
-          }
 
-          
-          
-            }catch (SQLException ex) {
+                m.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
+            }
+
+        } catch (SQLException ex) {
             Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,10 +85,10 @@ public class PedidosEntrega extends javax.swing.JFrame {
         jTablePedidosEntrega = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtRep = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtPed = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedidos");
@@ -136,9 +142,8 @@ public class PedidosEntrega extends javax.swing.JFrame {
         jLabel3.setText("Pedidos pendientes de entrega");
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel4.setText("ID Repartidor");
+        jLabel4.setText("Contraseña del Repartidor");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +153,12 @@ public class PedidosEntrega extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel5.setText("ID Pedido");
+
+        txtContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -162,9 +173,10 @@ public class PedidosEntrega extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRep, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(231, 231, 231)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtPed, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,8 +196,8 @@ public class PedidosEntrega extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRep, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -231,9 +243,31 @@ public class PedidosEntrega extends javax.swing.JFrame {
         Date date = new Date();
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
-        String consulta = "update pedido set usu_id = "+txtRep.getText()+",ped_estado = 'A', hora_salida = " + "'"+ts.toString()+"'"+"where ped_id = "+txtPed.getText();
-        actualizarRegistro(consulta);
+        String pass = new String(txtContra.getPassword());
+        int id_red = 0;
+        ResultSet rs = getDatos("select usu_id from usuarios where usu_pass = '" + pass + "'");
+        try {
+            if (!rs.isBeforeFirst()) {
+                showMessageDialog(null, "Repartidor no encontrado");
+                return;
+            }
+            rs.next();
+            id_red = Integer.parseInt(rs.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String consulta = "update pedido set usu_id = " + id_red + ",ped_estado = 'A', hora_salida = " + "'" + ts.toString() + "'" + "where ped_id = " + txtPed.getText();
+        if (actualizarRegistro(consulta) > 0) {
+            TraerPedidos();
+        } else {
+            showMessageDialog(null, "Igrese un ID pedido valido");
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,7 +315,7 @@ public class PedidosEntrega extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablePedidosEntrega;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtPed;
-    private javax.swing.JTextField txtRep;
     // End of variables declaration//GEN-END:variables
 }

@@ -193,7 +193,8 @@ public class Conexion {
         try {
             pstmt = connection.prepareStatement(query);
             affectedrows = pstmt.executeUpdate();
-            showMessageDialog(null,"Se ha actualizado el registro correctamente");
+            if(affectedrows>0)
+                showMessageDialog(null,"Se ha actualizado el registro correctamente");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             showMessageDialog(null,"Verifique los datos");
@@ -289,12 +290,13 @@ public class Conexion {
         }
     }
     
+    
     public static void setUsuario(String usuario){
         
         Conexion.usuario=usuario;
     }
     
-    public static void agregarInventario(String nombre, int cantidad){
+    public static void agregarInventario(String nombre, Double cantidad){
 
         String query = "INSERT INTO public.inventario(inv_nombre, inv_cantidad)\n" +
         "VALUES ('"+nombre+"',"+cantidad+" );";
@@ -309,4 +311,18 @@ public class Conexion {
         }
 
     }
+     public static void borrarInventario(String Nombre){
+
+        String query = "DELETE FROM public.inventario WHERE inv_nombre='"+Nombre+"';";
+        try {
+            if (valido) {
+                consulta = (Statement) connection.createStatement();
+                consulta.executeUpdate(query);
+                showMessageDialog(null, "Se ha eliminado Correctamente el Inventario");
+            }
+        } catch (SQLException ex) {
+            showMessageDialog(null, "Error al <Eliminar> Inventario " + ex);
+        }
+    }
+   
 }
