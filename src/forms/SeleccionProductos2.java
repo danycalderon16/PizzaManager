@@ -38,7 +38,6 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
         llenarPizzas();
         llenarBebidas();
         m=(DefaultTableModel) tblPedido.getModel();
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -222,6 +221,7 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
     }
     
     FormAgregarVenta.txtTotal.setText(total+"");
+    FormAgregarVenta.total = total;
     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

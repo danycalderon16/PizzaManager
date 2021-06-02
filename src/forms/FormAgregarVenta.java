@@ -30,6 +30,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     public static FormAgregarVenta obj;
     private Thread changeTime;
 
+    private int cli_id;
+
     public static FormAgregarVenta getObj() {
         if (obj == null) {
             obj = new FormAgregarVenta();
@@ -44,7 +46,6 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         m = (DefaultTableModel) jTableProductos.getModel();
         changeTime = new Thread(new ActualizarTiempo(lbHora));
         changeTime.start();
-        
     }
 
     /**
@@ -114,7 +115,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
@@ -182,6 +183,11 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
         txtcel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         txtcel.setToolTipText("Telefono");
+        txtcel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcelKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 58, 145, 30));
 
         txtdire.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
@@ -197,6 +203,16 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 84, -1));
 
         cmbDesc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Descuento", "0%", "10%", "30%", "50%", "100%" }));
+        cmbDesc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDescItemStateChanged(evt);
+            }
+        });
+        cmbDesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDescActionPerformed(evt);
+            }
+        });
         jPanel2.add(cmbDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 183, 31));
 
         cmbProm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Promociones", "2x1", "Refresco Gratis" }));
@@ -302,7 +318,43 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cmbPromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPromActionPerformed
-        // TODO add your handling code here:
+        //Aquí va el código
+        int desc = 0;
+        int totemp = 0;
+        int totro = 0;
+        if (m.getRowCount() != 0) {
+            if (cmbProm.getSelectedIndex() != 0) {
+                cmbDesc.disable();
+                //showMessageDialog(null,"Se Cambio el elemento seleccionado");
+
+                try {
+                    ResultSet rs = getDatos("select prod_cantidad from promociones where prom_promocion = '" + cmbProm.getSelectedItem().toString() + "'"); //La lista de Promociones
+                    rs.next();
+                    desc = rs.getInt(1);
+                    for (int i = 0; i < m.getRowCount(); i++) {
+                        if (m.getValueAt(i, 0).toString().matches("Pizza.*")) {
+                            totemp += (int) m.getValueAt(i, 3);
+                        } else {
+                            totro += (int) m.getValueAt(i, 3);
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(SeleccionProductos2.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                System.out.println("El total antes del descuento es " + totemp);
+                float tot = (totemp * (100 - desc)) / 100;
+                tot += totro;
+                System.out.println("Ahora es de " + tot);
+                txtTotal.setText(tot + "");
+
+            } else {
+                cmbDesc.enable();
+                txtTotal.setText(total + "");
+            }
+        }
     }//GEN-LAST:event_cmbPromActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -362,11 +414,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPagoKeyReleased
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
         System.out.println(traerDescipcion());
-        tickets tk = new tickets();
-        //tk.setLocationRelativeTo(null);
-        tk.setVisible(true);
+
         int importe = entero(txtTotal.getText());
         String descripcion = traerDescipcion();
         String promocion = "null";
@@ -382,22 +431,60 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         conexion.Conexion.insertarVenta(importe, descripcion, cantidadProductos(),
-                promocion, descuento, Conexion.getUsuarioID(), 1, cashin, cashout, hora, dateFormat.format(date)
+                promocion, descuento, Conexion.getUsuarioID(),cli_id, cashin, cashout, hora, dateFormat.format(date)
         );
-
+        if(!txtdire.getText().isEmpty())
+            insertarPedido();
         limpiarCampos();
-
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    private void cmbDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDescItemStateChanged
+        // showMessageDialog(null,"Se Cambio el elemento seleccionado");
+    }//GEN-LAST:event_cmbDescItemStateChanged
+
+    private void cmbDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDescActionPerformed
+        int desc = 0;
+        if (m.getRowCount() != 0) {
+            //showMessageDialog(null,"Se Cambio el elemento seleccionado");
+            if (cmbDesc.getSelectedIndex() != 0) {
+                cmbProm.disable();
+
+                try {
+                    ResultSet rs = getDatos("select des_cantidad from descuentos where des_descuentos = '" + cmbDesc.getSelectedItem().toString() + "'"); //La lista de descuentos
+                    rs.next();
+                    desc = rs.getInt(1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SeleccionProductos2.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //System.out.println("El total antes del descuento es "+total);
+                float tot = (total * (100 - desc)) / 100;
+                //System.out.println("Ahora es de "+tot);
+                txtTotal.setText(tot + "");
+            } else {
+                cmbProm.enable();
+                txtTotal.setText(total + "");
+            }
+        }
+    }//GEN-LAST:event_cmbDescActionPerformed
+
+    private void txtcelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10)
+            jButton2.doClick();
+    }//GEN-LAST:event_txtcelKeyReleased
+
     public void BuscarCliente() {
         try {
-            ResultSet rs = getDatos("select cli_nombre from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos al cliente en la BD
+            ResultSet rs = getDatos("select cli_nombre, cli_id from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos al cliente en la BD
             if (!rs.isBeforeFirst()) {
                 showMessageDialog(null, "No exsite un cliene asociado a ese \nnúmero télefonico");
                 return;
             }
             rs.next();
+            cli_id = Integer.parseInt(rs.getString(2));
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
             System.out.print(rs);
             rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos la dirección
@@ -405,7 +492,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             txtdire.setText(rs.getString(1)); //Recuperamos la direccion
             System.out.print(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SeleccionProductos2.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -418,7 +506,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 cmbDesc.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SeleccionProductos2.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -431,7 +520,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 cmbProm.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SeleccionProductos2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SeleccionProductos2.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -475,13 +565,17 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormAgregarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAgregarVenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -531,7 +625,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTableProductos;
-    private javax.swing.JLabel lbHora;
+    public static javax.swing.JLabel lbHora;
     public static javax.swing.JTextField txtCambio;
     public static javax.swing.JTextField txtPago;
     public static javax.swing.JTextField txtTotal;
@@ -539,4 +633,32 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     private javax.swing.JTextField txtdire;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
+    public static float total;
+
+    private void insertarPedido() {
+        ResultSet rs = getDatos("select ven_id from ventas\n"
+                + "ORDER BY ven_id DESC LIMIT 1;");
+        int id_venta = 0;
+        try {
+            rs.next();
+            id_venta = Integer.parseInt(rs.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAgregarVenta.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int rowCount = m.getRowCount();
+        String desc = "";
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            desc += m.getValueAt(i, 0).toString() + "\n";
+        }
+
+        String query = "INSERT INTO public.pedido(\n"
+                + "cli_id, ped_importe, ped_estado, ven_id, usu_id, hora_salida, ped_descripcion)\n"
+                + "	VALUES (" + cli_id + ", '" + txtTotal.getText() + "','s'," + id_venta + "," + Conexion.getUsuarioID() + ",'" + lbHora.getText() + "', '" + desc + "');";
+        Conexion.insertar(query,0,0);
+        limpiarCampos();
+
+    }
 }

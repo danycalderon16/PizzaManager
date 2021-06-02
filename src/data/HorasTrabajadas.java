@@ -37,6 +37,8 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         m = (DefaultTableModel) jTable1.getModel();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../Images/icon.png")));
         
+//        traerNombres();
+        
         mostrarDatos("");
 
     }
@@ -431,4 +433,18 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         lbTotal.setText(horas+"");
                 
     }
+
+//    private void traerNombres() {
+//        cmbDesc.removeAllItems();
+//        cmbDesc.addItem("Seleccionar");
+//        try {
+//            ResultSet rs = getDatos("select des_descuentos from descuentos"); //La lista de descuentos
+//            while (rs.next()) {
+//                cmbDesc.addItem(rs.getString(1));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(HorasTrabajadas.class
+//                    .getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }
