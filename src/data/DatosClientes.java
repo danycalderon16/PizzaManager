@@ -171,7 +171,7 @@ public class DatosClientes extends javax.swing.JFrame {
         labelTelefono.setText("Télefono");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Apelligo");
+        jLabel10.setText("Apellido");
 
         jlabelVireccion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jlabelVireccion.setText("Dirección");
@@ -185,7 +185,6 @@ public class DatosClientes extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
-        btnEliminar.setActionCommand("Eliminar");
         btnEliminar.setEnabled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

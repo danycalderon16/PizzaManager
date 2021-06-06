@@ -133,6 +133,11 @@ public class Login extends javax.swing.JFrame {
         labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         labelUsuario.setForeground(new java.awt.Color(255, 51, 51));
         labelUsuario.setText("Usuario");
+        labelUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelUsuarioMouseClicked(evt);
+            }
+        });
         labelUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 labelUsuarioKeyPressed(evt);
@@ -249,6 +254,14 @@ public class Login extends javax.swing.JFrame {
             ig.setVisible(true);
             this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
+
+    private void labelUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelUsuarioMouseClicked
+        // TODO add your handling code here:
+        RegistrararEntradaSalida ies = null;
+        ies = RegistrararEntradaSalida.obj.getObj();
+        ies.setLocation(getLocation().x+300,getLocation().y+150);
+        ies.setVisible(true);  
+    }//GEN-LAST:event_labelUsuarioMouseClicked
 
     public static void main(String args[]) {
 

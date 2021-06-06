@@ -220,9 +220,7 @@ public class CancelarVentana extends javax.swing.JFrame {
         //TraerPedidos();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
     public void TraerPedidos(){
         
         int rowCount = m.getRowCount();

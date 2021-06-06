@@ -153,8 +153,12 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
         lbDinero = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Corte de Caja");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -429,21 +433,18 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-
+        this.dispose();
        
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        lbCalculado.setText("");
-        lbContado.setText("");
-        lbDiferencia.setText("");
-        lbDinero.setText("$ -------");
-        int rowCount = m.getRowCount();
-        //Remove rows one by one from the end of the table
-        for (int i = rowCount - 1; i >= 0; i--) {
-            m.removeRow(i);
-        }
+        
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here
+        
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

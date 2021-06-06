@@ -389,7 +389,10 @@ public class RegistrararEntradaSalida extends javax.swing.JFrame {
                     + "FROM public.entradasalida where usu_id = " + id + ";");
             rs.next();
             String horaInical = rs.getString(1).substring(0, 2);
-            String hora = lblHora.getText().substring(0, 2);
+            String ho = lblHora.getText();
+            if(!ho.substring(0, 1).equals("0"))
+                ho = "0"+ho;
+            String hora = ho.substring(0, 2);
             int h = Integer.parseInt(hora) - Integer.parseInt(horaInical);
             insertar("INSERT INTO public.\"horasTrabajadas\"(\n" +
                     "usu_id, ht_fecha, ht_cantidad)\n" +
