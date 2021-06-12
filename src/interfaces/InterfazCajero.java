@@ -24,6 +24,7 @@ import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.*;
 import modelos.ModeloApertura;
 import subInterfaz.GenerarCorteCaja;
+import util.Utils;
 
 /**
  *
@@ -31,10 +32,6 @@ import subInterfaz.GenerarCorteCaja;
  */
 public class InterfazCajero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InterfazGerente
-     */
-    
     public static boolean abir = false;
     
     public InterfazCajero() {
@@ -266,7 +263,7 @@ public class InterfazCajero extends javax.swing.JFrame {
 //        fac.setVisible(true);
         ModeloApertura modelo = new ModeloApertura();
         FormAperturaCaja vista = new FormAperturaCaja();
-        ControladorApertura control = new ControladorApertura(vista, modelo);
+        ControladorApertura control = new ControladorApertura(vista, modelo, Utils.CAJERO);
         control.iniciar();
         vista.setLocation(getLocation().x+300,getLocation().y+150);
         vista.setVisible(true);

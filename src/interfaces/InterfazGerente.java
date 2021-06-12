@@ -28,11 +28,13 @@ import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.showConfirmDialog;
+import static javax.swing.JOptionPane.*;
 import menus.MenuClientes;
 import menus.MenuDescYProm;
 import menus.MenuUsuarios;
 import modelos.ModeloApertura;
 import subInterfaz.GenerarCorteCaja;
+import util.Utils;
 
 /**
  *
@@ -43,6 +45,7 @@ public class InterfazGerente extends javax.swing.JFrame {
     /**
      * Creates new form InterfazGerente
      */
+    public static boolean abir = false;
     public InterfazGerente() {
         initComponents();
         setLocationRelativeTo(null);
@@ -363,6 +366,10 @@ public class InterfazGerente extends javax.swing.JFrame {
 
     private void btnGastosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGastosMouseClicked
        // TODO add your handling code here:
+       if(!abir){
+             showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         FormAgregarGastos fag = null;
         fag = FormAgregarGastos.getObj();
         fag.setLocation(getLocation().x+300,getLocation().y+150);
@@ -377,6 +384,10 @@ public class InterfazGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdministraProductosMouseClicked
 
     private void btnHacerCorteCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHacerCorteCajaMouseClicked
+        if(!abir){
+             showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         GenerarCorteCaja gcc = null;
         gcc = GenerarCorteCaja.obj.getObj();
         gcc.setLocation(getLocation().x+300,getLocation().y+150);
@@ -385,6 +396,10 @@ public class InterfazGerente extends javax.swing.JFrame {
 
     private void btnIngresarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarVentasMouseClicked
         // TODO add your handling code here:
+        if(!abir){
+             showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         FormAgregarVenta  av = null;
         av = FormAgregarVenta.obj.getObj();
         //av.setLocation(getLocation().x+300,getLocation().y+150);
@@ -423,6 +438,10 @@ public class InterfazGerente extends javax.swing.JFrame {
 
     private void btnCancelarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVentasMouseClicked
         // TODO add your handling code here:
+        if(!abir){
+             showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         CancelarVentana fp = null;
         fp = CancelarVentana.obj.getObj();
         fp.setLocation(getLocation().x+300,getLocation().y+150);
@@ -432,6 +451,10 @@ public class InterfazGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarVentasMouseClicked
 
     private void btnPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPedidosMouseClicked
+        if(!abir){
+             showMessageDialog(null, "Aperture la caja primero");
+            return;
+        }
         PedidoRepartidor pr = null;
         pr = PedidoRepartidor.obj.getObj();
         pr.setLocation(getLocation().x+300,getLocation().y+150);
@@ -454,7 +477,7 @@ public class InterfazGerente extends javax.swing.JFrame {
     private void btnAperturarCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAperturarCajaMouseClicked
         ModeloApertura modelo = new ModeloApertura();
         FormAperturaCaja vista = new FormAperturaCaja();
-        ControladorApertura control = new ControladorApertura(vista, modelo);
+        ControladorApertura control = new ControladorApertura(vista, modelo, Utils.GERENTE);
         control.iniciar();
         vista.setLocation(getLocation().x+300,getLocation().y+150);
         vista.setVisible(true);

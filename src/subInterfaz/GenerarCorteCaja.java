@@ -434,7 +434,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         this.dispose();
-       
+        obj = null;
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -524,7 +524,7 @@ public class GenerarCorteCaja extends javax.swing.JFrame {
             System.out.println(suma+"");
         }
 
-        ResultSet rs = getDatos("select \"MONTO\" from apertura");
+        ResultSet rs = getDatos("select \"MONTO\" from apertura WHERE \"USU_ID\" = "+Conexion.getUsuarioID());
         try {
             while (rs.next()) {
                 apertura = Float.parseFloat(rs.getString(1));

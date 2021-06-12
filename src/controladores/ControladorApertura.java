@@ -9,13 +9,15 @@ import java.awt.event.MouseListener;
 import modelos.ModeloApertura;
 import javax.swing.JOptionPane;
 import util.ActualizarTiempo;
+import util.Utils;
 
 public class ControladorApertura implements ActionListener {
 
     private FormAperturaCaja vista;
     private ModeloApertura modelo;
+    private char tipo = 0;
 
-    public ControladorApertura(FormAperturaCaja vista, ModeloApertura modelo) {
+    public ControladorApertura(FormAperturaCaja vista, ModeloApertura modelo,char tipo) {
         this.vista = vista;
         this.modelo = modelo;
         this.vista.btnAperturar.addActionListener(this);
@@ -44,7 +46,7 @@ public class ControladorApertura implements ActionListener {
         this.vista.mas1.addActionListener(this);
         this.vista.menos050.addActionListener(this);
         this.vista.mas050.addActionListener(this);
-        
+        this.tipo = tipo;
     }
 
     public void iniciar() {
@@ -217,12 +219,16 @@ public class ControladorApertura implements ActionListener {
 
     private void insertar() {
         if (modelo.getApertura() > 0) {
-            conexion.Conexion.eliminarFila("delete from apertura", "");
+            String qDelete = "delete from apertura where \"USU_ID\" = "+Conexion.getUsuarioID();
+            conexion.Conexion.eliminarFila(qDelete,"");
             String query = "INSERT INTO public.apertura(\n"
                     + "	\"USU_ID\", \"MONTO\", ape_hora)\n"
                     + "	VALUES (" + Conexion.getUsuarioID() + ", (" + modelo.getApertura() + "),'"+vista.lbHora.getText().toString()+"')";
             conexion.Conexion.insertar(query);
-            interfaces.InterfazCajero.abir = true;
+            if(tipo == Utils.CAJERO)
+                interfaces.InterfazCajero.abir = true;
+            else
+                interfaces.InterfazGerente.abir = true;
         }else{
             JOptionPane.showMessageDialog(null,"Ingrese el monto");
         }
