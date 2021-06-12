@@ -358,6 +358,8 @@ public class DatosClientes extends javax.swing.JFrame {
         ResultSet resultado = getDatos("select * from clientes");
         try {
             while (resultado.next()) {
+                if(resultado.getString(2).equals("Mostrador"))
+                    continue;
                 m.addRow(new Object[]{resultado.getString(2),
                     resultado.getString(3),
                     resultado.getString(4),

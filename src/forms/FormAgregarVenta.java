@@ -30,7 +30,8 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     public static FormAgregarVenta obj;
     private Thread changeTime;
 
-    private int cli_id;
+    private int cli_id = 0;
+    public static String cliente = "Mostrador";
 
     public static FormAgregarVenta getObj() {
         if (obj == null) {
@@ -315,7 +316,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.out.print("select cli_nombre from clientes where cli_celular = " + "'" + txtcel.getText() + "'");
-        BuscarCliente();
+        buscarCliente();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cmbPromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPromActionPerformed
@@ -454,12 +455,14 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         }
         String prom = cmbProm.getSelectedItem().toString();
         
-        ResultSet rs = getDatos("select prom_id from promociones where prom_promocion = '"+prom+"'");
-        try {
-            rs.next();
-            promocion = Integer.parseInt(rs.getString(1));
-        } catch (SQLException ex) {
-            Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
+        if(!prom.equals("Promociones")){        
+            ResultSet rs = getDatos("select prom_id from promociones where prom_promocion = '"+prom+"'");
+            try {
+                rs.next();
+                promocion = Integer.parseInt(rs.getString(1));
+            } catch (SQLException ex) {
+                Logger.getLogger(FormAgregarVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -469,7 +472,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
         if (!txtdire.getText().isEmpty()) {
             insertarPedido();
         }
-        tickets t = new  tickets();
+        Tickets t = new  Tickets();
         t.setVisible(true);
         limpiarCampos();
 
@@ -517,7 +520,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             jButton2.doClick();
     }//GEN-LAST:event_txtcelKeyReleased
 
-    public void BuscarCliente() {
+    public void buscarCliente() {
         try {
             ResultSet rs = getDatos("select cli_nombre, cli_id from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos al cliente en la BD
             if (!rs.isBeforeFirst()) {
@@ -527,6 +530,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             rs.next();
             cli_id = Integer.parseInt(rs.getString(2));
             txtnombre.setText(rs.getString(1)); //Recuperamos el nombre
+            cliente = txtnombre.getText().toString();
             System.out.print(cli_id + "");
             rs = getDatos("select cli_direccion from clientes where cli_celular = " + "'" + txtcel.getText() + "'"); //Buscamos la dirección
             rs.next();

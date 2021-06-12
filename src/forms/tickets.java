@@ -17,19 +17,20 @@ import static util.Utils.USUARIO_LOGEADO;
  *
  * @author luiss
  */
-public class tickets extends javax.swing.JFrame {
+public class Tickets extends javax.swing.JFrame {
 
     /**
      * Creates new form tickets
      */
     private DefaultTableModel dtm;
     
-    public tickets() {
+    public Tickets() {
         initComponents();
         this.setTitle("Ticket");
         dtm = (DefaultTableModel) jTableProductos.getModel();
         
         lbEmpleado.setText(USUARIO_LOGEADO);
+        lbClientes.setText(FormAgregarVenta.cliente);
         //dtm.setNumRows(FormAgregarVenta.m.getRowCount());
         //dtm = FormAgregarVenta.m;
         for (int i = 0; i < FormAgregarVenta.m.getRowCount(); i++) {
@@ -80,6 +81,8 @@ public class tickets extends javax.swing.JFrame {
         lbEmpleado = new javax.swing.JLabel();
         lblFecha1 = new javax.swing.JLabel();
         lbHora = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lbClientes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,6 +143,11 @@ public class tickets extends javax.swing.JFrame {
         lbHora.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbHora.setText("hora:");
 
+        jLabel5.setText("para:");
+
+        lbClientes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbClientes.setText("cliente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,17 +168,21 @@ public class tickets extends javax.swing.JFrame {
                                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblCambio)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbEmpleado))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbEmpleado)
+                                    .addComponent(lbClientes)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(jLabel3)))
@@ -196,7 +208,11 @@ public class tickets extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lbEmpleado))
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lbClientes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblFecha)
@@ -218,7 +234,7 @@ public class tickets extends javax.swing.JFrame {
                     .addComponent(lblCambio))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,20 +268,21 @@ public class tickets extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tickets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new tickets().setVisible(true);
+                new Tickets().setVisible(true);
             }
         });
     }
@@ -277,10 +294,12 @@ public class tickets extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTableProductos;
+    private javax.swing.JLabel lbClientes;
     private javax.swing.JLabel lbEmpleado;
     private javax.swing.JLabel lbHora;
     private javax.swing.JLabel lblCambio;
