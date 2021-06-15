@@ -334,20 +334,25 @@ public class FormInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        try {
+      try {
             ResultSet rs= getDatos("select * from inventario where inv_nombre='"+txtNombre.getText()+"';");
-            
+
             if(rs.isBeforeFirst()){
                 showMessageDialog(this, "El producto ya existe en el inventario ;)","ERROR",ERROR_MESSAGE);
             }else{
-                conexion.Conexion.agregarInventario(txtNombre.getText(), Double.parseDouble(txtCantidad.getText()));
-                mostrarDatos();
+                ResultSet rs2= getDatos("select ing_nombre from ingredientes where ing_nombre='"+txtNombre.getText()+"';");
+                ResultSet rs3= getDatos("select pro_nombre from productos where pro_nombre='"+txtNombre.getText()+"';");
+                if(!rs2.isBeforeFirst() && !rs3.isBeforeFirst()){
+                    showMessageDialog(this, "El producto NO existe en Ingredientes ni en Productos ;)","ERROR",ERROR_MESSAGE);
+                }
+                else{
+                    conexion.Conexion.agregarInventario(txtNombre.getText(), Double.parseDouble(txtCantidad.getText()));
+                    mostrarDatos();
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(FormInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
