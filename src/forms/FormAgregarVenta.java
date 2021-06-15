@@ -470,11 +470,15 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 promocion, descuento, Conexion.getUsuarioID(), cli_id, cashin, cashout, hora, dateFormat.format(date)
         );
         if (!txtdire.getText().isEmpty()) {
+            Tickets t = new  Tickets();
+            t.setVisible(true);
+            limpiarCampos();
             insertarPedido();
-        }
+            
+        }else{
         Tickets t = new  Tickets();
         t.setVisible(true);
-        limpiarCampos();
+        limpiarCampos();}
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

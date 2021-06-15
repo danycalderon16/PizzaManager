@@ -120,9 +120,9 @@ public class Conexion {
         }
     }
 
-    public static void insertarProducto(String nombre, String descripcion, int precio) {
-        String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio) \n"
-                + "VALUES ('" + nombre + "','" + descripcion + "'," + precio + ")";
+    public static void insertarProducto(String nombre, String descripcion, int precio,char cat) {
+        String query = "INSERT INTO productos (pro_nombre, pro_descripcion, pro_precio,cat_id) \n"
+                + "VALUES ('" + nombre + "','" + descripcion + "'," + precio +",'"+cat+"')";
         try {
             if (valido) {
                 consulta = (Statement) connection.createStatement();
