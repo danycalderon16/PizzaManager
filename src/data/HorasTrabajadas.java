@@ -120,11 +120,11 @@ public class HorasTrabajadas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Día", "Horas"
+                "Nombre", "Día", "Horas", "Horas Extras"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -314,9 +314,14 @@ public class HorasTrabajadas extends javax.swing.JFrame {
         ResultSet rs = getDatos(query);
         try {
             while (rs.next()) {
+                int he = Integer.parseInt(rs.getString(3));
+                he = he-8;
+                if(he<0)
+                    he = 0;
                 m.addRow(new Object[]{rs.getString(1),
                     rs.getString(2),
-                    rs.getString(3)});
+                    rs.getString(3),he+""});
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(HorasTrabajadas.class.getName()).log(Level.SEVERE, null, ex);
