@@ -75,10 +75,10 @@ public class SeleccionProductos2 extends javax.swing.JFrame {
             .addGap(0, 127, Short.MAX_VALUE)
         );
 
-        panelPizza.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
+        panelPizza.setLayout(new java.awt.GridLayout(9, 9, 20, 20));
         jTabbedPane1.addTab("Pizzas", panelPizza);
 
-        panelbebida.setLayout(new java.awt.GridLayout(3, 3, 20, 20));
+        panelbebida.setLayout(new java.awt.GridLayout(9, 9, 20, 20));
         jTabbedPane1.addTab("Bebidas", panelbebida);
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {

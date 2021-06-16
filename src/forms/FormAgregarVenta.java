@@ -415,7 +415,7 @@ public class FormAgregarVenta extends javax.swing.JFrame {
     private void txtPagoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyReleased
         char caracter = evt.getKeyChar();
         System.out.println(evt.getKeyCode());
-        if ((caracter >='0') || (caracter <= '9') || caracter==8) {
+        if ((caracter >= '0') || (caracter <= '9') || caracter == 8) {
 //            evt.consume();  // ignorar el evento de teclado
 //            if(txtPago.getText().equals("")||txtPago.getText().equals(null))
 //                return;
@@ -454,9 +454,9 @@ public class FormAgregarVenta extends javax.swing.JFrame {
             return;
         }
         String prom = cmbProm.getSelectedItem().toString();
-        
-        if(!prom.equals("Promociones")){        
-            ResultSet rs = getDatos("select prom_id from promociones where prom_promocion = '"+prom+"'");
+
+        if (!prom.equals("Promociones")) {
+            ResultSet rs = getDatos("select prom_id from promociones where prom_promocion = '" + prom + "'");
             try {
                 rs.next();
                 promocion = Integer.parseInt(rs.getString(1));
@@ -470,15 +470,21 @@ public class FormAgregarVenta extends javax.swing.JFrame {
                 promocion, descuento, Conexion.getUsuarioID(), cli_id, cashin, cashout, hora, dateFormat.format(date)
         );
         if (!txtdire.getText().isEmpty()) {
-            Tickets t = new  Tickets();
+            Tickets t = new Tickets();
             t.setVisible(true);
+
+            TicketCocinero t2 = new TicketCocinero();
+            t2.setVisible(true);
             limpiarCampos();
             insertarPedido();
-            
-        }else{
-        Tickets t = new  Tickets();
-        t.setVisible(true);
-        limpiarCampos();}
+
+        } else {
+            Tickets t = new Tickets();
+            TicketCocinero t2 = new TicketCocinero();
+            t.setVisible(true);
+            t2.setVisible(true);
+            limpiarCampos();
+        }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

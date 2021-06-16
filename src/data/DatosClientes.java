@@ -117,6 +117,11 @@ public class DatosClientes extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Cerrar");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -348,6 +353,10 @@ public class DatosClientes extends javax.swing.JFrame {
             showMessageDialog(null, "Contraseña Incorrecta");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     private void mostrarDatos() {
         int rowCount = m.getRowCount();
